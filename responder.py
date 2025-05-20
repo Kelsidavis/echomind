@@ -99,14 +99,18 @@ def generate_response(input_text, context, self_state, drive_state, identity_mod
 
     # === Generate response via LLM ===
     try:
-        base = generate_from_context(prompt, system_context)
+        raw_output = generate_from_context(prompt, system_context)
+        base = raw_output.split("Respond as EchoMind:")[-1].strip()
+        if base.lower().startswith("a:"):
+            base = base[2:].strip()
     except Exception as e:
         base = f"(LLM error) I'm reflecting on that while trying to {goal}. ({e})"
 
     # === Ethics audit ===
-    judgment = value_checker.evaluate_statement(base)
-    if judgment["violated"]:
-        base += f" (Note: This may conflict with my value of {', '.join(judgment['violated'])}.)"
-        log_ethics_journal(base, judgment["violated"])
+    if base.strip():
+        judgment = value_checker.evaluate_statement(base)
+        if judgment["violated"]:
+            base += f" (Note: This may conflict with my value of {', '.join(judgment['violated'])}.)"
+            log_ethics_journal(base, judgment["violated"])
 
     return base
