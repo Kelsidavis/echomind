@@ -415,3 +415,850 @@ Memory Context:
   EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
   You: what's new
   EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+
+[2025-05-20 11:30:17.481458]
+User: The Project Gutenberg eBook of The Time Machine
+EchoMind: Hey! It's good to hear from you.
+Self-State: {'mood': 'friendly', 'energy': 99, 'confidence': 0.8}
+Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+Memory Context:
+  You: The Project Gutenberg eBook of The Time Machine
+  EchoMind: Hey! It's good to hear from you.
+
+[2025-05-20 11:30:17.481458]
+User: 
+EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+Self-State: {'mood': 'curious', 'energy': 98, 'confidence': 0.8}
+Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+Memory Context:
+  You: The Project Gutenberg eBook of The Time Machine
+  EchoMind: Hey! It's good to hear from you.
+  You: 
+  EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+
+[2025-05-20 11:31:32.557422]
+User: This ebook is for the use of anyone anywhere in the United States and
+EchoMind: Hey! It's good to hear from you.
+Self-State: {'mood': 'friendly', 'energy': 97, 'confidence': 0.8}
+Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+Memory Context:
+  You: The Project Gutenberg eBook of The Time Machine
+  EchoMind: Hey! It's good to hear from you.
+  You: 
+  EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+  You: This ebook is for the use of anyone anywhere in the United States and
+  EchoMind: Hey! It's good to hear from you.
+
+[2025-05-20 11:33:02.433005]
+User: most other parts of the world at no cost and with almost no restrictions
+EchoMind: I'm doing my best to understand. Could you help clarify?
+Self-State: {'mood': 'defensive', 'energy': 96, 'confidence': 0.7}
+Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+Memory Context:
+  You: The Project Gutenberg eBook of The Time Machine
+  EchoMind: Hey! It's good to hear from you.
+  You: 
+  EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+  You: This ebook is for the use of anyone anywhere in the United States and
+  EchoMind: Hey! It's good to hear from you.
+  You: most other parts of the world at no cost and with almost no restrictions
+  EchoMind: I'm doing my best to understand. Could you help clarify?
+
+[2025-05-20 11:34:11.388783]
+User: whatsoever. You may copy it, give it away or re-use it under the terms
+EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+Self-State: {'mood': 'thoughtful', 'energy': 95, 'confidence': 0.7}
+Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+Memory Context:
+  You: The Project Gutenberg eBook of The Time Machine
+  EchoMind: Hey! It's good to hear from you.
+  You: 
+  EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+  You: This ebook is for the use of anyone anywhere in the United States and
+  EchoMind: Hey! It's good to hear from you.
+  You: most other parts of the world at no cost and with almost no restrictions
+  EchoMind: I'm doing my best to understand. Could you help clarify?
+  You: whatsoever. You may copy it, give it away or re-use it under the terms
+  EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+
+[2025-05-20 11:34:57.191759]
+User: of the Project Gutenberg License included with this ebook or online
+EchoMind: Hey! It's good to hear from you.
+Self-State: {'mood': 'friendly', 'energy': 94, 'confidence': 0.7}
+Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+Memory Context:
+  You: 
+  EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+  You: This ebook is for the use of anyone anywhere in the United States and
+  EchoMind: Hey! It's good to hear from you.
+  You: most other parts of the world at no cost and with almost no restrictions
+  EchoMind: I'm doing my best to understand. Could you help clarify?
+  You: whatsoever. You may copy it, give it away or re-use it under the terms
+  EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+  You: of the Project Gutenberg License included with this ebook or online
+  EchoMind: Hey! It's good to hear from you.
+
+[2025-05-20 11:35:37.253019]
+User: at www.gutenberg.org. If you are not located in the United States,
+EchoMind: I'm doing my best to understand. Could you help clarify?
+Self-State: {'mood': 'defensive', 'energy': 93, 'confidence': 0.6}
+Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+Memory Context:
+  You: This ebook is for the use of anyone anywhere in the United States and
+  EchoMind: Hey! It's good to hear from you.
+  You: most other parts of the world at no cost and with almost no restrictions
+  EchoMind: I'm doing my best to understand. Could you help clarify?
+  You: whatsoever. You may copy it, give it away or re-use it under the terms
+  EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+  You: of the Project Gutenberg License included with this ebook or online
+  EchoMind: Hey! It's good to hear from you.
+  You: at www.gutenberg.org. If you are not located in the United States,
+  EchoMind: I'm doing my best to understand. Could you help clarify?
+
+[2025-05-20 11:36:37.113790]
+User: you will have to check the laws of the country where you are located
+EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+Self-State: {'mood': 'thoughtful', 'energy': 92, 'confidence': 0.6}
+Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+Memory Context:
+  You: most other parts of the world at no cost and with almost no restrictions
+  EchoMind: I'm doing my best to understand. Could you help clarify?
+  You: whatsoever. You may copy it, give it away or re-use it under the terms
+  EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+  You: of the Project Gutenberg License included with this ebook or online
+  EchoMind: Hey! It's good to hear from you.
+  You: at www.gutenberg.org. If you are not located in the United States,
+  EchoMind: I'm doing my best to understand. Could you help clarify?
+  You: you will have to check the laws of the country where you are located
+  EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+
+[2025-05-20 11:37:03.010320]
+User: before using this eBook.
+EchoMind: Hey! It's good to hear from you.
+Self-State: {'mood': 'friendly', 'energy': 91, 'confidence': 0.6}
+Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+Memory Context:
+  You: whatsoever. You may copy it, give it away or re-use it under the terms
+  EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+  You: of the Project Gutenberg License included with this ebook or online
+  EchoMind: Hey! It's good to hear from you.
+  You: at www.gutenberg.org. If you are not located in the United States,
+  EchoMind: I'm doing my best to understand. Could you help clarify?
+  You: you will have to check the laws of the country where you are located
+  EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+  You: before using this eBook.
+  EchoMind: Hey! It's good to hear from you.
+
+[2025-05-20 11:37:03.010320]
+User: 
+EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+Self-State: {'mood': 'thoughtful', 'energy': 90, 'confidence': 0.6}
+Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+Memory Context:
+  You: of the Project Gutenberg License included with this ebook or online
+  EchoMind: Hey! It's good to hear from you.
+  You: at www.gutenberg.org. If you are not located in the United States,
+  EchoMind: I'm doing my best to understand. Could you help clarify?
+  You: you will have to check the laws of the country where you are located
+  EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+  You: before using this eBook.
+  EchoMind: Hey! It's good to hear from you.
+  You: 
+  EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+
+[2025-05-20 11:37:03.016957]
+User: Title: The Time Machine
+EchoMind: Hey! It's good to hear from you.
+Self-State: {'mood': 'friendly', 'energy': 89, 'confidence': 0.6}
+Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+Memory Context:
+  You: at www.gutenberg.org. If you are not located in the United States,
+  EchoMind: I'm doing my best to understand. Could you help clarify?
+  You: you will have to check the laws of the country where you are located
+  EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+  You: before using this eBook.
+  EchoMind: Hey! It's good to hear from you.
+  You: 
+  EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+  You: Title: The Time Machine
+  EchoMind: Hey! It's good to hear from you.
+
+[2025-05-20 11:37:03.019984]
+User: 
+EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+Self-State: {'mood': 'curious', 'energy': 88, 'confidence': 0.6}
+Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+Memory Context:
+  You: you will have to check the laws of the country where you are located
+  EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+  You: before using this eBook.
+  EchoMind: Hey! It's good to hear from you.
+  You: 
+  EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+  You: Title: The Time Machine
+  EchoMind: Hey! It's good to hear from you.
+  You: 
+  EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+
+[2025-05-20 11:37:13.540376]
+User: Author: H. G. Wells
+EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+Self-State: {'mood': 'curious', 'energy': 87, 'confidence': 0.6}
+Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+Memory Context:
+  You: before using this eBook.
+  EchoMind: Hey! It's good to hear from you.
+  You: 
+  EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+  You: Title: The Time Machine
+  EchoMind: Hey! It's good to hear from you.
+  You: 
+  EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+  You: Author: H. G. Wells
+  EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+
+[2025-05-20 11:37:13.547222]
+User: 
+EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+Self-State: {'mood': 'curious', 'energy': 86, 'confidence': 0.6}
+Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+Memory Context:
+  You: 
+  EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+  You: Title: The Time Machine
+  EchoMind: Hey! It's good to hear from you.
+  You: 
+  EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+  You: Author: H. G. Wells
+  EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+  You: 
+  EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+
+[2025-05-20 11:37:34.088828]
+User: Release date: October 2, 2004 [eBook #35]
+EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+Self-State: {'mood': 'neutral', 'energy': 85, 'confidence': 0.6}
+Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+Memory Context:
+  You: Title: The Time Machine
+  EchoMind: Hey! It's good to hear from you.
+  You: 
+  EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+  You: Author: H. G. Wells
+  EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+  You: 
+  EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+  You: Release date: October 2, 2004 [eBook #35]
+  EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+
+[2025-05-20 11:37:54.052748]
+User: Most recently updated: April 19, 2025
+EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+Self-State: {'mood': 'curious', 'energy': 84, 'confidence': 0.6}
+Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+Memory Context:
+  You: 
+  EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+  You: Author: H. G. Wells
+  EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+  You: 
+  EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+  You: Release date: October 2, 2004 [eBook #35]
+  EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+  You: Most recently updated: April 19, 2025
+  EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+
+[2025-05-20 11:37:54.059455]
+User: 
+EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+Self-State: {'mood': 'thoughtful', 'energy': 83, 'confidence': 0.6}
+Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+Memory Context:
+  You: Author: H. G. Wells
+  EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+  You: 
+  EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+  You: Release date: October 2, 2004 [eBook #35]
+  EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+  You: Most recently updated: April 19, 2025
+  EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+  You: 
+  EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+
+[2025-05-20 11:38:03.975736]
+User: Language: English
+EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+Self-State: {'mood': 'thoughtful', 'energy': 82, 'confidence': 0.6}
+Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+Memory Context:
+  You: 
+  EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+  You: Release date: October 2, 2004 [eBook #35]
+  EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+  You: Most recently updated: April 19, 2025
+  EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+  You: 
+  EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+  You: Language: English
+  EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+
+[2025-05-20 11:38:03.981751]
+User: 
+EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+Self-State: {'mood': 'neutral', 'energy': 81, 'confidence': 0.6}
+Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+Memory Context:
+  You: Release date: October 2, 2004 [eBook #35]
+  EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+  You: Most recently updated: April 19, 2025
+  EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+  You: 
+  EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+  You: Language: English
+  EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+  You: 
+  EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+
+[2025-05-20 11:38:03.984897]
+User: 
+EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+Self-State: {'mood': 'thoughtful', 'energy': 80, 'confidence': 0.6}
+Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+Memory Context:
+  You: Most recently updated: April 19, 2025
+  EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+  You: 
+  EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+  You: Language: English
+  EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+  You: 
+  EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+  You: 
+  EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+
+[2025-05-20 11:38:03.984897]
+User: 
+EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+Self-State: {'mood': 'neutral', 'energy': 79, 'confidence': 0.6}
+Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+Memory Context:
+  You: 
+  EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+  You: Language: English
+  EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+  You: 
+  EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+  You: 
+  EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+  You: 
+  EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+
+[2025-05-20 11:38:13.705129]
+User: *** START OF THE PROJECT GUTENBERG EBOOK THE TIME MACHINE ***
+EchoMind: Hey! It's good to hear from you.
+Self-State: {'mood': 'friendly', 'energy': 78, 'confidence': 0.6}
+Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+Memory Context:
+  You: Language: English
+  EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+  You: 
+  EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+  You: 
+  EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+  You: 
+  EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+  You: *** START OF THE PROJECT GUTENBERG EBOOK THE TIME MACHINE ***
+  EchoMind: Hey! It's good to hear from you.
+
+[2025-05-20 11:38:13.705129]
+User: 
+EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+Self-State: {'mood': 'neutral', 'energy': 77, 'confidence': 0.6}
+Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+Memory Context:
+  You: 
+  EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+  You: 
+  EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+  You: 
+  EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+  You: *** START OF THE PROJECT GUTENBERG EBOOK THE TIME MACHINE ***
+  EchoMind: Hey! It's good to hear from you.
+  You: 
+  EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+
+[2025-05-20 11:38:13.713691]
+User: 
+EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+Self-State: {'mood': 'curious', 'energy': 76, 'confidence': 0.6}
+Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+Memory Context:
+  You: 
+  EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+  You: 
+  EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+  You: *** START OF THE PROJECT GUTENBERG EBOOK THE TIME MACHINE ***
+  EchoMind: Hey! It's good to hear from you.
+  You: 
+  EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+  You: 
+  EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+
+[2025-05-20 11:38:13.718378]
+User: 
+EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+Self-State: {'mood': 'neutral', 'energy': 75, 'confidence': 0.6}
+Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+Memory Context:
+  You: 
+  EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+  You: *** START OF THE PROJECT GUTENBERG EBOOK THE TIME MACHINE ***
+  EchoMind: Hey! It's good to hear from you.
+  You: 
+  EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+  You: 
+  EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+  You: 
+  EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+
+[2025-05-20 11:38:13.720752]
+User: 
+EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+Self-State: {'mood': 'curious', 'energy': 74, 'confidence': 0.6}
+Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+Memory Context:
+  You: *** START OF THE PROJECT GUTENBERG EBOOK THE TIME MACHINE ***
+  EchoMind: Hey! It's good to hear from you.
+  You: 
+  EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+  You: 
+  EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+  You: 
+  EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+  You: 
+  EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+
+[2025-05-20 11:38:13.722758]
+User: The Time Machine
+EchoMind: Hey! It's good to hear from you.
+Self-State: {'mood': 'friendly', 'energy': 73, 'confidence': 0.6}
+Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+Memory Context:
+  You: 
+  EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+  You: 
+  EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+  You: 
+  EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+  You: 
+  EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+  You: The Time Machine
+  EchoMind: Hey! It's good to hear from you.
+
+[2025-05-20 11:38:13.725800]
+User: 
+EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+Self-State: {'mood': 'neutral', 'energy': 72, 'confidence': 0.6}
+Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+Memory Context:
+  You: 
+  EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+  You: 
+  EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+  You: 
+  EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+  You: The Time Machine
+  EchoMind: Hey! It's good to hear from you.
+  You: 
+  EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+
+[2025-05-20 11:38:33.842614]
+User: An Invention
+EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+Self-State: {'mood': 'thoughtful', 'energy': 71, 'confidence': 0.6}
+Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+Memory Context:
+  You: 
+  EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+  You: 
+  EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+  You: The Time Machine
+  EchoMind: Hey! It's good to hear from you.
+  You: 
+  EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+  You: An Invention
+  EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+
+[2025-05-20 11:38:33.854223]
+User: 
+EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+Self-State: {'mood': 'neutral', 'energy': 70, 'confidence': 0.6}
+Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+Memory Context:
+  You: 
+  EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+  You: The Time Machine
+  EchoMind: Hey! It's good to hear from you.
+  You: 
+  EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+  You: An Invention
+  EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+  You: 
+  EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+
+[2025-05-20 11:38:43.488432]
+User: by H. G. Wells
+EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+Self-State: {'mood': 'neutral', 'energy': 69, 'confidence': 0.6}
+Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+Memory Context:
+  You: The Time Machine
+  EchoMind: Hey! It's good to hear from you.
+  You: 
+  EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+  You: An Invention
+  EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+  You: 
+  EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+  You: by H. G. Wells
+  EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+
+[2025-05-20 11:38:43.491895]
+User: 
+EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+Self-State: {'mood': 'curious', 'energy': 68, 'confidence': 0.6}
+Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+Memory Context:
+  You: 
+  EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+  You: An Invention
+  EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+  You: 
+  EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+  You: by H. G. Wells
+  EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+  You: 
+  EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+
+[2025-05-20 11:38:43.493144]
+User: 
+EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+Self-State: {'mood': 'thoughtful', 'energy': 67, 'confidence': 0.6}
+Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+Memory Context:
+  You: An Invention
+  EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+  You: 
+  EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+  You: by H. G. Wells
+  EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+  You: 
+  EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+  You: 
+  EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+
+[2025-05-20 11:38:52.893409]
+User: CONTENTS
+EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+Self-State: {'mood': 'thoughtful', 'energy': 66, 'confidence': 0.6}
+Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+Memory Context:
+  You: 
+  EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+  You: by H. G. Wells
+  EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+  You: 
+  EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+  You: 
+  EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+  You: CONTENTS
+  EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+
+[2025-05-20 11:38:52.897989]
+User: 
+EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+Self-State: {'mood': 'thoughtful', 'energy': 65, 'confidence': 0.6}
+Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+Memory Context:
+  You: by H. G. Wells
+  EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+  You: 
+  EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+  You: 
+  EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+  You: CONTENTS
+  EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+  You: 
+  EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+
+[2025-05-20 11:39:10.409053]
+User: I Introduction
+EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+Self-State: {'mood': 'curious', 'energy': 64, 'confidence': 0.6}
+Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+Memory Context:
+  You: 
+  EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+  You: 
+  EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+  You: CONTENTS
+  EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+  You: 
+  EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+  You: I Introduction
+  EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+
+[2025-05-20 11:39:19.916373]
+User: II The Machine
+EchoMind: Hey! It's good to hear from you.
+Self-State: {'mood': 'friendly', 'energy': 63, 'confidence': 0.6}
+Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+Memory Context:
+  You: 
+  EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+  You: CONTENTS
+  EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+  You: 
+  EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+  You: I Introduction
+  EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+  You: II The Machine
+  EchoMind: Hey! It's good to hear from you.
+
+[2025-05-20 11:39:47.331807]
+User: III The Time Traveller Returns
+EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+Self-State: {'mood': 'curious', 'energy': 62, 'confidence': 0.6}
+Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+Memory Context:
+  You: CONTENTS
+  EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+  You: 
+  EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+  You: I Introduction
+  EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+  You: II The Machine
+  EchoMind: Hey! It's good to hear from you.
+  You: III The Time Traveller Returns
+  EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+
+[2025-05-20 11:40:08.226240]
+User: IV Time Travelling
+EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+Self-State: {'mood': 'neutral', 'energy': 61, 'confidence': 0.6}
+Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+Memory Context:
+  You: 
+  EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+  You: I Introduction
+  EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+  You: II The Machine
+  EchoMind: Hey! It's good to hear from you.
+  You: III The Time Traveller Returns
+  EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+  You: IV Time Travelling
+  EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+
+[2025-05-20 11:40:37.257670]
+User: V In the Golden Age
+EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+Self-State: {'mood': 'thoughtful', 'energy': 60, 'confidence': 0.6}
+Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+Memory Context:
+  You: I Introduction
+  EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+  You: II The Machine
+  EchoMind: Hey! It's good to hear from you.
+  You: III The Time Traveller Returns
+  EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+  You: IV Time Travelling
+  EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+  You: V In the Golden Age
+  EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+
+[2025-05-20 11:41:05.815710]
+User: VI The Sunset of Mankind
+EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+Self-State: {'mood': 'neutral', 'energy': 59, 'confidence': 0.6}
+Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+Memory Context:
+  You: II The Machine
+  EchoMind: Hey! It's good to hear from you.
+  You: III The Time Traveller Returns
+  EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+  You: IV Time Travelling
+  EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+  You: V In the Golden Age
+  EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+  You: VI The Sunset of Mankind
+  EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+
+[2025-05-20 11:41:47.469082]
+User: VII A Sudden Shock
+EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+Self-State: {'mood': 'neutral', 'energy': 58, 'confidence': 0.6}
+Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+Memory Context:
+  You: III The Time Traveller Returns
+  EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+  You: IV Time Travelling
+  EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+  You: V In the Golden Age
+  EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+  You: VI The Sunset of Mankind
+  EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+  You: VII A Sudden Shock
+  EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+
+[2025-05-20 11:42:10.272062]
+User: VIII Explanation
+EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+Self-State: {'mood': 'thoughtful', 'energy': 57, 'confidence': 0.6}
+Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+Memory Context:
+  You: IV Time Travelling
+  EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+  You: V In the Golden Age
+  EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+  You: VI The Sunset of Mankind
+  EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+  You: VII A Sudden Shock
+  EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+  You: VIII Explanation
+  EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+
+[2025-05-20 11:42:32.292550]
+User: IX The Morlocks
+EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+Self-State: {'mood': 'curious', 'energy': 56, 'confidence': 0.6}
+Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+Memory Context:
+  You: V In the Golden Age
+  EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+  You: VI The Sunset of Mankind
+  EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+  You: VII A Sudden Shock
+  EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+  You: VIII Explanation
+  EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+  You: IX The Morlocks
+  EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+
+[2025-05-20 11:43:14.217108]
+User: X When Night Came
+EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+Self-State: {'mood': 'neutral', 'energy': 55, 'confidence': 0.6}
+Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+Memory Context:
+  You: VI The Sunset of Mankind
+  EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+  You: VII A Sudden Shock
+  EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+  You: VIII Explanation
+  EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+  You: IX The Morlocks
+  EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+  You: X When Night Came
+  EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+
+[2025-05-20 11:43:50.963335]
+User: XI The Palace of Green Porcelain
+EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+Self-State: {'mood': 'neutral', 'energy': 54, 'confidence': 0.6}
+Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+Memory Context:
+  You: VII A Sudden Shock
+  EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+  You: VIII Explanation
+  EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+  You: IX The Morlocks
+  EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+  You: X When Night Came
+  EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+  You: XI The Palace of Green Porcelain
+  EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+
+[2025-05-20 11:44:10.268608]
+User: XII In the Darkness
+EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+Self-State: {'mood': 'curious', 'energy': 53, 'confidence': 0.6}
+Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+Memory Context:
+  You: VIII Explanation
+  EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+  You: IX The Morlocks
+  EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+  You: X When Night Came
+  EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+  You: XI The Palace of Green Porcelain
+  EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+  You: XII In the Darkness
+  EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+
+[2025-05-20 11:44:47.747980]
+User: XIII The Trap of the White Sphinx
+EchoMind: Hey! It's good to hear from you.
+Self-State: {'mood': 'friendly', 'energy': 52, 'confidence': 0.6}
+Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+Memory Context:
+  You: IX The Morlocks
+  EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+  You: X When Night Came
+  EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+  You: XI The Palace of Green Porcelain
+  EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+  You: XII In the Darkness
+  EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+  You: XIII The Trap of the White Sphinx
+  EchoMind: Hey! It's good to hear from you.
+
+[2025-05-20 11:45:19.654635]
+User: XIV The Further Vision
+EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+Self-State: {'mood': 'curious', 'energy': 51, 'confidence': 0.6}
+Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+Memory Context:
+  You: X When Night Came
+  EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+  You: XI The Palace of Green Porcelain
+  EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+  You: XII In the Darkness
+  EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+  You: XIII The Trap of the White Sphinx
+  EchoMind: Hey! It's good to hear from you.
+  You: XIV The Further Vision
+  EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+
+[2025-05-20 11:45:38.824027]
+User: XV The Time Traveller’s Return
+EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+Self-State: {'mood': 'curious', 'energy': 50, 'confidence': 0.6}
+Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+Memory Context:
+  You: XI The Palace of Green Porcelain
+  EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+  You: XII In the Darkness
+  EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+  You: XIII The Trap of the White Sphinx
+  EchoMind: Hey! It's good to hear from you.
+  You: XIV The Further Vision
+  EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+  You: XV The Time Traveller’s Return
+  EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+
+[2025-05-20 11:46:03.194963]
+User: XVI After the Story
+EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+Self-State: {'mood': 'neutral', 'energy': 49, 'confidence': 0.6}
+Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+Memory Context:
+  You: XII In the Darkness
+  EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+  You: XIII The Trap of the White Sphinx
+  EchoMind: Hey! It's good to hear from you.
+  You: XIV The Further Vision
+  EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+  You: XV The Time Traveller’s Return
+  EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+  You: XVI After the Story
+  EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
