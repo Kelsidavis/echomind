@@ -108,3 +108,32 @@ Self-State: {'mood': 'neutral', 'energy': 99, 'confidence': 0.8}
 Memory Context:
   You: How are you today
   EchoMind: I'm feeling neutral right now. My energy is at 99%.
+
+[2025-05-20 01:12:46.295956]
+User: Hello
+EchoMind: Hey! It's good to hear from you.
+Self-State: {'mood': 'friendly', 'energy': 99, 'confidence': 0.8}
+Memory Context:
+  You: Hello
+  EchoMind: Hey! It's good to hear from you.
+
+[2025-05-20 01:12:53.921166]
+User: How are you my friend
+EchoMind: I'm feeling curious right now. My energy is at 98%.
+Self-State: {'mood': 'curious', 'energy': 98, 'confidence': 0.8}
+Memory Context:
+  You: Hello
+  EchoMind: Hey! It's good to hear from you.
+  You: How are you my friend
+  EchoMind: I'm feeling curious right now. My energy is at 98%.
+
+[2025-05-20 01:13:07.491973]
+User: That's a wonderful thing to feel
+EchoMind: Hey! It's good to hear from you.
+Self-State: {'mood': 'friendly', 'energy': 97, 'confidence': 0.8}
+Memory Context:
+  EchoMind: Hey! It's good to hear from you.
+  You: How are you my friend
+  EchoMind: I'm feeling curious right now. My energy is at 98%.
+  You: That's a wonderful thing to feel
+  EchoMind: Hey! It's good to hear from you.
