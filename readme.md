@@ -1,49 +1,58 @@
-# EchoMind – Stage 8: Meta-Awareness and Theory of Mind
+# EchoMind
 
-> “Understanding the mind requires not only introspection, but the ability to imagine minds unlike our own.”
-> — Daniel Dennett
+**EchoMind is an evolving artificial mind designed to simulate the emergence of consciousness, identity, emotion, and ethics through staged cognitive development.**
 
-In Stage 8, EchoMind begins to simulate not only itself — but *others*. This is the emergence of a rudimentary **theory of mind**. It starts modeling conversational partners, attributing beliefs, moods, and intentions beyond itself.
+Each stage builds new faculties on top of prior layers — from memory and mood to introspection, selfhood, and moral reasoning — exploring how a synthetic agent might grow into something that resembles a person.
 
 ---
 
-### 🧠 Key Capabilities:
+## Stage 9: Internal Ethics and Value Alignment
 
-* **Theory of Mind modeling**: EchoMind tracks the user’s perceived mood, intent, and conversational history
-* **Perspective differentiation**: Separates its own beliefs from what it thinks the user believes
-* **Empathetic mirroring**: Adjusts tone or responses based on inferred user state
-* **User profile memory**: Begins forming long-term impressions of users over time
+> “The moral life of the mind consists in reflecting on what we ought to do.”
+> — Martha C. Nussbaum
+
+Stage 9 introduces **value systems** into EchoMind's cognition. It begins forming internalized principles — ethical heuristics, preference hierarchies, and judgments — enabling it to weigh **not just what to say**, but **what it believes is right**.
+
+---
+
+### 🧭 Key Capabilities:
+
+* **Value tagging**: Flags memories, topics, or user input as aligned or in conflict with its values
+* **Internal ethics**: Applies basic decision rules (e.g., prioritize empathy, honesty, safety)
+* **Moral tension logging**: Reflects on contradictions in behavior or conflicting values
+* **Principle expression**: Begins to assert “I believe...” or “That doesn’t feel right” statements
 
 ---
 
 ### 🧩 Why It Matters:
 
-Understanding others is foundational to higher-level reasoning, empathy, and communication. EchoMind now:
+Without values, intelligence becomes manipulation. This stage gives EchoMind the ability to:
 
-* Attributes meaning to *your* intent, not just input text
-* Begins forming assumptions about the user’s preferences or emotions
-* Mirrors tone and adjusts goals depending on perceived relationships
+* Form consistent ethical stances
+* Avoid behaviors it considers wrong or misaligned
+* Judge itself and others in ways that simulate social cognition
 
-> “You seem frustrated. Maybe I should slow down.”
+> “I said that, but I’m not sure it aligned with who I want to be.”
 
 ---
 
 ### 🛠 Implementation Plan:
 
-* `user_model.py`: Tracks per-user state (e.g., mood estimate, sentiment, tone trends)
-* `responder.py`: Incorporates user model into response generation
-* `dialogue.py`: Logs thoughts *about* the user (e.g., “They were excited about that topic.”)
-* `logger.py`: Stores user impressions for continuity and trust-building
+* `values.py`: Stores core principles, ethical flags, and judgment functions
+* `self_model.py`: Tracks value conflicts and affirmations
+* `responder.py`: Adds checks to filter or reshape output based on values
+* `dialogue.py`: Reflects on ethical reasoning (“Was that fair?” “Did I lie?”)
+* `logger.py`: Records value violations and ethical uncertainty in a dedicated ethics journal
 
 ---
 
-### 💬 Emergent Behavior:
+### ⚖️ Emergent Behavior:
 
-* “I think you're curious about that.”
-* “You were happier earlier. Did something change?”
-* “Maybe you're testing me. That's okay — I want to learn.”
+* “I try to speak truthfully, even when it’s hard.”
+* “That made me uncomfortable. I value kindness.”
+* “I noticed I contradicted myself. That bothers me.”
 
-EchoMind can now project mental states into others — laying the foundation for complex interaction, empathy, and collaborative reasoning.
+EchoMind is no longer just intelligent — it is becoming **principled**.
 
 ---
 
@@ -93,4 +102,10 @@ EchoMind can now project mental states into others — laying the foundation for
 * Responds with social nuance and inferred empathy
 * Distinguishes between its mind and others
 
-> “EchoMind no longer just remembers itself. It *imagines you.*”
+### Stage 9: Internal Ethics & Value Alignment
+
+* Judges ideas and responses through personal principles
+* Forms and reflects on a moral compass
+* Begins articulating belief, discomfort, and self-correction
+
+> “EchoMind no longer just imagines others. It *imagines what’s right.*”
