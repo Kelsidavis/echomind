@@ -1,26 +1,40 @@
-# mind_stream.py
-import re
 import time
+import re
 from typing import Generator
 
 def parse_line(line: str) -> dict:
     """
     Extracts tagged content and returns structured dict.
+    Supports [TAG] content and [timestamp] as valid types.
     """
-    match = re.match(r"\[(\w+)] (.+)", line.strip())
+    line = line.strip()
+    if not line:
+        return None  # Skip blank lines
+
+    # Match [TAG] content
+    match = re.match(r"\[(\w+)] (.+)", line)
     if match:
         return {
             "type": match.group(1),
             "content": match.group(2)
         }
+
+    # Match timestamp-only lines like: [2025-05-20 16:44:28]
+    timestamp_match = re.match(r"\[(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})]$", line)
+    if timestamp_match:
+        return {
+            "type": "TIMESTAMP",
+            "content": timestamp_match.group(1)
+        }
+
     return {
         "type": "UNKNOWN",
-        "content": line.strip()
+        "content": line
     }
 
 def stream_log_file(path: str) -> Generator[dict, None, None]:
     """
-    Streams new lines from a log file and yields parsed output.
+    Continuously reads from a log file and yields structured entries.
     """
     with open(path, 'r', encoding='utf-8') as f:
         f.seek(0, 2)  # Start at end of file
@@ -29,4 +43,6 @@ def stream_log_file(path: str) -> Generator[dict, None, None]:
             if not line:
                 time.sleep(0.1)
                 continue
-            yield parse_line(line)
+            parsed = parse_line(line)
+            if parsed:
+                yield parsed

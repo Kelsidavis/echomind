@@ -3663,3 +3663,12 @@ A: You have to put some more words in your mouth. Your brain is doing its bit.
 [MEMORY] Memory Context:
 [MEMORY]   You: how are you today
 [MEMORY]   EchoMind: I'm feeling neutral. My energy is at 100%. My goal is to stay engaged.
+
+[2025-05-20 16:52:26]
+[USER] how are you today
+[RESPONSE] I'm feeling neutral. My energy is at 100%. My goal is to stay engaged.
+[STATE] Self-State: {'mood': 'neutral', 'energy': 100, 'confidence': 0.8}
+[STATE] Drive-State: GUI
+[MEMORY] Memory Context:
+[MEMORY]   You: how are you today
+[MEMORY]   EchoMind: I'm feeling neutral. My energy is at 100%. My goal is to stay engaged.
