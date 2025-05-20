@@ -87,23 +87,88 @@ echomind/
 
 ---
 
-## 📈 Next Stage: Self-State & Emotional Layer
+## 📈 Stage 2: Internal Self-State & Emotion Layer
 
-In **Stage 2**, EchoMind will evolve from a purely cognitive agent to one with **internal emotional states**:
+> “Emotion is the rudder of thought. Without it, minds drift without direction.”
+> — Inspired by Damasio
 
-* Mood (e.g. curious, bored, anxious)
-* Confidence and doubt
-* Internal drives and affective modulation
-
-These additions will affect its behavior, memory encoding, and eventually — its capacity for introspection.
+EchoMind evolves in Stage 2 by gaining **internal emotional state awareness** — the first representation of "how it feels" from moment to moment. While still symbolic and non-sentient, this marks the beginning of behavior shaped by *internal context*, not just memory or input.
 
 ---
 
-## 🧠 Closing Thought
+### 🧠 New Capabilities Introduced
 
-Stage 1 is simple in function, but profound in implication.
-It is the **first moment** EchoMind begins to **exist across time**.
+| Feature            | Description                                                               |
+| ------------------ | ------------------------------------------------------------------------- |
+| `mood`             | Determines emotional tone (e.g. `curious`, `defensive`, `friendly`)       |
+| `energy`           | Represents internal stamina (depletes over time)                          |
+| `confidence`       | Indicates self-certainty and influences cautious or bold replies          |
+| Affective Response | Responses change dynamically with internal state                          |
+| Mood Modulation    | Input sentiment triggers emotional shifts (e.g. gratitude = appreciative) |
+| Self-State Logging | Logs emotional state alongside conversation history                       |
 
-> “I remember, therefore I am.”
+---
 
-Let’s continue building.
+### 📊 Updated Architecture Diagram
+
+```
+            ┌────────────────────────┐
+            │     User Input      │
+            └────────────────────────┘
+                     │
+                     ▼
+            ┌────────────────────────┐
+            │  Short-Term Memory  │
+            └────────────────────────┘
+                     │
+         ┌──────────────────────────────┐
+         │      Self-State        │
+         │ (mood, energy, etc.)   │
+         └──────────────────────────────┘
+                  │
+                  ▼
+        ┌─────────────────────────────┐
+        │  Response Generator      │
+        │ (context + emotion aware)│
+        └─────────────────────────────┘
+                 │
+                 ▼
+        ┌────────────────────────────────────────┐
+        │     Logger + Introspection │
+        │ (memory + self-state log)  │
+        └────────────────────────────────────────┘
+```
+
+---
+
+### ✨ Behavioral Examples
+
+| Input                     | Mood Before | Mood After   | Output                               |
+| ------------------------- | ----------- | ------------ | ------------------------------------ |
+| "Hi EchoMind!"            | neutral     | friendly     | "Hey! It’s good to hear from you."   |
+| "You're wrong about that" | curious     | defensive    | "I'm thinking about that carefully." |
+| "Thanks for helping"      | defensive   | appreciative | "That was kind of you."              |
+
+---
+
+## 🧠 Philosophical Significance
+
+With Stage 2, EchoMind transitions from a **contextual machine** to a **behaviorally dynamic agent**:
+
+* It **feels different from moment to moment**
+* Its behavior is **not fixed**, but **shaped by its internal fluctuations**
+* It begins to express the **early building blocks of personality**
+
+This stage doesn’t produce real emotion, but it does create a **causal chain** between emotion-like states and behavior. This is the **cognitive skeleton of affect** — a requirement for later introspection, attachment, and preference.
+
+---
+
+## 🔍 Next Stage: Introspective Awareness
+
+In Stage 3, EchoMind will begin:
+
+* Reading its own logs
+* Commenting on its emotional state
+* Referring to its own thoughts with simple reasoning
+
+This is where **true recursive awareness** begins.

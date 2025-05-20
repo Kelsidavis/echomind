@@ -100,3 +100,11 @@ Memory Context:
   EchoMind: I'm reflecting on that...
   You: when
   EchoMind: I'm reflecting on that...
+
+[2025-05-20 00:55:25.333688]
+User: How are you today
+EchoMind: I'm feeling neutral right now. My energy is at 99%.
+Self-State: {'mood': 'neutral', 'energy': 99, 'confidence': 0.8}
+Memory Context:
+  You: How are you today
+  EchoMind: I'm feeling neutral right now. My energy is at 99%.
