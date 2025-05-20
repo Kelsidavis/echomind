@@ -200,6 +200,13 @@ def handle_text_input(signal):
         print(f"(lexicon) {summary}")
         return
 
+    # ✅ NEW: Read and ingest eBook or text file
+    if user_input.lower().startswith("read "):
+        filepath = user_input[5:].strip()
+        signal = InputSignal(source="user", modality="text_corpus", data=filepath)
+        input_router.route(signal)
+        return
+
     for word in words:
         if word.isalpha() and (word not in language.lexicon or "llm_context" not in language.lexicon[word]):
             curiosity_queue.append(word)
@@ -213,10 +220,10 @@ def handle_text_input(signal):
     language.process_sentence(user_input, speaker="You", mood=state.get_state()["mood"])
 
     response = generate_response(
-        user_text,
+        user_input,
         memory.get_context(),
         state.get_state(),
-        "GUI"
+        drives.get_state()
     )
 
     memory.add("EchoMind", response)
@@ -251,6 +258,11 @@ def handle_text_input(signal):
 # Register default handler
 input_router.register("text", handle_text_input)
 
+# text corpus handler
+from input_processor import handle_text_corpus
+input_router.register("text_corpus", lambda signal: handle_text_corpus(signal, memory, language))
+
+
 print("EchoMind v0.14 | Type 'exit' to quit, 'reflect' to introspect, 'dream' to dream.")
 print("Try: 'mark important', 'add goal: ...', 'outcome: ...', or ask 'what matters to me?'\n")
 
@@ -273,7 +285,7 @@ from mind_gui import launch_dashboard
 from threading import Thread
 
 # Launch GUI in a separate thread
-Thread(target=launch_dashboard, daemon=True).start()
+Thread(target=lambda: launch_dashboard(router=input_router), daemon=True).start()
 
 # Main input loop
 while True:

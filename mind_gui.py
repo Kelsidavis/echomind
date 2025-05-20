@@ -1,20 +1,20 @@
 import tkinter as tk
 from tkinter.scrolledtext import ScrolledText
+from tkinter.filedialog import askopenfilename
 from threading import Thread
 from mind_stream import stream_log_file
 from logger import log_internal_thought, log_interaction
 from responder import generate_response
+from input_processor import InputSignal, InputRouter
 import datetime
 from activity_state import get_activity
 from memory_system import ShortTermMemory
-
-# EchoMind state interfaces
 from self_state import SelfState
 from trait_engine import TraitEngine
-
 from drives import DriveSystem
-drives = DriveSystem()
 
+# Initialize subsystems
+drives = DriveSystem()
 memory = ShortTermMemory(max_length=10)
 state = SelfState()
 traits = TraitEngine()
@@ -35,23 +35,24 @@ TAG_COLORS = {
 }
 
 class EchoMindGUI:
-    def __init__(self, root, log_path="logs/introspection.log"):
+    def __init__(self, root, log_path="logs/introspection.log", router=None):
         self.root = root
+        self.router = router
         self.root.title("EchoMind Dashboard")
         self.root.configure(bg="#1e1e1e")
 
-        # Main horizontal layout
+        # Layout
         self.pane = tk.PanedWindow(self.root, bg="#1e1e1e", sashrelief=tk.RAISED, sashwidth=4)
         self.pane.pack(fill=tk.BOTH, expand=True)
 
-        # Left panel: log view
+        # Log view
         self.text_area = ScrolledText(self.pane, bg="#2e2e2e", fg="#ffffff", font=("Courier", 10), wrap=tk.WORD)
         for tag, color in TAG_COLORS.items():
             self.text_area.tag_config(tag, foreground=color)
         self.text_area.configure(state=tk.DISABLED)
         self.pane.add(self.text_area, stretch="always")
 
-        # Right panel: mood/traits/activity overlay
+        # Sidebar (mood, traits, activity, controls)
         self.sidebar = tk.Frame(self.pane, bg="#1e1e1e", width=200)
         self.mood_label = tk.Label(self.sidebar, text="Mood: ?", fg="white", bg="#1e1e1e", font=("Arial", 10, "bold"))
         self.mood_label.pack(pady=(10, 5), anchor="w", padx=10)
@@ -65,9 +66,12 @@ class EchoMindGUI:
         refresh_btn = tk.Button(self.sidebar, text="Refresh", command=self.refresh_overlay, bg="#3c3c3c", fg="white")
         refresh_btn.pack(pady=(0, 10), padx=10, anchor="w")
 
+        load_btn = tk.Button(self.sidebar, text="Load Book", command=self.load_text_file, bg="#3c3c3c", fg="white")
+        load_btn.pack(pady=(0, 10), padx=10, anchor="w")
+
         self.pane.add(self.sidebar)
 
-        # Input frame
+        # Input field
         input_frame = tk.Frame(root, bg="#1e1e1e")
         input_frame.pack(fill=tk.X)
 
@@ -109,22 +113,20 @@ class EchoMindGUI:
 
             self.append_log("USER", user_text)
             log_internal_thought(f"[USER] {user_text}")
-
             memory.add("You", user_text)
 
             try:
                 response = generate_response(
-                user_text,
-                memory.get_context(),
-                state.get_state(),
-                drives.get_state()  # ✅ This is the correct object
-            )
+                    user_text,
+                    memory.get_context(),
+                    state.get_state(),
+                    drives.get_state()
+                )
             except Exception as e:
                 response = f"[ERROR] {e}"
 
             self.append_log("RESPONSE", response)
             log_internal_thought(f"[RESPONSE] {response}")
-
             memory.add("EchoMind", response)
 
             log_interaction(
@@ -139,11 +141,9 @@ class EchoMindGUI:
             self.refresh_overlay()
 
     def refresh_overlay(self):
-        # Update mood
         current_mood = state.get_state().get("mood", "?")
         self.mood_label.config(text=f"Mood: {current_mood}")
 
-        # Update traits
         dominant = traits.get_dominant_traits()
         if not dominant:
             self.traits_label.config(text="Traits:\n...")
@@ -151,15 +151,23 @@ class EchoMindGUI:
             top_traits = "\n".join(f"- {name}" for name, _ in dominant[:3])
             self.traits_label.config(text=f"Traits:\n{top_traits}")
 
-        # Update activity
         self.activity_label.config(text=f"Activity: {get_activity()}")
 
+    def load_text_file(self):
+        filepath = askopenfilename(
+            title="Select a Text File",
+            filetypes=[("Text files", "*.txt"), ("All files", "*.*")]
+        )
+        if filepath:
+            self.append_log("THOUGHT", f"Loading file: {filepath}")
+            signal = InputSignal(source="GUI", modality="text_corpus", data=filepath)
+            if self.router:
+                self.router.route(signal)
 
-def launch_dashboard(log_path="logs/introspection.log"):
+def launch_dashboard(log_path="logs/introspection.log", router=None):
     root = tk.Tk()
-    app = EchoMindGUI(root, log_path=log_path)
+    app = EchoMindGUI(root, log_path=log_path, router=router)
     root.mainloop()
-
 
 if __name__ == "__main__":
     launch_dashboard()
