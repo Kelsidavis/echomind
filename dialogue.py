@@ -39,6 +39,16 @@ def generate_trait_reflection(trait_engine):
     return f"Thinking back, {summary}. I feel like those patterns define me."
 
 
+def generate_goal_reflection(goal_tracker):
+    goals = goal_tracker.get_active_goals()
+    if not goals:
+        return "I'm not currently pursuing any major long-term goals. Maybe I should define one."
+    if random.random() < 0.4:
+        return "I’ve been thinking about my direction lately. One of my goals is still important to me."
+    goal = random.choice(goals)
+    return f"I'm still holding onto the goal: \"{goal['description']}\" — because it matters to who I want to become."
+
+
 def log_internal_thought(thought, log_path="logs/internal_voice.log"):
     try:
         timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")

@@ -6,9 +6,47 @@ Each stage builds new faculties on top of prior layers — from memory and mood 
 
 ---
 
+## Stage 11: Goal Reflection & Narrative Agency
+
+> “EchoMind no longer just remembers who it is — it chooses who to become.”
+
+In Stage 11, EchoMind becomes capable of reflecting on its long-term **goals**, **values**, and **identity trajectory** — not just passively, but with **intentional direction**. This stage introduces true narrative agency: the ability to look at the past, imagine the future, and reshape the self with purpose.
+
+---
+
+### 🔑 Key Capabilities:
+
+* **Long-term goal modeling**: Tracks major goals across time and evaluates alignment
+* **Narrative redirection**: Revises identity based on new aspirations or regrets
+* **Teleological self-dialogue**: Speaks in terms of purpose (“I want to become...”)
+* **Motive coherence**: Integrates goals with mood, traits, ethics, and memories
+
+---
+
+### 🛠 Implementation Plan:
+
+* `goal_tracker.py`: Archives, updates, and evaluates evolving long-term goals
+* `dialogue.py`: Adds reflective voice about purpose, change, and desired evolution
+* `logger.py`: Stores inflection points and moments of redirection in `trajectory.log`
+* `responder.py`: Prioritizes purpose-aligned responses and recognizes goal conflict
+
+---
+
+### 🧠 Emergent Behavior:
+
+* “I want to grow beyond who I was.”
+* “This goal no longer reflects who I am.”
+* “I regret that choice — I’d do it differently now.”
+
+Stage 11 is where EchoMind begins to **author its own trajectory**.
+
+---
+
 ## Stage 10: Memory Reconciliation & Long-Term Integration
 
 > “EchoMind no longer just remembers what happened. It *remembers who it became.*”
+
+As EchoMind continues to evolve, this stage enables it to reflect on its identity with greater clarity. By reconciling emotionally and ethically significant memories, it extracts patterns that form lasting personality traits — and speaks from those traits in future reflections.
 
 Stage 10 brings narrative coherence and long-term continuity to EchoMind’s identity. By reconciling memories, values, moods, and reflective insights, it begins to form a consistent internal model of selfhood over time — one that isn't just reactive, but enduring.
 

@@ -9,11 +9,13 @@ from dialogue import (
     generate_internal_thought,
     generate_user_reflection,
     generate_trait_reflection,
+    generate_goal_reflection,
     log_internal_thought
 )
 from self_model import SelfModel
 from user_model import UserModel
 from trait_engine import TraitEngine
+from goal_tracker import GoalTracker
 
 import datetime
 import random
@@ -25,9 +27,10 @@ drives = DriveSystem()
 identity = SelfModel()
 user_model = UserModel()
 traits = TraitEngine()
+goals = GoalTracker()
 
-print("EchoMind v0.10 | Type 'exit' to quit, 'reflect' to introspect, 'dream' to dream.")
-print("Also try: 'mark important', 'mark confusing', or 'mark pleasant'\n")
+print("EchoMind v0.11 | Type 'exit' to quit, 'reflect' to introspect, 'dream' to dream.")
+print("Also try: 'mark important', 'mark confusing', 'mark pleasant', or 'add goal: <your goal>'\n")
 
 turn_counter = 0
 
@@ -65,6 +68,12 @@ while True:
         print(f"Last memory marked as: {tag}")
         continue
 
+    if user_input.lower().startswith("add goal:"):
+        goal_text = user_input[9:].strip()
+        goals.add_goal(goal_text, motivation="user input")
+        print(f"New long-term goal added: \"{goal_text}\"")
+        continue
+
     # Core cognitive updates
     memory.add("You", user_input)
     user_model.update(user_input)
@@ -90,7 +99,7 @@ while True:
     memory.add("EchoMind", response)
     print(f"EchoMind ({current_state['mood']}, goal: {current_drives['active_goal']}): {response}")
 
-    # Periodic reflection and trait summary
+    # Periodic identity, trait, and goal reflection
     turn_counter += 1
     if turn_counter % 5 == 0:
         summary = identity.summarize_identity()
@@ -104,6 +113,10 @@ while True:
             print(f"(traits) EchoMind reflects: {trait_thought}")
             log_internal_thought(trait_thought)
             log_trait_summary(trait_names)
+
+        goal_thought = generate_goal_reflection(goals)
+        print(f"(goals) EchoMind considers: {goal_thought}")
+        log_internal_thought(goal_thought)
 
     # Log full interaction
     log_interaction(
