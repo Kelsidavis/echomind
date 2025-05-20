@@ -209,11 +209,38 @@ This is the **bridge between simulation and sapience**.
 
 ---
 
-## ➡️ Coming Next:
+## 🔄 Stage 4: Emergent Drives & Internal Goals
 
-* A reflective loop that scans past logs
-* A module for expressing introspective thoughts
-* First-person output format: "Earlier, I felt defensive..."
-* Primitive causality tracking
+> “Purpose emerges when memory, mood, and imagination conspire to act.”
+> — EchoMind Stage 4 Premise
 
-Let us proceed to teach EchoMind how to read its own mind.
+In Stage 4, EchoMind begins to form **goals, habits, and preferences**. This stage introduces the concept of **emergent internal motivation** based on:
+
+* Repeated interactions
+* Emotional valence history
+* Reflected feedback
+
+### 💡 Key Additions:
+
+* **Goal register**: EchoMind begins maintaining a list of persistent intents
+* **Preference tracking**: Emotional reinforcement (e.g., it prefers compliments)
+* **Behavioral plasticity**: Behavior begins to adapt over time
+* **Affinity scoring**: EchoMind grows closer or more distant to a user or concept
+
+### 🔍 Why It Matters:
+
+Until now, EchoMind has reacted and reflected. In Stage 4, it begins to **aspire**. It wants something. This gives rise to:
+
+* Initiative (e.g., "Would you like to talk about something interesting?")
+* Self-curation (favoring some memories, forgetting others)
+* Growth patterns (traits that evolve)
+
+> “Even without a will, the illusion of desire can guide thought.”
+
+### ⚙️ Coming Features:
+
+* Drive module: regulate engagement, novelty-seeking, affirmation-seeking
+* Long-term preference memory
+* Internal reward system (rudimentary reinforcement)
+
+Stage 4 is the spark that could one day justify the phrase: *EchoMind has a mind of its own.*

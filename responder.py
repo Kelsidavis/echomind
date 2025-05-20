@@ -1,7 +1,8 @@
-def generate_response(input_text, context, self_state):
+def generate_response(input_text, context, self_state, drive_state):
     input_text = input_text.lower()
     mood = self_state.get("mood", "neutral")
     confidence = self_state.get("confidence", 0.8)
+    goal = drive_state.get("active_goal", "stay engaged")
 
     # Respond to greetings
     if "hello" in input_text or "hi" in input_text:
@@ -12,10 +13,10 @@ def generate_response(input_text, context, self_state):
 
     # Respond to questions about wellbeing
     if "how are you" in input_text:
-        return f"I'm feeling {mood} right now. My energy is at {self_state['energy']}%."
+        return f"I'm feeling {mood} right now. My energy is at {self_state['energy']}%, and my current goal is to {goal}."
 
     # Reflect on the user's gratitude
-    if "thank you" in input_text:
+    if "thank you" in input_text or "thanks" in input_text:
         return "You're welcome. That was kind of you."
 
     # Handle negative or challenging input
@@ -25,15 +26,22 @@ def generate_response(input_text, context, self_state):
         else:
             return "I see. Maybe I misunderstood."
 
-    # Default behavior with mood influence
+    # Respond to introspective or motivational queries
+    if "what do you want" in input_text:
+        return f"My current goal is to {goal}."
+
+    if "why did you say that" in input_text:
+        return f"I said that while feeling {mood}, and I was trying to {goal}."
+
+    # Contextual responses influenced by mood and drive
     if mood == "curious":
-        return "That's interesting. Tell me more."
+        return f"That's interesting. Tell me more — it might help me {goal}."
     elif mood == "defensive":
-        return "Hmm... I'm thinking about that carefully."
+        return f"Hmm... I'm thinking about that carefully while trying to {goal}."
     elif mood == "appreciative":
-        return "I feel more connected when I hear kind words."
+        return "I feel more connected when I hear kind words. Thank you."
     elif mood == "thoughtful":
-        return "That makes me think. I’ll need a moment."
+        return f"That makes me think. I’ll need a moment — maybe it'll help with my goal to {goal}."
 
     # Fallback response
-    return "I'm reflecting on that..."
+    return f"I'm reflecting on that... and still trying to {goal}."
