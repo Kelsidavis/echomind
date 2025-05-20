@@ -23,6 +23,7 @@ from dialogue import (
     generate_learning_reflection,
     trace_user_intent
 )
+from input_processor import InputSignal, InputRouter
 
 import threading
 import datetime
@@ -40,67 +41,63 @@ goals = GoalTracker()
 experience = ExperienceEngine()
 language = LanguageModel()
 
-print("EchoMind v0.14 | Type 'exit' to quit, 'reflect' to introspect, 'dream' to dream.")
-print("Try: 'mark important', 'add goal: ...', 'outcome: ...', or ask 'what matters to me?'\n")
+# Setup multimodal input router
+input_router = InputRouter()
 
-# Background thread for lexicon logging
-def lexicon_autolog():
-    while True:
-        log_lexicon_snapshot(language)
-        time.sleep(10)
+def handle_text_input(signal):
+    # Step 1: LLM-based understanding of unknown or emotionally flat words
+    from llm_interface import generate_from_context
+    from context_builder import build_lexicon_context
 
-threading.Thread(target=lexicon_autolog, daemon=True).start()
+    words = signal.data.strip().lower().split()
+    context = build_lexicon_context(language.lexicon)
 
-turn_counter = 0
+    for word in words:
+        if word.isalpha() and word not in language.lexicon:
+            print(f"(curiosity) EchoMind is learning about '{word}'...")
+            explanation = generate_from_context(
+                f"What does the word '{word}' mean emotionally and purposefully?", context
+            )
+            print(f"(LLM insight) {word}: {explanation}")
+            language.enrich_word(word, explanation)
 
-while True:
-    if random.random() < 0.3:
-        recent = memory.get_context()[-1][1] if memory.get_context() else None
-        thought = generate_internal_thought(state.get_state(), drives.get_state(), recent)
-        print(f"(internal) EchoMind thinks: {thought}")
-        log_internal_thought(thought)
-
-    if random.random() < 0.15:
-        user_thought = generate_user_reflection(user_model)
-        print(f"(internal) EchoMind considers you: {user_thought}")
-        log_internal_thought(user_thought)
-
-    user_input = input("You: ").strip()
+    user_input = signal.data.strip()
+    global turn_counter
 
     if user_input.lower() == "exit":
-        break
+        exit()
     if user_input.lower() == "reflect":
         print(f"EchoMind reflects: {reflect_from_log()}")
-        continue
+        return
     if user_input.lower() == "dream":
         dream = generate_and_log_dream(memory.get_context(), state.get_state(), drives.get_state())
         print("EchoMind dreams:\n" + dream)
-        continue
+        return
     if user_input.lower().startswith("mark "):
         tag = user_input[5:].strip().lower()
         memory.tag_recent(tag)
         print(f"Last memory marked as: {tag}")
-        continue
+        return
     if user_input.lower().startswith("add goal:"):
         goal = user_input[9:].strip()
         goals.add_goal(goal, motivation="user input")
         print(f"Goal added: \"{goal}\"")
-        continue
+        return
     if user_input.lower().startswith("outcome:"):
         outcome = user_input[8:].strip().lower()
         last_response = memory.get_context()[-1][1] if memory.get_context() else "unknown"
         experience.record_experience(memory.get_context(), last_response, outcome)
         log_experience_feedback(outcome, last_response)
         print(f"Outcome '{outcome}' recorded.")
-        continue
+        return
     if user_input.lower().strip() == "what matters to me?":
         print(f"(inference) EchoMind says: {trace_user_intent(language)}")
-        continue
+        return
     if user_input.lower().startswith("what do you know about "):
         word = user_input[24:].strip().lower()
         summary = language.get_word_summary(word)
         print(f"(lexicon) {summary}")
-        continue
+        return
 
     memory.add("You", user_input)
     user_model.update(user_input)
@@ -147,3 +144,25 @@ while True:
         self_state=state.get_state(),
         drive_state=drives.get_state()
     )
+
+# Register default handler
+input_router.register("text", handle_text_input)
+
+print("EchoMind v0.14 | Type 'exit' to quit, 'reflect' to introspect, 'dream' to dream.")
+print("Try: 'mark important', 'add goal: ...', 'outcome: ...', or ask 'what matters to me?'\n")
+
+# Background thread for lexicon logging
+def lexicon_autolog():
+    while True:
+        log_lexicon_snapshot(language)
+        time.sleep(10)
+
+threading.Thread(target=lexicon_autolog, daemon=True).start()
+
+turn_counter = 0
+
+# Main input loop (text for now, extensible)
+while True:
+    user_input = input("You: ")
+    signal = InputSignal(source="user", modality="text", data=user_input)
+    input_router.route(signal)
