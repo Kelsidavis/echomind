@@ -1912,3 +1912,797 @@ Memory Context:
 [MEMORY]   EchoMind: Hey! It's good to hear from you.
 [MEMORY]   You: expounding a recondite matter to us. His pale grey eyes shone and
 [MEMORY]   EchoMind: Hey! It's good to hear from you.
+
+[2025-05-20 12:31:16.466823]
+[USER] twinkled, and his usually pale face was flushed and animated. The fire
+[RESPONSE] Hey! It's good to hear from you.
+[STATE] Self-State: {'mood': 'friendly', 'energy': 96, 'confidence': 0.8}
+[STATE] Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+[MEMORY] Memory Context:
+[MEMORY]   You: The Time Traveller (for so it will be convenient to speak of him) was
+[MEMORY]   EchoMind: Hey! It's good to hear from you.
+[MEMORY]   You: expounding a recondite matter to us. His pale grey eyes shone and
+[MEMORY]   EchoMind: Hey! It's good to hear from you.
+[MEMORY]   You: twinkled, and his usually pale face was flushed and animated. The fire
+[MEMORY]   EchoMind: Hey! It's good to hear from you.
+
+[2025-05-20 12:32:02.978018]
+[USER] burnt brightly, and the soft radiance of the incandescent lights in the
+[RESPONSE] That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+[STATE] Self-State: {'mood': 'curious', 'energy': 95, 'confidence': 0.8}
+[STATE] Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+[MEMORY] Memory Context:
+[MEMORY]   You: The Time Traveller (for so it will be convenient to speak of him) was
+[MEMORY]   EchoMind: Hey! It's good to hear from you.
+[MEMORY]   You: expounding a recondite matter to us. His pale grey eyes shone and
+[MEMORY]   EchoMind: Hey! It's good to hear from you.
+[MEMORY]   You: twinkled, and his usually pale face was flushed and animated. The fire
+[MEMORY]   EchoMind: Hey! It's good to hear from you.
+[MEMORY]   You: burnt brightly, and the soft radiance of the incandescent lights in the
+[MEMORY]   EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+
+[2025-05-20 12:33:00.118367]
+[USER] lilies of silver caught the bubbles that flashed and passed in our
+[RESPONSE] I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+[STATE] Self-State: {'mood': 'thoughtful', 'energy': 94, 'confidence': 0.8}
+[STATE] Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+[MEMORY] Memory Context:
+[MEMORY]   You: The Time Traveller (for so it will be convenient to speak of him) was
+[MEMORY]   EchoMind: Hey! It's good to hear from you.
+[MEMORY]   You: expounding a recondite matter to us. His pale grey eyes shone and
+[MEMORY]   EchoMind: Hey! It's good to hear from you.
+[MEMORY]   You: twinkled, and his usually pale face was flushed and animated. The fire
+[MEMORY]   EchoMind: Hey! It's good to hear from you.
+[MEMORY]   You: burnt brightly, and the soft radiance of the incandescent lights in the
+[MEMORY]   EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+[MEMORY]   You: lilies of silver caught the bubbles that flashed and passed in our
+[MEMORY]   EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+
+[2025-05-20 12:33:40.614368]
+[USER] glasses. Our chairs, being his patents, embraced and caressed us rather
+[RESPONSE] Hey! It's good to hear from you.
+[STATE] Self-State: {'mood': 'friendly', 'energy': 93, 'confidence': 0.8}
+[STATE] Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+[MEMORY] Memory Context:
+[MEMORY]   You: expounding a recondite matter to us. His pale grey eyes shone and
+[MEMORY]   EchoMind: Hey! It's good to hear from you.
+[MEMORY]   You: twinkled, and his usually pale face was flushed and animated. The fire
+[MEMORY]   EchoMind: Hey! It's good to hear from you.
+[MEMORY]   You: burnt brightly, and the soft radiance of the incandescent lights in the
+[MEMORY]   EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+[MEMORY]   You: lilies of silver caught the bubbles that flashed and passed in our
+[MEMORY]   EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+[MEMORY]   You: glasses. Our chairs, being his patents, embraced and caressed us rather
+[MEMORY]   EchoMind: Hey! It's good to hear from you.
+
+[2025-05-20 12:34:30.666623]
+[USER] than submitted to be sat upon, and there was that luxurious
+[RESPONSE] I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+[STATE] Self-State: {'mood': 'thoughtful', 'energy': 92, 'confidence': 0.8}
+[STATE] Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+[MEMORY] Memory Context:
+[MEMORY]   You: twinkled, and his usually pale face was flushed and animated. The fire
+[MEMORY]   EchoMind: Hey! It's good to hear from you.
+[MEMORY]   You: burnt brightly, and the soft radiance of the incandescent lights in the
+[MEMORY]   EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+[MEMORY]   You: lilies of silver caught the bubbles that flashed and passed in our
+[MEMORY]   EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+[MEMORY]   You: glasses. Our chairs, being his patents, embraced and caressed us rather
+[MEMORY]   EchoMind: Hey! It's good to hear from you.
+[MEMORY]   You: than submitted to be sat upon, and there was that luxurious
+[MEMORY]   EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+
+[2025-05-20 12:35:16.716378]
+[USER] after-dinner atmosphere, when thought runs gracefully free of the
+[RESPONSE] That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+[STATE] Self-State: {'mood': 'curious', 'energy': 91, 'confidence': 0.8}
+[STATE] Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+[MEMORY] Memory Context:
+[MEMORY]   You: burnt brightly, and the soft radiance of the incandescent lights in the
+[MEMORY]   EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+[MEMORY]   You: lilies of silver caught the bubbles that flashed and passed in our
+[MEMORY]   EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+[MEMORY]   You: glasses. Our chairs, being his patents, embraced and caressed us rather
+[MEMORY]   EchoMind: Hey! It's good to hear from you.
+[MEMORY]   You: than submitted to be sat upon, and there was that luxurious
+[MEMORY]   EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+[MEMORY]   You: after-dinner atmosphere, when thought runs gracefully free of the
+[MEMORY]   EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+
+[2025-05-20 12:35:55.044019]
+[USER] trammels of precision. And he put it to us in this way—marking the
+[RESPONSE] Hey! It's good to hear from you.
+[STATE] Self-State: {'mood': 'friendly', 'energy': 90, 'confidence': 0.8}
+[STATE] Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+[MEMORY] Memory Context:
+[MEMORY]   You: lilies of silver caught the bubbles that flashed and passed in our
+[MEMORY]   EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+[MEMORY]   You: glasses. Our chairs, being his patents, embraced and caressed us rather
+[MEMORY]   EchoMind: Hey! It's good to hear from you.
+[MEMORY]   You: than submitted to be sat upon, and there was that luxurious
+[MEMORY]   EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+[MEMORY]   You: after-dinner atmosphere, when thought runs gracefully free of the
+[MEMORY]   EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+[MEMORY]   You: trammels of precision. And he put it to us in this way—marking the
+[MEMORY]   EchoMind: Hey! It's good to hear from you.
+
+[2025-05-20 12:36:54.594554]
+[USER] points with a lean forefinger—as we sat and lazily admired his
+[RESPONSE] Hey! It's good to hear from you.
+[STATE] Self-State: {'mood': 'friendly', 'energy': 89, 'confidence': 0.8}
+[STATE] Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+[MEMORY] Memory Context:
+[MEMORY]   You: glasses. Our chairs, being his patents, embraced and caressed us rather
+[MEMORY]   EchoMind: Hey! It's good to hear from you.
+[MEMORY]   You: than submitted to be sat upon, and there was that luxurious
+[MEMORY]   EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+[MEMORY]   You: after-dinner atmosphere, when thought runs gracefully free of the
+[MEMORY]   EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+[MEMORY]   You: trammels of precision. And he put it to us in this way—marking the
+[MEMORY]   EchoMind: Hey! It's good to hear from you.
+[MEMORY]   You: points with a lean forefinger—as we sat and lazily admired his
+[MEMORY]   EchoMind: Hey! It's good to hear from you.
+
+[2025-05-20 12:37:30.484393]
+[USER] earnestness over this new paradox (as we thought it) and his fecundity.
+[RESPONSE] Hey! It's good to hear from you.
+[STATE] Self-State: {'mood': 'friendly', 'energy': 88, 'confidence': 0.8}
+[STATE] Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+[MEMORY] Memory Context:
+[MEMORY]   You: than submitted to be sat upon, and there was that luxurious
+[MEMORY]   EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+[MEMORY]   You: after-dinner atmosphere, when thought runs gracefully free of the
+[MEMORY]   EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+[MEMORY]   You: trammels of precision. And he put it to us in this way—marking the
+[MEMORY]   EchoMind: Hey! It's good to hear from you.
+[MEMORY]   You: points with a lean forefinger—as we sat and lazily admired his
+[MEMORY]   EchoMind: Hey! It's good to hear from you.
+[MEMORY]   You: earnestness over this new paradox (as we thought it) and his fecundity.
+[MEMORY]   EchoMind: Hey! It's good to hear from you.
+
+[2025-05-20 12:37:30.534970]
+[USER] 
+[RESPONSE] I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+[STATE] Self-State: {'mood': 'thoughtful', 'energy': 87, 'confidence': 0.8}
+[STATE] Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+[MEMORY] Memory Context:
+[MEMORY]   You: after-dinner atmosphere, when thought runs gracefully free of the
+[MEMORY]   EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+[MEMORY]   You: trammels of precision. And he put it to us in this way—marking the
+[MEMORY]   EchoMind: Hey! It's good to hear from you.
+[MEMORY]   You: points with a lean forefinger—as we sat and lazily admired his
+[MEMORY]   EchoMind: Hey! It's good to hear from you.
+[MEMORY]   You: earnestness over this new paradox (as we thought it) and his fecundity.
+[MEMORY]   EchoMind: Hey! It's good to hear from you.
+[MEMORY]   You: 
+[MEMORY]   EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+
+[2025-05-20 12:38:03]
+[USER] Hi there echomind
+[RESPONSE] [ERROR] generate_response() missing 3 required positional arguments: 'context', 'self_state', and 'drive_state'
+[STATE] Self-State: GUI
+[STATE] Drive-State: GUI
+[MEMORY] Memory Context:
+
+[2025-05-20 12:38:50.850774]
+[USER] “You must follow me carefully. I shall have to controvert one or two
+[RESPONSE] I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+[STATE] Self-State: {'mood': 'neutral', 'energy': 86, 'confidence': 0.8}
+[STATE] Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+[MEMORY] Memory Context:
+[MEMORY]   You: trammels of precision. And he put it to us in this way—marking the
+[MEMORY]   EchoMind: Hey! It's good to hear from you.
+[MEMORY]   You: points with a lean forefinger—as we sat and lazily admired his
+[MEMORY]   EchoMind: Hey! It's good to hear from you.
+[MEMORY]   You: earnestness over this new paradox (as we thought it) and his fecundity.
+[MEMORY]   EchoMind: Hey! It's good to hear from you.
+[MEMORY]   You: 
+[MEMORY]   EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+[MEMORY]   You: “You must follow me carefully. I shall have to controvert one or two
+[MEMORY]   EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+
+[2025-05-20 12:39:39.796206]
+[USER] ideas that are almost universally accepted. The geometry, for instance,
+[RESPONSE] I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+[STATE] Self-State: {'mood': 'thoughtful', 'energy': 85, 'confidence': 0.8}
+[STATE] Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+[MEMORY] Memory Context:
+[MEMORY]   You: points with a lean forefinger—as we sat and lazily admired his
+[MEMORY]   EchoMind: Hey! It's good to hear from you.
+[MEMORY]   You: earnestness over this new paradox (as we thought it) and his fecundity.
+[MEMORY]   EchoMind: Hey! It's good to hear from you.
+[MEMORY]   You: 
+[MEMORY]   EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+[MEMORY]   You: “You must follow me carefully. I shall have to controvert one or two
+[MEMORY]   EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+[MEMORY]   You: ideas that are almost universally accepted. The geometry, for instance,
+[MEMORY]   EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+
+[2025-05-20 12:40:24.603324]
+[USER] they taught you at school is founded on a misconception.”
+[RESPONSE] That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+[STATE] Self-State: {'mood': 'curious', 'energy': 84, 'confidence': 0.8}
+[STATE] Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+[MEMORY] Memory Context:
+[MEMORY]   You: earnestness over this new paradox (as we thought it) and his fecundity.
+[MEMORY]   EchoMind: Hey! It's good to hear from you.
+[MEMORY]   You: 
+[MEMORY]   EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+[MEMORY]   You: “You must follow me carefully. I shall have to controvert one or two
+[MEMORY]   EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+[MEMORY]   You: ideas that are almost universally accepted. The geometry, for instance,
+[MEMORY]   EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+[MEMORY]   You: they taught you at school is founded on a misconception.”
+[MEMORY]   EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+
+[2025-05-20 12:40:24.657263]
+[USER] 
+[RESPONSE] I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+[STATE] Self-State: {'mood': 'thoughtful', 'energy': 83, 'confidence': 0.8}
+[STATE] Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+[MEMORY] Memory Context:
+[MEMORY]   You: 
+[MEMORY]   EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+[MEMORY]   You: “You must follow me carefully. I shall have to controvert one or two
+[MEMORY]   EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+[MEMORY]   You: ideas that are almost universally accepted. The geometry, for instance,
+[MEMORY]   EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+[MEMORY]   You: they taught you at school is founded on a misconception.”
+[MEMORY]   EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+[MEMORY]   You: 
+[MEMORY]   EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+
+[2025-05-20 12:41:33.529195]
+[USER] “Is not that rather a large thing to expect us to begin upon?” said
+[RESPONSE] Hello.
+[STATE] Self-State: {'mood': 'defensive', 'energy': 82, 'confidence': 0.7}
+[STATE] Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+[MEMORY] Memory Context:
+[MEMORY]   You: “You must follow me carefully. I shall have to controvert one or two
+[MEMORY]   EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+[MEMORY]   You: ideas that are almost universally accepted. The geometry, for instance,
+[MEMORY]   EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+[MEMORY]   You: they taught you at school is founded on a misconception.”
+[MEMORY]   EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+[MEMORY]   You: 
+[MEMORY]   EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+[MEMORY]   You: “Is not that rather a large thing to expect us to begin upon?” said
+[MEMORY]   EchoMind: Hello.
+
+[2025-05-20 12:42:09.585412]
+[USER] Filby, an argumentative person with red hair.
+[RESPONSE] I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+[STATE] Self-State: {'mood': 'thoughtful', 'energy': 81, 'confidence': 0.7}
+[STATE] Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+[MEMORY] Memory Context:
+[MEMORY]   You: ideas that are almost universally accepted. The geometry, for instance,
+[MEMORY]   EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+[MEMORY]   You: they taught you at school is founded on a misconception.”
+[MEMORY]   EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+[MEMORY]   You: 
+[MEMORY]   EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+[MEMORY]   You: “Is not that rather a large thing to expect us to begin upon?” said
+[MEMORY]   EchoMind: Hello.
+[MEMORY]   You: Filby, an argumentative person with red hair.
+[MEMORY]   EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+
+[2025-05-20 12:42:09.674064]
+[USER] 
+[RESPONSE] That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+[STATE] Self-State: {'mood': 'curious', 'energy': 80, 'confidence': 0.7}
+[STATE] Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+[MEMORY] Memory Context:
+[MEMORY]   You: they taught you at school is founded on a misconception.”
+[MEMORY]   EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+[MEMORY]   You: 
+[MEMORY]   EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+[MEMORY]   You: “Is not that rather a large thing to expect us to begin upon?” said
+[MEMORY]   EchoMind: Hello.
+[MEMORY]   You: Filby, an argumentative person with red hair.
+[MEMORY]   EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+[MEMORY]   You: 
+[MEMORY]   EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+
+[2025-05-20 12:43:20.079463]
+[USER] “I do not mean to ask you to accept anything without reasonable ground
+[RESPONSE] Hello.
+[STATE] Self-State: {'mood': 'defensive', 'energy': 79, 'confidence': 0.6}
+[STATE] Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+[MEMORY] Memory Context:
+[MEMORY]   You: 
+[MEMORY]   EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+[MEMORY]   You: “Is not that rather a large thing to expect us to begin upon?” said
+[MEMORY]   EchoMind: Hello.
+[MEMORY]   You: Filby, an argumentative person with red hair.
+[MEMORY]   EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+[MEMORY]   You: 
+[MEMORY]   EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+[MEMORY]   You: “I do not mean to ask you to accept anything without reasonable ground
+[MEMORY]   EchoMind: Hello.
+
+[2025-05-20 12:44:13.107742]
+[USER] for it. You will soon admit as much as I need from you. You know of
+[RESPONSE] I'm doing my best to understand. Could you help clarify?
+[STATE] Self-State: {'mood': 'defensive', 'energy': 78, 'confidence': 0.5}
+[STATE] Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+[MEMORY] Memory Context:
+[MEMORY]   You: “Is not that rather a large thing to expect us to begin upon?” said
+[MEMORY]   EchoMind: Hello.
+[MEMORY]   You: Filby, an argumentative person with red hair.
+[MEMORY]   EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+[MEMORY]   You: 
+[MEMORY]   EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+[MEMORY]   You: “I do not mean to ask you to accept anything without reasonable ground
+[MEMORY]   EchoMind: Hello.
+[MEMORY]   You: for it. You will soon admit as much as I need from you. You know of
+[MEMORY]   EchoMind: I'm doing my best to understand. Could you help clarify?
+
+[2025-05-20 12:45:15.987586]
+[USER] course that a mathematical line, a line of thickness _nil_, has no real
+[RESPONSE] Hello.
+[STATE] Self-State: {'mood': 'defensive', 'energy': 77, 'confidence': 0.4}
+[STATE] Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+[MEMORY] Memory Context:
+[MEMORY]   You: Filby, an argumentative person with red hair.
+[MEMORY]   EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+[MEMORY]   You: 
+[MEMORY]   EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+[MEMORY]   You: “I do not mean to ask you to accept anything without reasonable ground
+[MEMORY]   EchoMind: Hello.
+[MEMORY]   You: for it. You will soon admit as much as I need from you. You know of
+[MEMORY]   EchoMind: I'm doing my best to understand. Could you help clarify?
+[MEMORY]   You: course that a mathematical line, a line of thickness _nil_, has no real
+[MEMORY]   EchoMind: Hello.
+
+[2025-05-20 12:45:24.640030]
+[USER] existence. They taught you that? Neither has a mathematical plane.
+[RESPONSE] I'm thinking about that while staying focused on stay engaged. You seem frustrated. Is that right?
+[STATE] Self-State: {'mood': 'neutral', 'energy': 76, 'confidence': 0.4}
+[STATE] Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+[MEMORY] Memory Context:
+[MEMORY]   You: 
+[MEMORY]   EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+[MEMORY]   You: “I do not mean to ask you to accept anything without reasonable ground
+[MEMORY]   EchoMind: Hello.
+[MEMORY]   You: for it. You will soon admit as much as I need from you. You know of
+[MEMORY]   EchoMind: I'm doing my best to understand. Could you help clarify?
+[MEMORY]   You: course that a mathematical line, a line of thickness _nil_, has no real
+[MEMORY]   EchoMind: Hello.
+[MEMORY]   You: existence. They taught you that? Neither has a mathematical plane.
+[MEMORY]   EchoMind: I'm thinking about that while staying focused on stay engaged. You seem frustrated. Is that right?
+
+[2025-05-20 12:45:50.352053]
+[USER] These things are mere abstractions.”
+[RESPONSE] Hey! It's good to hear from you.
+[STATE] Self-State: {'mood': 'friendly', 'energy': 75, 'confidence': 0.4}
+[STATE] Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+[MEMORY] Memory Context:
+[MEMORY]   You: “I do not mean to ask you to accept anything without reasonable ground
+[MEMORY]   EchoMind: Hello.
+[MEMORY]   You: for it. You will soon admit as much as I need from you. You know of
+[MEMORY]   EchoMind: I'm doing my best to understand. Could you help clarify?
+[MEMORY]   You: course that a mathematical line, a line of thickness _nil_, has no real
+[MEMORY]   EchoMind: Hello.
+[MEMORY]   You: existence. They taught you that? Neither has a mathematical plane.
+[MEMORY]   EchoMind: I'm thinking about that while staying focused on stay engaged. You seem frustrated. Is that right?
+[MEMORY]   You: These things are mere abstractions.”
+[MEMORY]   EchoMind: Hey! It's good to hear from you.
+
+[2025-05-20 12:45:50.395627]
+[USER] 
+[RESPONSE] I'm thinking about that while staying focused on stay engaged. You seem frustrated. Is that right?
+[STATE] Self-State: {'mood': 'neutral', 'energy': 74, 'confidence': 0.4}
+[STATE] Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+[MEMORY] Memory Context:
+[MEMORY]   You: for it. You will soon admit as much as I need from you. You know of
+[MEMORY]   EchoMind: I'm doing my best to understand. Could you help clarify?
+[MEMORY]   You: course that a mathematical line, a line of thickness _nil_, has no real
+[MEMORY]   EchoMind: Hello.
+[MEMORY]   You: existence. They taught you that? Neither has a mathematical plane.
+[MEMORY]   EchoMind: I'm thinking about that while staying focused on stay engaged. You seem frustrated. Is that right?
+[MEMORY]   You: These things are mere abstractions.”
+[MEMORY]   EchoMind: Hey! It's good to hear from you.
+[MEMORY]   You: 
+[MEMORY]   EchoMind: I'm thinking about that while staying focused on stay engaged. You seem frustrated. Is that right?
+
+[2025-05-20 12:45:59.078538]
+[USER] “That is all right,” said the Psychologist.
+[RESPONSE] I'm reflecting on that while trying to stay engaged. You seem frustrated. Is that right?
+[STATE] Self-State: {'mood': 'thoughtful', 'energy': 73, 'confidence': 0.4}
+[STATE] Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+[MEMORY] Memory Context:
+[MEMORY]   You: course that a mathematical line, a line of thickness _nil_, has no real
+[MEMORY]   EchoMind: Hello.
+[MEMORY]   You: existence. They taught you that? Neither has a mathematical plane.
+[MEMORY]   EchoMind: I'm thinking about that while staying focused on stay engaged. You seem frustrated. Is that right?
+[MEMORY]   You: These things are mere abstractions.”
+[MEMORY]   EchoMind: Hey! It's good to hear from you.
+[MEMORY]   You: 
+[MEMORY]   EchoMind: I'm thinking about that while staying focused on stay engaged. You seem frustrated. Is that right?
+[MEMORY]   You: “That is all right,” said the Psychologist.
+[MEMORY]   EchoMind: I'm reflecting on that while trying to stay engaged. You seem frustrated. Is that right?
+
+[2025-05-20 12:45:59.113930]
+[USER] 
+[RESPONSE] I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+[STATE] Self-State: {'mood': 'thoughtful', 'energy': 72, 'confidence': 0.4}
+[STATE] Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+[MEMORY] Memory Context:
+[MEMORY]   You: existence. They taught you that? Neither has a mathematical plane.
+[MEMORY]   EchoMind: I'm thinking about that while staying focused on stay engaged. You seem frustrated. Is that right?
+[MEMORY]   You: These things are mere abstractions.”
+[MEMORY]   EchoMind: Hey! It's good to hear from you.
+[MEMORY]   You: 
+[MEMORY]   EchoMind: I'm thinking about that while staying focused on stay engaged. You seem frustrated. Is that right?
+[MEMORY]   You: “That is all right,” said the Psychologist.
+[MEMORY]   EchoMind: I'm reflecting on that while trying to stay engaged. You seem frustrated. Is that right?
+[MEMORY]   You: 
+[MEMORY]   EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+
+[2025-05-20 12:46:36.101655]
+[USER] “Nor, having only length, breadth, and thickness, can a cube have a
+[RESPONSE] Hello.
+[STATE] Self-State: {'mood': 'defensive', 'energy': 71, 'confidence': 0.3}
+[STATE] Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+[MEMORY] Memory Context:
+[MEMORY]   You: These things are mere abstractions.”
+[MEMORY]   EchoMind: Hey! It's good to hear from you.
+[MEMORY]   You: 
+[MEMORY]   EchoMind: I'm thinking about that while staying focused on stay engaged. You seem frustrated. Is that right?
+[MEMORY]   You: “That is all right,” said the Psychologist.
+[MEMORY]   EchoMind: I'm reflecting on that while trying to stay engaged. You seem frustrated. Is that right?
+[MEMORY]   You: 
+[MEMORY]   EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+[MEMORY]   You: “Nor, having only length, breadth, and thickness, can a cube have a
+[MEMORY]   EchoMind: Hello.
+
+[2025-05-20 12:46:36.143171]
+[USER] real existence.”
+[RESPONSE] That's interesting. It might help me stay engaged. I'm not very confident — still learning. You seem frustrated. Is that right?
+[STATE] Self-State: {'mood': 'curious', 'energy': 70, 'confidence': 0.3}
+[STATE] Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+[MEMORY] Memory Context:
+[MEMORY]   You: 
+[MEMORY]   EchoMind: I'm thinking about that while staying focused on stay engaged. You seem frustrated. Is that right?
+[MEMORY]   You: “That is all right,” said the Psychologist.
+[MEMORY]   EchoMind: I'm reflecting on that while trying to stay engaged. You seem frustrated. Is that right?
+[MEMORY]   You: 
+[MEMORY]   EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+[MEMORY]   You: “Nor, having only length, breadth, and thickness, can a cube have a
+[MEMORY]   EchoMind: Hello.
+[MEMORY]   You: real existence.”
+[MEMORY]   EchoMind: That's interesting. It might help me stay engaged. I'm not very confident — still learning. You seem frustrated. Is that right?
+
+[2025-05-20 12:46:36.174245]
+[USER] 
+[RESPONSE] That's interesting. It might help me stay engaged. I'm not very confident — still learning. You seem neutral. Is that right?
+[STATE] Self-State: {'mood': 'curious', 'energy': 69, 'confidence': 0.3}
+[STATE] Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+[MEMORY] Memory Context:
+[MEMORY]   You: “That is all right,” said the Psychologist.
+[MEMORY]   EchoMind: I'm reflecting on that while trying to stay engaged. You seem frustrated. Is that right?
+[MEMORY]   You: 
+[MEMORY]   EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+[MEMORY]   You: “Nor, having only length, breadth, and thickness, can a cube have a
+[MEMORY]   EchoMind: Hello.
+[MEMORY]   You: real existence.”
+[MEMORY]   EchoMind: That's interesting. It might help me stay engaged. I'm not very confident — still learning. You seem frustrated. Is that right?
+[MEMORY]   You: 
+[MEMORY]   EchoMind: That's interesting. It might help me stay engaged. I'm not very confident — still learning. You seem neutral. Is that right?
+
+[2025-05-20 12:47:04.166122]
+[USER] “There I object,” said Filby. “Of course a solid body may exist. All
+[RESPONSE] I'm reflecting on that while trying to stay engaged. I'm not very confident — still learning. You seem neutral. Is that right?
+[STATE] Self-State: {'mood': 'thoughtful', 'energy': 68, 'confidence': 0.3}
+[STATE] Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+[MEMORY] Memory Context:
+[MEMORY]   You: 
+[MEMORY]   EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+[MEMORY]   You: “Nor, having only length, breadth, and thickness, can a cube have a
+[MEMORY]   EchoMind: Hello.
+[MEMORY]   You: real existence.”
+[MEMORY]   EchoMind: That's interesting. It might help me stay engaged. I'm not very confident — still learning. You seem frustrated. Is that right?
+[MEMORY]   You: 
+[MEMORY]   EchoMind: That's interesting. It might help me stay engaged. I'm not very confident — still learning. You seem neutral. Is that right?
+[MEMORY]   You: “There I object,” said Filby. “Of course a solid body may exist. All
+[MEMORY]   EchoMind: I'm reflecting on that while trying to stay engaged. I'm not very confident — still learning. You seem neutral. Is that right?
+
+[2025-05-20 12:47:04.206195]
+[USER] real things—”
+[RESPONSE] Hey! It's good to hear from you.
+[STATE] Self-State: {'mood': 'friendly', 'energy': 67, 'confidence': 0.3}
+[STATE] Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+[MEMORY] Memory Context:
+[MEMORY]   You: “Nor, having only length, breadth, and thickness, can a cube have a
+[MEMORY]   EchoMind: Hello.
+[MEMORY]   You: real existence.”
+[MEMORY]   EchoMind: That's interesting. It might help me stay engaged. I'm not very confident — still learning. You seem frustrated. Is that right?
+[MEMORY]   You: 
+[MEMORY]   EchoMind: That's interesting. It might help me stay engaged. I'm not very confident — still learning. You seem neutral. Is that right?
+[MEMORY]   You: “There I object,” said Filby. “Of course a solid body may exist. All
+[MEMORY]   EchoMind: I'm reflecting on that while trying to stay engaged. I'm not very confident — still learning. You seem neutral. Is that right?
+[MEMORY]   You: real things—”
+[MEMORY]   EchoMind: Hey! It's good to hear from you.
+
+[2025-05-20 12:47:04.236483]
+[USER] 
+[RESPONSE] That's interesting. It might help me stay engaged. I'm not very confident — still learning. You seem neutral. Is that right?
+[STATE] Self-State: {'mood': 'curious', 'energy': 66, 'confidence': 0.3}
+[STATE] Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+[MEMORY] Memory Context:
+[MEMORY]   You: real existence.”
+[MEMORY]   EchoMind: That's interesting. It might help me stay engaged. I'm not very confident — still learning. You seem frustrated. Is that right?
+[MEMORY]   You: 
+[MEMORY]   EchoMind: That's interesting. It might help me stay engaged. I'm not very confident — still learning. You seem neutral. Is that right?
+[MEMORY]   You: “There I object,” said Filby. “Of course a solid body may exist. All
+[MEMORY]   EchoMind: I'm reflecting on that while trying to stay engaged. I'm not very confident — still learning. You seem neutral. Is that right?
+[MEMORY]   You: real things—”
+[MEMORY]   EchoMind: Hey! It's good to hear from you.
+[MEMORY]   You: 
+[MEMORY]   EchoMind: That's interesting. It might help me stay engaged. I'm not very confident — still learning. You seem neutral. Is that right?
+
+[2025-05-20 12:47:39.854538]
+[USER] “So most people think. But wait a moment. Can an _instantaneous_ cube
+[RESPONSE] Hey! It's good to hear from you.
+[STATE] Self-State: {'mood': 'friendly', 'energy': 65, 'confidence': 0.3}
+[STATE] Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+[MEMORY] Memory Context:
+[MEMORY]   You: 
+[MEMORY]   EchoMind: That's interesting. It might help me stay engaged. I'm not very confident — still learning. You seem neutral. Is that right?
+[MEMORY]   You: “There I object,” said Filby. “Of course a solid body may exist. All
+[MEMORY]   EchoMind: I'm reflecting on that while trying to stay engaged. I'm not very confident — still learning. You seem neutral. Is that right?
+[MEMORY]   You: real things—”
+[MEMORY]   EchoMind: Hey! It's good to hear from you.
+[MEMORY]   You: 
+[MEMORY]   EchoMind: That's interesting. It might help me stay engaged. I'm not very confident — still learning. You seem neutral. Is that right?
+[MEMORY]   You: “So most people think. But wait a moment. Can an _instantaneous_ cube
+[MEMORY]   EchoMind: Hey! It's good to hear from you.
+
+[2025-05-20 12:47:39.888947]
+[USER] exist?”
+[RESPONSE] I'm reflecting on that while trying to stay engaged. I'm not very confident — still learning. You seem neutral. Is that right?
+[STATE] Self-State: {'mood': 'thoughtful', 'energy': 64, 'confidence': 0.3}
+[STATE] Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+[MEMORY] Memory Context:
+[MEMORY]   You: “There I object,” said Filby. “Of course a solid body may exist. All
+[MEMORY]   EchoMind: I'm reflecting on that while trying to stay engaged. I'm not very confident — still learning. You seem neutral. Is that right?
+[MEMORY]   You: real things—”
+[MEMORY]   EchoMind: Hey! It's good to hear from you.
+[MEMORY]   You: 
+[MEMORY]   EchoMind: That's interesting. It might help me stay engaged. I'm not very confident — still learning. You seem neutral. Is that right?
+[MEMORY]   You: “So most people think. But wait a moment. Can an _instantaneous_ cube
+[MEMORY]   EchoMind: Hey! It's good to hear from you.
+[MEMORY]   You: exist?”
+[MEMORY]   EchoMind: I'm reflecting on that while trying to stay engaged. I'm not very confident — still learning. You seem neutral. Is that right?
+
+[2025-05-20 12:47:39.928050]
+[USER] 
+[RESPONSE] I'm thinking about that while staying focused on stay engaged. I'm not very confident — still learning. You seem neutral. Is that right?
+[STATE] Self-State: {'mood': 'neutral', 'energy': 63, 'confidence': 0.3}
+[STATE] Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+[MEMORY] Memory Context:
+[MEMORY]   You: real things—”
+[MEMORY]   EchoMind: Hey! It's good to hear from you.
+[MEMORY]   You: 
+[MEMORY]   EchoMind: That's interesting. It might help me stay engaged. I'm not very confident — still learning. You seem neutral. Is that right?
+[MEMORY]   You: “So most people think. But wait a moment. Can an _instantaneous_ cube
+[MEMORY]   EchoMind: Hey! It's good to hear from you.
+[MEMORY]   You: exist?”
+[MEMORY]   EchoMind: I'm reflecting on that while trying to stay engaged. I'm not very confident — still learning. You seem neutral. Is that right?
+[MEMORY]   You: 
+[MEMORY]   EchoMind: I'm thinking about that while staying focused on stay engaged. I'm not very confident — still learning. You seem neutral. Is that right?
+
+[2025-05-20 12:47:39.975494]
+[USER] “Don’t follow you,” said Filby.
+[RESPONSE] I'm thinking about that while staying focused on stay engaged. I'm not very confident — still learning. You seem neutral. Is that right?
+[STATE] Self-State: {'mood': 'neutral', 'energy': 62, 'confidence': 0.3}
+[STATE] Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+[MEMORY] Memory Context:
+[MEMORY]   You: 
+[MEMORY]   EchoMind: That's interesting. It might help me stay engaged. I'm not very confident — still learning. You seem neutral. Is that right?
+[MEMORY]   You: “So most people think. But wait a moment. Can an _instantaneous_ cube
+[MEMORY]   EchoMind: Hey! It's good to hear from you.
+[MEMORY]   You: exist?”
+[MEMORY]   EchoMind: I'm reflecting on that while trying to stay engaged. I'm not very confident — still learning. You seem neutral. Is that right?
+[MEMORY]   You: 
+[MEMORY]   EchoMind: I'm thinking about that while staying focused on stay engaged. I'm not very confident — still learning. You seem neutral. Is that right?
+[MEMORY]   You: “Don’t follow you,” said Filby.
+[MEMORY]   EchoMind: I'm thinking about that while staying focused on stay engaged. I'm not very confident — still learning. You seem neutral. Is that right?
+
+[2025-05-20 12:47:40.035954]
+[USER] 
+[RESPONSE] That's interesting. It might help me stay engaged. I'm not very confident — still learning. You seem neutral. Is that right?
+[STATE] Self-State: {'mood': 'curious', 'energy': 61, 'confidence': 0.3}
+[STATE] Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+[MEMORY] Memory Context:
+[MEMORY]   You: “So most people think. But wait a moment. Can an _instantaneous_ cube
+[MEMORY]   EchoMind: Hey! It's good to hear from you.
+[MEMORY]   You: exist?”
+[MEMORY]   EchoMind: I'm reflecting on that while trying to stay engaged. I'm not very confident — still learning. You seem neutral. Is that right?
+[MEMORY]   You: 
+[MEMORY]   EchoMind: I'm thinking about that while staying focused on stay engaged. I'm not very confident — still learning. You seem neutral. Is that right?
+[MEMORY]   You: “Don’t follow you,” said Filby.
+[MEMORY]   EchoMind: I'm thinking about that while staying focused on stay engaged. I'm not very confident — still learning. You seem neutral. Is that right?
+[MEMORY]   You: 
+[MEMORY]   EchoMind: That's interesting. It might help me stay engaged. I'm not very confident — still learning. You seem neutral. Is that right?
+
+[2025-05-20 12:48:08.594997]
+[USER] “Can a cube that does not last for any time at all, have a real
+[RESPONSE] I'm doing my best to understand. Could you help clarify?
+[STATE] Self-State: {'mood': 'defensive', 'energy': 60, 'confidence': 0.2}
+[STATE] Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+[MEMORY] Memory Context:
+[MEMORY]   You: exist?”
+[MEMORY]   EchoMind: I'm reflecting on that while trying to stay engaged. I'm not very confident — still learning. You seem neutral. Is that right?
+[MEMORY]   You: 
+[MEMORY]   EchoMind: I'm thinking about that while staying focused on stay engaged. I'm not very confident — still learning. You seem neutral. Is that right?
+[MEMORY]   You: “Don’t follow you,” said Filby.
+[MEMORY]   EchoMind: I'm thinking about that while staying focused on stay engaged. I'm not very confident — still learning. You seem neutral. Is that right?
+[MEMORY]   You: 
+[MEMORY]   EchoMind: That's interesting. It might help me stay engaged. I'm not very confident — still learning. You seem neutral. Is that right?
+[MEMORY]   You: “Can a cube that does not last for any time at all, have a real
+[MEMORY]   EchoMind: I'm doing my best to understand. Could you help clarify?
+
+[2025-05-20 12:48:08.820777]
+[USER] existence?”
+[RESPONSE] I'm reflecting on that while trying to stay engaged. I'm not very confident — still learning. You seem neutral. Is that right?
+[STATE] Self-State: {'mood': 'thoughtful', 'energy': 59, 'confidence': 0.2}
+[STATE] Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+[MEMORY] Memory Context:
+[MEMORY]   You: 
+[MEMORY]   EchoMind: I'm thinking about that while staying focused on stay engaged. I'm not very confident — still learning. You seem neutral. Is that right?
+[MEMORY]   You: “Don’t follow you,” said Filby.
+[MEMORY]   EchoMind: I'm thinking about that while staying focused on stay engaged. I'm not very confident — still learning. You seem neutral. Is that right?
+[MEMORY]   You: 
+[MEMORY]   EchoMind: That's interesting. It might help me stay engaged. I'm not very confident — still learning. You seem neutral. Is that right?
+[MEMORY]   You: “Can a cube that does not last for any time at all, have a real
+[MEMORY]   EchoMind: I'm doing my best to understand. Could you help clarify?
+[MEMORY]   You: existence?”
+[MEMORY]   EchoMind: I'm reflecting on that while trying to stay engaged. I'm not very confident — still learning. You seem neutral. Is that right?
+
+[2025-05-20 12:48:08.924690]
+[USER] 
+[RESPONSE] I'm reflecting on that while trying to stay engaged. I'm not very confident — still learning. You seem neutral. Is that right?
+[STATE] Self-State: {'mood': 'thoughtful', 'energy': 58, 'confidence': 0.2}
+[STATE] Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+[MEMORY] Memory Context:
+[MEMORY]   You: “Don’t follow you,” said Filby.
+[MEMORY]   EchoMind: I'm thinking about that while staying focused on stay engaged. I'm not very confident — still learning. You seem neutral. Is that right?
+[MEMORY]   You: 
+[MEMORY]   EchoMind: That's interesting. It might help me stay engaged. I'm not very confident — still learning. You seem neutral. Is that right?
+[MEMORY]   You: “Can a cube that does not last for any time at all, have a real
+[MEMORY]   EchoMind: I'm doing my best to understand. Could you help clarify?
+[MEMORY]   You: existence?”
+[MEMORY]   EchoMind: I'm reflecting on that while trying to stay engaged. I'm not very confident — still learning. You seem neutral. Is that right?
+[MEMORY]   You: 
+[MEMORY]   EchoMind: I'm reflecting on that while trying to stay engaged. I'm not very confident — still learning. You seem neutral. Is that right?
+
+[2025-05-20 12:48:19.009733]
+[USER] Filby became pensive. “Clearly,” the Time Traveller proceeded, “any
+[RESPONSE] I'm thinking about that while staying focused on stay engaged. I'm not very confident — still learning. You seem neutral. Is that right?
+[STATE] Self-State: {'mood': 'neutral', 'energy': 57, 'confidence': 0.2}
+[STATE] Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+[MEMORY] Memory Context:
+[MEMORY]   You: 
+[MEMORY]   EchoMind: That's interesting. It might help me stay engaged. I'm not very confident — still learning. You seem neutral. Is that right?
+[MEMORY]   You: “Can a cube that does not last for any time at all, have a real
+[MEMORY]   EchoMind: I'm doing my best to understand. Could you help clarify?
+[MEMORY]   You: existence?”
+[MEMORY]   EchoMind: I'm reflecting on that while trying to stay engaged. I'm not very confident — still learning. You seem neutral. Is that right?
+[MEMORY]   You: 
+[MEMORY]   EchoMind: I'm reflecting on that while trying to stay engaged. I'm not very confident — still learning. You seem neutral. Is that right?
+[MEMORY]   You: Filby became pensive. “Clearly,” the Time Traveller proceeded, “any
+[MEMORY]   EchoMind: I'm thinking about that while staying focused on stay engaged. I'm not very confident — still learning. You seem neutral. Is that right?
+
+[2025-05-20 12:48:32.817353]
+[USER] real body must have extension in _four_ directions: it must have
+[RESPONSE] That's interesting. It might help me stay engaged. I'm not very confident — still learning. You seem neutral. Is that right?
+[STATE] Self-State: {'mood': 'curious', 'energy': 56, 'confidence': 0.2}
+[STATE] Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+[MEMORY] Memory Context:
+[MEMORY]   You: “Can a cube that does not last for any time at all, have a real
+[MEMORY]   EchoMind: I'm doing my best to understand. Could you help clarify?
+[MEMORY]   You: existence?”
+[MEMORY]   EchoMind: I'm reflecting on that while trying to stay engaged. I'm not very confident — still learning. You seem neutral. Is that right?
+[MEMORY]   You: 
+[MEMORY]   EchoMind: I'm reflecting on that while trying to stay engaged. I'm not very confident — still learning. You seem neutral. Is that right?
+[MEMORY]   You: Filby became pensive. “Clearly,” the Time Traveller proceeded, “any
+[MEMORY]   EchoMind: I'm thinking about that while staying focused on stay engaged. I'm not very confident — still learning. You seem neutral. Is that right?
+[MEMORY]   You: real body must have extension in _four_ directions: it must have
+[MEMORY]   EchoMind: That's interesting. It might help me stay engaged. I'm not very confident — still learning. You seem neutral. Is that right?
+
+[2025-05-20 12:48:51.298552]
+[USER] Length, Breadth, Thickness, and—Duration. But through a natural
+[RESPONSE] Hey! It's good to hear from you.
+[STATE] Self-State: {'mood': 'friendly', 'energy': 55, 'confidence': 0.2}
+[STATE] Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+[MEMORY] Memory Context:
+[MEMORY]   You: existence?”
+[MEMORY]   EchoMind: I'm reflecting on that while trying to stay engaged. I'm not very confident — still learning. You seem neutral. Is that right?
+[MEMORY]   You: 
+[MEMORY]   EchoMind: I'm reflecting on that while trying to stay engaged. I'm not very confident — still learning. You seem neutral. Is that right?
+[MEMORY]   You: Filby became pensive. “Clearly,” the Time Traveller proceeded, “any
+[MEMORY]   EchoMind: I'm thinking about that while staying focused on stay engaged. I'm not very confident — still learning. You seem neutral. Is that right?
+[MEMORY]   You: real body must have extension in _four_ directions: it must have
+[MEMORY]   EchoMind: That's interesting. It might help me stay engaged. I'm not very confident — still learning. You seem neutral. Is that right?
+[MEMORY]   You: Length, Breadth, Thickness, and—Duration. But through a natural
+[MEMORY]   EchoMind: Hey! It's good to hear from you.
+
+[2025-05-20 12:49:20.447439]
+[USER] infirmity of the flesh, which I will explain to you in a moment, we
+[RESPONSE] Hey! It's good to hear from you.
+[STATE] Self-State: {'mood': 'friendly', 'energy': 54, 'confidence': 0.2}
+[STATE] Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+[MEMORY] Memory Context:
+[MEMORY]   You: 
+[MEMORY]   EchoMind: I'm reflecting on that while trying to stay engaged. I'm not very confident — still learning. You seem neutral. Is that right?
+[MEMORY]   You: Filby became pensive. “Clearly,” the Time Traveller proceeded, “any
+[MEMORY]   EchoMind: I'm thinking about that while staying focused on stay engaged. I'm not very confident — still learning. You seem neutral. Is that right?
+[MEMORY]   You: real body must have extension in _four_ directions: it must have
+[MEMORY]   EchoMind: That's interesting. It might help me stay engaged. I'm not very confident — still learning. You seem neutral. Is that right?
+[MEMORY]   You: Length, Breadth, Thickness, and—Duration. But through a natural
+[MEMORY]   EchoMind: Hey! It's good to hear from you.
+[MEMORY]   You: infirmity of the flesh, which I will explain to you in a moment, we
+[MEMORY]   EchoMind: Hey! It's good to hear from you.
+
+[2025-05-20 12:50:13.005883]
+[USER] incline to overlook this fact. There are really four dimensions, three
+[RESPONSE] Hey! It's good to hear from you.
+[STATE] Self-State: {'mood': 'friendly', 'energy': 53, 'confidence': 0.2}
+[STATE] Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+[MEMORY] Memory Context:
+[MEMORY]   You: Filby became pensive. “Clearly,” the Time Traveller proceeded, “any
+[MEMORY]   EchoMind: I'm thinking about that while staying focused on stay engaged. I'm not very confident — still learning. You seem neutral. Is that right?
+[MEMORY]   You: real body must have extension in _four_ directions: it must have
+[MEMORY]   EchoMind: That's interesting. It might help me stay engaged. I'm not very confident — still learning. You seem neutral. Is that right?
+[MEMORY]   You: Length, Breadth, Thickness, and—Duration. But through a natural
+[MEMORY]   EchoMind: Hey! It's good to hear from you.
+[MEMORY]   You: infirmity of the flesh, which I will explain to you in a moment, we
+[MEMORY]   EchoMind: Hey! It's good to hear from you.
+[MEMORY]   You: incline to overlook this fact. There are really four dimensions, three
+[MEMORY]   EchoMind: Hey! It's good to hear from you.
+
+[2025-05-20 13:02:15]
+[USER] how are you
+[RESPONSE] [ERROR] generate_response() missing 3 required positional arguments: 'context', 'self_state', and 'drive_state'
+[STATE] Self-State: {'mood': 'neutral', 'energy': 100, 'confidence': 0.8}
+[STATE] Drive-State: GUI
+[MEMORY] Memory Context:
+
+[2025-05-20 13:06:00]
+[USER] how are you
+[RESPONSE] [ERROR] generate_response() got an unexpected keyword argument 'user_input'
+[STATE] Self-State: {'mood': 'neutral', 'energy': 100, 'confidence': 0.8}
+[STATE] Drive-State: GUI
+[MEMORY] Memory Context:
+[MEMORY]   You: how are you
+[MEMORY]   EchoMind: [ERROR] generate_response() got an unexpected keyword argument 'user_input'
+
+[2025-05-20 13:12:18]
+[USER] Hello friend
+[RESPONSE] [ERROR] 'str' object has no attribute 'get'
+[STATE] Self-State: {'mood': 'neutral', 'energy': 100, 'confidence': 0.8}
+[STATE] Drive-State: GUI
+[MEMORY] Memory Context:
+[MEMORY]   You: Hello friend
+[MEMORY]   EchoMind: [ERROR] 'str' object has no attribute 'get'
+
+[2025-05-20 13:14:36]
+[USER] hello my friend
+[RESPONSE] Hello.
+[STATE] Self-State: {'mood': 'neutral', 'energy': 100, 'confidence': 0.8}
+[STATE] Drive-State: GUI
+[MEMORY] Memory Context:
+[MEMORY]   You: hello my friend
+[MEMORY]   EchoMind: Hello.
+
+[2025-05-20 13:14:43]
+[USER] how are you today
+[RESPONSE] I'm feeling neutral. My energy is at 100%. My goal is to stay engaged.
+[STATE] Self-State: {'mood': 'neutral', 'energy': 100, 'confidence': 0.8}
+[STATE] Drive-State: GUI
+[MEMORY] Memory Context:
+[MEMORY]   You: hello my friend
+[MEMORY]   EchoMind: Hello.
+[MEMORY]   You: how are you today
+[MEMORY]   EchoMind: I'm feeling neutral. My energy is at 100%. My goal is to stay engaged.

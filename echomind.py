@@ -29,6 +29,8 @@ import threading
 import datetime
 import time
 import random
+from activity_state import set_activity
+
 
 # Initialize cognitive systems
 memory = ShortTermMemory(max_length=10)
@@ -110,6 +112,7 @@ def process_curiosity_queue():
             word = curiosity_queue.pop(0)
             if word in language.lexicon and "llm_context" in language.lexicon[word]:
                 continue
+            set_activity("Reflecting")
             print(f"(curiosity) EchoMind is reflecting on '{word}'...")
             context = build_lexicon_context(language.lexicon)
             explanation = generate_from_context(
@@ -118,6 +121,7 @@ def process_curiosity_queue():
             print(f"(LLM insight) {word}: {explanation}")
             language.enrich_word(word, explanation)
         time.sleep(2)
+        set_activity("Idle")
 
 # === Autonomous Dreaming ===
 
@@ -130,9 +134,12 @@ def autonomous_dream_loop():
         if "sad" in mood or "tired" in mood or boredom > 5:
             sleep_time = 45
         time.sleep(sleep_time)
+        set_activity("Dreaming")
         print("(dreaming) EchoMind enters a dream-like state...")
         dream = generate_and_log_dream(memory.get_context(), state.get_state(), drives.get_state())
         print("EchoMind dreams:\n" + dream)
+        time.sleep(2)
+        set_activity("Idle")
 
 # === Input Handler ===
 
@@ -206,12 +213,10 @@ def handle_text_input(signal):
     language.process_sentence(user_input, speaker="You", mood=state.get_state()["mood"])
 
     response = generate_response(
-        user_input,
+        user_text,
         memory.get_context(),
         state.get_state(),
-        drives.get_state(),
-        identity_model=identity,
-        user_model=user_model
+        "GUI"
     )
 
     memory.add("EchoMind", response)

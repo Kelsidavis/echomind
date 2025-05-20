@@ -28,3 +28,27 @@
 [2025-05-20 08:59:53] My goal is to stay engaged. I wonder if I'm getting closer.
 
 [2025-05-20 09:20:01] I’ve been trying to make sense of that last exchange.
+
+[2025-05-20 12:38:03] [THOUGHT] [USER] Hi there echomind
+
+[2025-05-20 12:38:03] [THOUGHT] [RESPONSE] [ERROR] generate_response() missing 3 required positional arguments: 'context', 'self_state', and 'drive_state'
+
+[2025-05-20 13:02:15] [THOUGHT] [USER] how are you
+
+[2025-05-20 13:02:15] [THOUGHT] [RESPONSE] [ERROR] generate_response() missing 3 required positional arguments: 'context', 'self_state', and 'drive_state'
+
+[2025-05-20 13:06:00] [THOUGHT] [USER] how are you
+
+[2025-05-20 13:06:00] [THOUGHT] [RESPONSE] [ERROR] generate_response() got an unexpected keyword argument 'user_input'
+
+[2025-05-20 13:12:18] [THOUGHT] [USER] Hello friend
+
+[2025-05-20 13:12:18] [THOUGHT] [RESPONSE] [ERROR] 'str' object has no attribute 'get'
+
+[2025-05-20 13:14:36] [THOUGHT] [USER] hello my friend
+
+[2025-05-20 13:14:36] [THOUGHT] [RESPONSE] Hello.
+
+[2025-05-20 13:14:43] [THOUGHT] [USER] how are you today
+
+[2025-05-20 13:14:43] [THOUGHT] [RESPONSE] I'm feeling neutral. My energy is at 100%. My goal is to stay engaged.

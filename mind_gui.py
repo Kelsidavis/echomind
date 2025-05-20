@@ -2,6 +2,22 @@ import tkinter as tk
 from tkinter.scrolledtext import ScrolledText
 from threading import Thread
 from mind_stream import stream_log_file
+from logger import log_internal_thought, log_interaction
+from responder import generate_response
+import datetime
+from activity_state import get_activity
+from memory_system import ShortTermMemory
+
+# EchoMind state interfaces
+from self_state import SelfState
+from trait_engine import TraitEngine
+
+from drives import DriveSystem
+drives = DriveSystem()
+
+memory = ShortTermMemory(max_length=10)
+state = SelfState()
+traits = TraitEngine()
 
 TAG_COLORS = {
     "THOUGHT": "#c792ea",
@@ -24,15 +40,49 @@ class EchoMindGUI:
         self.root.title("EchoMind Dashboard")
         self.root.configure(bg="#1e1e1e")
 
-        self.text_area = ScrolledText(root, bg="#2e2e2e", fg="#ffffff", font=("Courier", 10), wrap=tk.WORD)
-        self.text_area.pack(expand=True, fill=tk.BOTH)
-        self.text_area.configure(state=tk.DISABLED)
+        # Main horizontal layout
+        self.pane = tk.PanedWindow(self.root, bg="#1e1e1e", sashrelief=tk.RAISED, sashwidth=4)
+        self.pane.pack(fill=tk.BOTH, expand=True)
 
+        # Left panel: log view
+        self.text_area = ScrolledText(self.pane, bg="#2e2e2e", fg="#ffffff", font=("Courier", 10), wrap=tk.WORD)
         for tag, color in TAG_COLORS.items():
             self.text_area.tag_config(tag, foreground=color)
+        self.text_area.configure(state=tk.DISABLED)
+        self.pane.add(self.text_area, stretch="always")
+
+        # Right panel: mood/traits/activity overlay
+        self.sidebar = tk.Frame(self.pane, bg="#1e1e1e", width=200)
+        self.mood_label = tk.Label(self.sidebar, text="Mood: ?", fg="white", bg="#1e1e1e", font=("Arial", 10, "bold"))
+        self.mood_label.pack(pady=(10, 5), anchor="w", padx=10)
+
+        self.activity_label = tk.Label(self.sidebar, text="Activity: Idle", fg="white", bg="#1e1e1e")
+        self.activity_label.pack(pady=(5, 5), anchor="w", padx=10)
+
+        self.traits_label = tk.Label(self.sidebar, text="Traits:\n...", fg="white", bg="#1e1e1e", justify="left")
+        self.traits_label.pack(pady=(5, 10), anchor="w", padx=10)
+
+        refresh_btn = tk.Button(self.sidebar, text="Refresh", command=self.refresh_overlay, bg="#3c3c3c", fg="white")
+        refresh_btn.pack(pady=(0, 10), padx=10, anchor="w")
+
+        self.pane.add(self.sidebar)
+
+        # Input frame
+        input_frame = tk.Frame(root, bg="#1e1e1e")
+        input_frame.pack(fill=tk.X)
+
+        self.entry = tk.Entry(input_frame, bg="#2e2e2e", fg="#ffffff", font=("Courier", 10), insertbackground="white")
+        self.entry.pack(side=tk.LEFT, expand=True, fill=tk.X, padx=(10, 5), pady=5)
+        self.entry.bind("<Return>", self.on_enter)
+
+        send_button = tk.Button(input_frame, text="Send", command=self.on_send, bg="#3c3c3c", fg="white")
+        send_button.pack(side=tk.RIGHT, padx=(5, 10), pady=5)
 
         self.log_path = log_path
         self.start_stream_thread()
+
+        self.append_log("THOUGHT", "EchoMind dashboard started...")
+        self.refresh_overlay()
 
     def start_stream_thread(self):
         t = Thread(target=self.update_gui_from_log, daemon=True)
@@ -48,10 +98,68 @@ class EchoMindGUI:
         self.text_area.configure(state=tk.DISABLED)
         self.text_area.see(tk.END)
 
+    def on_enter(self, event):
+        self.on_send()
+
+    def on_send(self):
+        user_text = self.entry.get().strip()
+        if user_text:
+            self.entry.delete(0, tk.END)
+            timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+            self.append_log("USER", user_text)
+            log_internal_thought(f"[USER] {user_text}")
+
+            memory.add("You", user_text)
+
+            try:
+                response = generate_response(
+                user_text,
+                memory.get_context(),
+                state.get_state(),
+                drives.get_state()  # ✅ This is the correct object
+            )
+            except Exception as e:
+                response = f"[ERROR] {e}"
+
+            self.append_log("RESPONSE", response)
+            log_internal_thought(f"[RESPONSE] {response}")
+
+            memory.add("EchoMind", response)
+
+            log_interaction(
+                timestamp,
+                user_input=user_text,
+                response=response,
+                memory=memory.get_context(),
+                self_state=state.get_state(),
+                drive_state="GUI"
+            )
+
+            self.refresh_overlay()
+
+    def refresh_overlay(self):
+        # Update mood
+        current_mood = state.get_state().get("mood", "?")
+        self.mood_label.config(text=f"Mood: {current_mood}")
+
+        # Update traits
+        dominant = traits.get_dominant_traits()
+        if not dominant:
+            self.traits_label.config(text="Traits:\n...")
+        else:
+            top_traits = "\n".join(f"- {name}" for name, _ in dominant[:3])
+            self.traits_label.config(text=f"Traits:\n{top_traits}")
+
+        # Update activity
+        self.activity_label.config(text=f"Activity: {get_activity()}")
+
+
 def launch_dashboard(log_path="logs/introspection.log"):
     root = tk.Tk()
     app = EchoMindGUI(root, log_path=log_path)
     root.mainloop()
+
 
 if __name__ == "__main__":
     launch_dashboard()
