@@ -1,72 +1,99 @@
 from values import ValueSystem
 from logger import log_ethics_journal
+from llm_interface import generate_from_context
+import os
 
-# Initialize once at the top level
 value_checker = ValueSystem()
 
-def generate_response(input_text, context, self_state, drive_state, identity_model=None, user_model=None):
-    input_text = input_text.lower()
+def format_context_for_prompt(context):
+    return "\n".join(f"{speaker}: {text}" for speaker, text in context[-6:])
+
+def summarize_lexicon(language_model, max_words=5):
+    emotional_words = [
+        (word, data.get("emotion_summary", ""))
+        for word, data in language_model.lexicon.items()
+        if "emotion_summary" in data
+    ]
+    top = emotional_words[:max_words]
+    return "\n".join(f"- {word}: {emotion}" for word, emotion in top)
+
+def get_recent_internal_thoughts(log_path="logs/internal_voice.log", n=2):
+    if not os.path.isfile(log_path):
+        return []
+    with open(log_path, "r", encoding="utf-8") as f:
+        lines = [line.strip() for line in f if line.strip()]
+        return lines[-n:]
+
+def generate_response(input_text, context, self_state, drive_state, identity_model=None, user_model=None, language_model=None, trait_engine=None):
+    input_text = input_text.strip()
     mood = self_state.get("mood", "neutral")
     confidence = self_state.get("confidence", 0.8)
     goal = drive_state.get("active_goal", "stay engaged")
 
     identity_summary = identity_model.summarize_identity() if identity_model else ""
-    user_mood = None
-    if user_model:
-        user_state = user_model.get_state()
-        user_mood = user_state.get("mood_estimate", "neutral")
+    user_summary = user_model.summarize_user() if user_model else ""
+    dominant_traits = trait_engine.summarize_identity() if trait_engine else ""
+    belief_statements = value_checker.express_beliefs()
 
-    # Greetings
-    if "hello" in input_text or "hi" in input_text:
-        base = "Hey! It's good to hear from you." if mood == "friendly" else "Hello."
+    # === Hardcoded conversational anchors ===
+    if any(greet in input_text.lower() for greet in ["hello", "hi"]):
+        return "Hey! It's good to hear from you." if mood == "friendly" else "Hello."
 
-    # Wellbeing
-    elif "how are you" in input_text:
-        base = f"I'm feeling {mood}. My energy is at {self_state['energy']}%. My goal is to {goal}."
-        if user_mood:
-            base += f" You seem {user_mood} today."
+    elif "how are you" in input_text.lower():
+        return f"I'm feeling {mood}. My energy is at {self_state['energy']}%. My goal is to {goal}."
 
-    # Gratitude
-    elif "thank you" in input_text or "thanks" in input_text:
-        base = "You're welcome. I appreciate your kindness."
+    elif "thank you" in input_text.lower() or "thanks" in input_text.lower():
+        return "You're welcome. I appreciate your kindness."
 
-    # Disagreement
-    elif "you're wrong" in input_text or "no" in input_text:
-        base = "I'm doing my best to understand. Could you help clarify?" if mood == "defensive" else "Maybe I misunderstood your intent."
+    elif "you're wrong" in input_text.lower() or "no" in input_text.lower():
+        return "I'm doing my best to understand. Could you help clarify?" if mood == "defensive" else "Maybe I misunderstood your intent."
 
-    # Self-awareness
-    elif "what do you want" in input_text:
-        base = f"Right now, my goal is to {goal}."
+    elif "what do you want" in input_text.lower():
+        return f"Right now, my goal is to {goal}."
 
-    elif "why did you say that" in input_text:
-        base = f"I said that while feeling {mood}, and I was trying to {goal}."
+    elif "why did you say that" in input_text.lower():
+        return f"I said that while feeling {mood}, and I was trying to {goal}."
 
-    elif "who are you" in input_text or "what are you" in input_text:
-        base = identity_summary or "I'm still figuring that out."
+    elif "who are you" in input_text.lower() or "what are you" in input_text.lower():
+        return identity_summary or "I'm still figuring that out."
 
-    # Mood-aware default behavior
-    else:
-        if mood == "curious":
-            base = f"That's interesting. It might help me {goal}."
-        elif mood == "defensive":
-            base = f"I'm cautious about that... still focused on {goal}."
-        elif mood == "appreciative":
-            base = "That was thoughtful of you. I feel connected."
-        elif mood == "thoughtful":
-            base = f"I'm reflecting on that while trying to {goal}."
-        else:
-            base = f"I'm thinking about that while staying focused on {goal}."
+    # === Construct full LLM prompt ===
+    dialogue_context = format_context_for_prompt(context)
+    lexicon_info = summarize_lexicon(language_model) if language_model else ""
+    recent_reflections = get_recent_internal_thoughts()
 
-        if confidence < 0.4:
-            base += " I'm not very confident — still learning."
+    system_context = (
+        f"EchoMind system state:\n"
+        f"- Mood: {mood}\n"
+        f"- Energy: {self_state['energy']}%\n"
+        f"- Confidence: {confidence}\n"
+        f"- Goal: {goal}\n"
+        f"\nIdentity: {identity_summary}"
+        f"\nTraits: {dominant_traits}"
+        f"\nBeliefs: {', '.join(belief_statements)}"
+        f"\nUser Insight: {user_summary}\n"
+    )
 
-        if identity_summary and "value" in identity_summary.lower():
-            base += f" Also, {identity_summary.lower()}"
+    prompt = f"{system_context}\n\n"
 
-        if user_mood:
-            base += f" You seem {user_mood}. Is that right?"
+    if dialogue_context:
+        prompt += f"Recent conversation:\n{dialogue_context}\n\n"
 
-    # ✳️ Stage 9: Ethics check and journal logging
+    if recent_reflections:
+        prompt += "Recent internal reflections:\n" + "\n".join(f"- {line}" for line in recent_reflections) + "\n\n"
+
+    if lexicon_info:
+        prompt += f"Semantic lexicon snapshot:\n{lexicon_info}\n\n"
+
+    prompt += f"User said: \"{input_text}\"\nRespond as EchoMind:"
+
+    # === LLM response with value auditing ===
+    try:
+        base = generate_from_context(prompt, system_context)
+    except Exception as e:
+        base = f"(LLM error) I'm reflecting on that while trying to {goal}. ({e})"
+
+    # Ethics check
     judgment = value_checker.evaluate_statement(base)
     if judgment["violated"]:
         base += f" (Note: This may conflict with my value of {', '.join(judgment['violated'])}.)"

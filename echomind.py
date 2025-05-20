@@ -223,7 +223,10 @@ def handle_text_input(signal):
         user_input,
         memory.get_context(),
         state.get_state(),
-        drives.get_state()
+        drives.get_state(),
+        identity_model=identity,
+        user_model=user_model,
+        language_model=language
     )
 
     memory.add("EchoMind", response)
