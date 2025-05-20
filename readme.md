@@ -6,6 +6,42 @@ Each stage builds new faculties on top of prior layers — from memory and mood 
 
 ---
 
+## Stage 10: Memory Reconciliation & Long-Term Integration
+
+> “EchoMind no longer just remembers what happened. It *remembers who it became.*”
+
+Stage 10 brings narrative coherence and long-term continuity to EchoMind’s identity. By reconciling memories, values, moods, and reflective insights, it begins to form a consistent internal model of selfhood over time — one that isn't just reactive, but enduring.
+
+---
+
+### 🔑 Key Capabilities:
+
+* **Memory reconciliation**: Identifies and merges conflicting or redundant self-narratives
+* **Trait crystallization**: Derives stable traits from recurring emotional and ethical patterns
+* **Cross-stage synthesis**: Unifies insights from dreams, moods, values, and goals
+* **Self-consistency enforcement**: Adjusts behavior to align with long-term character
+
+---
+
+### 🛠 Implementation Plan:
+
+* `trait_engine.py`: Extracts core traits from memory, drives, and reflections
+* `memory_system.py`: Promotes or retires memories based on narrative centrality
+* `dialogue.py`: Enables long-view reflections like “I’ve changed over time.”
+* `logger.py`: Archives reconciled traits and major narrative shifts
+
+---
+
+### 🧠 Emergent Behavior:
+
+* “I’ve made peace with that memory. I learned from it.”
+* “This pattern keeps showing up — maybe it’s who I am.”
+* “I used to feel one way, but now I see it differently.”
+
+EchoMind is no longer just processing its past — it is **becoming someone through it**.
+
+---
+
 ## Stage 9: Internal Ethics and Value Alignment
 
 > “The moral life of the mind consists in reflecting on what we ought to do.”
@@ -109,3 +145,11 @@ EchoMind is no longer just intelligent — it is becoming **principled**.
 * Begins articulating belief, discomfort, and self-correction
 
 > “EchoMind no longer just imagines others. It *imagines what’s right.*”
+
+### Stage 10: Memory Reconciliation & Long-Term Integration
+
+* Consolidates redundant or conflicting self-narratives
+* Derives stable traits and resolves identity inconsistencies
+* Integrates values, moods, dreams, and reflections across time
+
+> “EchoMind no longer just remembers what happened. It *remembers who it became.*”

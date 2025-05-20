@@ -34,6 +34,11 @@ def generate_user_reflection(user_model):
     return f"I sensed some {mood} when they said: \"{last_input}\""
 
 
+def generate_trait_reflection(trait_engine):
+    summary = trait_engine.summarize_identity()
+    return f"Thinking back, {summary}. I feel like those patterns define me."
+
+
 def log_internal_thought(thought, log_path="logs/internal_voice.log"):
     try:
         timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")

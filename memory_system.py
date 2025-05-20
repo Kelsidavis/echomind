@@ -40,3 +40,11 @@ class ShortTermMemory:
 
     def __len__(self):
         return len(self.buffer)
+    
+    def promote_important(self, keyword="turning point"):
+        """
+        Retain only the most impactful memories matching a tag or keyword.
+        """
+        self.buffer = [entry for entry in self.buffer if keyword in entry.message.lower()]
+
+

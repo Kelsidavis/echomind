@@ -1,6 +1,8 @@
+import datetime
+
 def log_interaction(timestamp, user_input, response, memory, self_state, drive_state):
     """
-    Logs a full interaction including mood, goal, and memory context.
+    Logs a complete interaction including user input, response, internal state, and memory context.
     """
     try:
         with open("logs/introspection.log", "a", encoding="utf-8") as log_file:
@@ -18,9 +20,8 @@ def log_interaction(timestamp, user_input, response, memory, self_state, drive_s
 
 def log_internal_thought(thought, log_path="logs/internal_voice.log"):
     """
-    Logs internal dialogue and reflection.
+    Logs EchoMind's internal monologue and reflections.
     """
-    import datetime
     try:
         timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         with open(log_path, "a", encoding="utf-8") as f:
@@ -29,16 +30,27 @@ def log_internal_thought(thought, log_path="logs/internal_voice.log"):
         print(f"Internal voice logging error: {e}")
 
 
-def log_ethics_journal(statement, violated_values):
+def log_ethics_journal(statement, violated_values, log_path="logs/ethics_journal.log"):
     """
-    Logs value conflicts and moral reflections to a dedicated ethics journal.
+    Logs any value violations for ethical self-monitoring.
     """
-    import datetime
     try:
         timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        with open("logs/ethics_journal.log", "a", encoding="utf-8") as f:
+        with open(log_path, "a", encoding="utf-8") as f:
             f.write(f"\n[{timestamp}]\n")
             f.write(f"Statement: {statement}\n")
             f.write(f"Violated Values: {', '.join(violated_values)}\n")
     except Exception as e:
         print(f"Ethics journal logging error: {e}")
+
+
+def log_trait_summary(traits, path="logs/traits.log"):
+    """
+    Logs derived long-term personality traits from behavioral patterns.
+    """
+    try:
+        timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        with open(path, "a", encoding="utf-8") as f:
+            f.write(f"\n[{timestamp}] Trait Summary: {', '.join(traits)}\n")
+    except Exception as e:
+        print(f"Trait logging error: {e}")
