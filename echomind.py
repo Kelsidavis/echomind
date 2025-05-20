@@ -6,6 +6,7 @@ from introspector import reflect_from_log
 from drives import DriveSystem
 from dreams import generate_and_log_dream
 from dialogue import generate_internal_thought, log_internal_thought
+from self_model import SelfModel
 
 import datetime
 import random
@@ -14,12 +15,15 @@ import random
 memory = ShortTermMemory(max_length=10)
 state = SelfState()
 drives = DriveSystem()
+identity = SelfModel()
 
-print("EchoMind v0.6 | Type 'exit' to quit, 'reflect' to introspect, 'dream' to dream.")
+print("EchoMind v0.7 | Type 'exit' to quit, 'reflect' to introspect, 'dream' to dream.")
 print("Also try: 'mark important', 'mark confusing', or 'mark pleasant'\n")
 
+turn_counter = 0
+
 while True:
-    # Spontaneous internal thought (Stage 6)
+    # Spontaneous internal thought
     if random.random() < 0.3:
         recent_input = memory.get_context()[-1][1] if memory.get_context() else None
         internal_thought = generate_internal_thought(state.get_state(), drives.get_state(), recent_input)
@@ -30,39 +34,46 @@ while True:
     if user_input.lower() == "exit":
         break
 
-    # Manual introspection
     if user_input.lower() == "reflect":
         reflection = reflect_from_log()
         print(f"EchoMind reflects: {reflection}")
         continue
 
-    # Manual dream trigger
     if user_input.lower() == "dream":
         dream = generate_and_log_dream(memory.get_context(), state.get_state(), drives.get_state())
         print("EchoMind dreams:\n" + dream)
         continue
 
-    # Memory tagging
     if user_input.lower().startswith("mark "):
         tag = user_input[5:].strip().lower()
         memory.tag_recent(tag)
         print(f"Last memory marked as: {tag}")
         continue
 
-    # Cognitive updates
+    # Core updates
     memory.add("You", user_input)
     state.update(user_input)
     drives.update(user_input)
     current_state = state.get_state()
     current_drives = drives.get_state()
 
-    # Generate response
-    response = generate_response(user_input, memory.get_context(), current_state, current_drives)
+    # Update identity model
+    identity.update(current_state['mood'], current_drives['active_goal'], memory.get_context())
+
+    # Generate EchoMind's response
+    response = generate_response(user_input, memory.get_context(), current_state, current_drives, identity_model=identity)
     memory.add("EchoMind", response)
 
     print(f"EchoMind ({current_state['mood']}, goal: {current_drives['active_goal']}): {response}")
 
-    # Log full context
+    # Periodic self-summary
+    turn_counter += 1
+    if turn_counter % 5 == 0:
+        summary = identity.summarize_identity()
+        print(f"(identity) EchoMind reflects on itself: {summary}")
+        identity.export_model()
+
+    # Log interaction
     log_interaction(
         timestamp=datetime.datetime.now(),
         user_input=user_input,

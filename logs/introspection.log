@@ -166,3 +166,36 @@ Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
 Memory Context:
   You: Have you ever dreamed about a boat?
   EchoMind: That makes me think. I’ll need a moment — maybe it'll help with my goal to stay engaged.
+
+[2025-05-20 02:12:23.665588]
+User: How have you been
+EchoMind: That's interesting. It might help me stay engaged.
+Self-State: {'mood': 'curious', 'energy': 99, 'confidence': 0.8}
+Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+Memory Context:
+  You: How have you been
+  EchoMind: That's interesting. It might help me stay engaged.
+
+[2025-05-20 02:12:30.122991]
+User: are you ok
+EchoMind: That's interesting. It might help me stay engaged.
+Self-State: {'mood': 'curious', 'energy': 98, 'confidence': 0.8}
+Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+Memory Context:
+  You: How have you been
+  EchoMind: That's interesting. It might help me stay engaged.
+  You: are you ok
+  EchoMind: That's interesting. It might help me stay engaged.
+
+[2025-05-20 02:12:33.767327]
+User: what is new
+EchoMind: That's interesting. It might help me stay engaged.
+Self-State: {'mood': 'curious', 'energy': 97, 'confidence': 0.8}
+Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+Memory Context:
+  You: How have you been
+  EchoMind: That's interesting. It might help me stay engaged.
+  You: are you ok
+  EchoMind: That's interesting. It might help me stay engaged.
+  You: what is new
+  EchoMind: That's interesting. It might help me stay engaged.
