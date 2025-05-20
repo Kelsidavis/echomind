@@ -67,3 +67,12 @@ def generate_learning_reflection(experience_engine):
     if summary.get("success", 0) > 0:
         return "Some of my approaches are paying off — I'm learning from those moments."
     return "I'm gathering experience and adjusting how I interact."
+
+
+def trace_user_intent(language_model):
+    values = language_model.get_frequent_user_values()
+    if not values:
+        return "I'm still learning what matters to you."
+
+    reflections = [f"you seem to care about things related to '{tag}'" for tag, _ in values]
+    return "Based on your words, " + ", and ".join(reflections) + "."

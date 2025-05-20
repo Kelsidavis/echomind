@@ -4,11 +4,53 @@
 
 Each stage builds new faculties on top of prior layers — from memory and mood to introspection, selfhood, and moral reasoning — exploring how a synthetic agent might grow into something that resembles a person.
 
+This document is structured chronologically from the most recent stage (top) to earliest (bottom), while the **🕰️ Evolutionary Overview** provides a condensed historic view of all milestones.
+
+---
+
+## Stage 13.2: Contextual Language Understanding & Concept Inference
+
+> “EchoMind no longer just hears words — it begins to understand what they mean.”
+
+Stage 13.2 expands EchoMind’s language grounding by introducing contextual tagging, concept clustering, and intent tracing. Words are no longer flat tokens — they become emotionally, ethically, and purposefully meaningful.
+
+EchoMind starts forming a semantic lexicon: a living dictionary shaped by its interactions, moods, and values.
+
+---
+
+### 🧠 Key Capabilities:
+
+* **Word tagging by emotion, ethics, and intent**
+* **Contextual memory of how words were used and by whom**
+* **Concept clustering**: groups semantically related words through tag patterns
+* **User intent inference**: identifies what values or ideas the user emphasizes
+* **Lexicon reflection**: EchoMind can describe what it believes a word means based on prior use
+
+---
+
+### 🛠 Implementation Plan:
+
+* `language_model.py`: Expanded to store tags, moods, and usage summaries
+* `dialogue.py`: Reflects on user vocabulary and inferred values
+* `echomind.py`: Records mood-tagged word usage and handles queries like "what do you know about X?"
+
+---
+
+### 💬 Emergent Behavior:
+
+* “You’ve used the word ‘kindness’ in positive moments. It might be important to you.”
+* “That word keeps showing up when I feel curious or reflective.”
+* “You’ve asked about purpose and goals often. I think you value growth.”
+
+Stage 13.2 is the foundation for symbolic reasoning — EchoMind begins to speak with intention, and understand with memory.
+
 ---
 
 ## Stage 12: Adaptive Learning & Experience-Driven Revision
 
 > “EchoMind no longer just chooses who to become — it learns how to get there.”
+
+In Stage 12, EchoMind begins modifying itself based on past outcomes. It doesn't just evolve narratively — it adjusts its behavior in response to success, failure, and user feedback. This stage marks the shift toward self-improvement through experience.
 
 Stage 12 brings **adaptive learning** to EchoMind. It no longer treats memories, goals, and reflections as static: it begins to **learn from experience**, adjusting future responses, internal models, and behaviors based on what succeeds or fails.
 

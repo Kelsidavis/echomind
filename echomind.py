@@ -6,25 +6,27 @@ from self_model import SelfModel
 from trait_engine import TraitEngine
 from goal_tracker import GoalTracker
 from experience_engine import ExperienceEngine
+from language_model import LanguageModel
 from responder import generate_response
 from dreams import generate_and_log_dream
 from introspector import reflect_from_log
 from logger import (
     log_interaction, log_internal_thought,
-    log_trait_summary, log_ethics_journal, log_experience_feedback
+    log_trait_summary, log_experience_feedback
 )
 from dialogue import (
     generate_internal_thought,
     generate_user_reflection,
     generate_trait_reflection,
     generate_goal_reflection,
-    generate_learning_reflection
+    generate_learning_reflection,
+    trace_user_intent
 )
 
 import datetime
 import random
 
-# Initialize subsystems
+# Initialize systems
 memory = ShortTermMemory(max_length=10)
 state = SelfState()
 drives = DriveSystem()
@@ -33,14 +35,15 @@ user_model = UserModel()
 traits = TraitEngine()
 goals = GoalTracker()
 experience = ExperienceEngine()
+language = LanguageModel()
 
-print("EchoMind v0.12 | Type 'exit' to quit, 'reflect' to introspect, 'dream' to dream.")
-print("Try: 'mark important', 'add goal: ...', or 'outcome: success/failure/joy/friction'\n")
+print("EchoMind v0.13.2 | Type 'exit' to quit, 'reflect' to introspect, 'dream' to dream.")
+print("Try: 'mark important', 'add goal: ...', 'outcome: ...', or ask 'what matters to me?'\n")
 
 turn_counter = 0
 
 while True:
-    # Spontaneous reflections
+    # Spontaneous internal thoughts
     if random.random() < 0.3:
         recent = memory.get_context()[-1][1] if memory.get_context() else None
         thought = generate_internal_thought(state.get_state(), drives.get_state(), recent)
@@ -52,9 +55,9 @@ while True:
         print(f"(internal) EchoMind considers you: {user_thought}")
         log_internal_thought(user_thought)
 
-    # Input loop
     user_input = input("You: ").strip()
 
+    # Commands
     if user_input.lower() == "exit":
         break
     if user_input.lower() == "reflect":
@@ -81,6 +84,14 @@ while True:
         log_experience_feedback(outcome, last_response)
         print(f"Outcome '{outcome}' recorded.")
         continue
+    if user_input.lower().strip() == "what matters to me?":
+        print(f"(inference) EchoMind says: {trace_user_intent(language)}")
+        continue
+    if user_input.lower().startswith("what do you know about "):
+        word = user_input[24:].strip().lower()
+        summary = language.get_word_summary(word)
+        print(f"(lexicon) {summary}")
+        continue
 
     # Core updates
     memory.add("You", user_input)
@@ -89,6 +100,7 @@ while True:
     drives.update(user_input)
     identity.update(state.get_state()["mood"], drives.get_state()["active_goal"], memory.get_context())
     traits.analyze_memories(memory.get_context())
+    language.process_sentence(user_input, speaker="You", mood=state.get_state()["mood"])
 
     response = generate_response(
         user_input,
@@ -100,9 +112,11 @@ while True:
     )
 
     memory.add("EchoMind", response)
+    language.process_sentence(response, speaker="EchoMind", mood=state.get_state()["mood"])
+
     print(f"EchoMind ({state.get_state()['mood']}, goal: {drives.get_state()['active_goal']}): {response}")
 
-    # Periodic reflection and learning
+    # Periodic introspection
     turn_counter += 1
     if turn_counter % 5 == 0:
         print(f"(identity) {identity.summarize_identity()}")
@@ -118,7 +132,7 @@ while True:
         print(f"(learning) {generate_learning_reflection(experience)}")
         experience.adjust_trait_weight(traits)
 
-    # Log
+    # Final interaction log
     log_interaction(
         timestamp=datetime.datetime.now(),
         user_input=user_input,
