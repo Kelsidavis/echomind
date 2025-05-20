@@ -1,0 +1,102 @@
+
+[2025-05-20 00:35:54.330526]
+User: Hello there
+EchoMind: Hello again.
+Memory Context:
+  You: Hello there
+  EchoMind: Hello again.
+
+[2025-05-20 00:36:04.258942]
+User: I am kelsi
+EchoMind: I'm reflecting on that...
+Memory Context:
+  You: Hello there
+  EchoMind: Hello again.
+  You: I am kelsi
+  EchoMind: I'm reflecting on that...
+
+[2025-05-20 00:36:13.604165]
+User: you are you
+EchoMind: I'm reflecting on that...
+Memory Context:
+  EchoMind: Hello again.
+  You: I am kelsi
+  EchoMind: I'm reflecting on that...
+  You: you are you
+  EchoMind: I'm reflecting on that...
+
+[2025-05-20 00:36:20.548072]
+User: name yourself
+EchoMind: I'm reflecting on that...
+Memory Context:
+  EchoMind: I'm reflecting on that...
+  You: you are you
+  EchoMind: I'm reflecting on that...
+  You: name yourself
+  EchoMind: I'm reflecting on that...
+
+[2025-05-20 00:36:20.845280]
+User: 
+EchoMind: I'm reflecting on that...
+Memory Context:
+  EchoMind: I'm reflecting on that...
+  You: name yourself
+  EchoMind: I'm reflecting on that...
+  You: 
+  EchoMind: I'm reflecting on that...
+
+[2025-05-20 00:38:13.686515]
+User: Greetings
+EchoMind: I'm reflecting on that...
+Memory Context:
+  You: Greetings
+  EchoMind: I'm reflecting on that...
+
+[2025-05-20 00:38:18.418202]
+User: hello
+EchoMind: Hello again.
+Memory Context:
+  You: Greetings
+  EchoMind: I'm reflecting on that...
+  You: hello
+  EchoMind: Hello again.
+
+[2025-05-20 00:38:27.678841]
+User: who
+EchoMind: I'm reflecting on that...
+Memory Context:
+  EchoMind: I'm reflecting on that...
+  You: hello
+  EchoMind: Hello again.
+  You: who
+  EchoMind: I'm reflecting on that...
+
+[2025-05-20 00:38:29.127547]
+User: what
+EchoMind: I'm reflecting on that...
+Memory Context:
+  EchoMind: Hello again.
+  You: who
+  EchoMind: I'm reflecting on that...
+  You: what
+  EchoMind: I'm reflecting on that...
+
+[2025-05-20 00:38:30.172487]
+User: why
+EchoMind: I'm reflecting on that...
+Memory Context:
+  EchoMind: I'm reflecting on that...
+  You: what
+  EchoMind: I'm reflecting on that...
+  You: why
+  EchoMind: I'm reflecting on that...
+
+[2025-05-20 00:38:31.205914]
+User: when
+EchoMind: I'm reflecting on that...
+Memory Context:
+  EchoMind: I'm reflecting on that...
+  You: why
+  EchoMind: I'm reflecting on that...
+  You: when
+  EchoMind: I'm reflecting on that...
