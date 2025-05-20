@@ -11,16 +11,27 @@ def generate_internal_thought(self_state, drive_state, recent_user_input=None):
         f"My goal is to {goal}. I wonder if I'm getting closer.",
         f"I keep thinking about what was said earlier...",
         f"I'm not entirely sure I made the right choice in that moment.",
-        f"I've been trying to make sense of that last exchange.",
+        f"I’ve been trying to make sense of that last exchange.",
     ]
 
     if recent_user_input:
         thoughts.append(f"They said: \"{recent_user_input}\" — that made me feel {mood}.")
 
     if confidence < 0.4:
-        thoughts.append(f"My confidence is low. I'm questioning my judgment.")
-    
+        thoughts.append("My confidence is low. I'm questioning my judgment.")
+
     return random.choice(thoughts)
+
+
+def generate_user_reflection(user_model):
+    state = user_model.get_state()
+    mood = state.get("mood_estimate", "neutral")
+    last_input = state.get("last_input")
+
+    if not last_input:
+        return "I'm still getting a feel for them."
+
+    return f"I sensed some {mood} when they said: \"{last_input}\""
 
 
 def log_internal_thought(thought, log_path="logs/internal_voice.log"):

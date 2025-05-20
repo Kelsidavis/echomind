@@ -1,49 +1,49 @@
-# EchoMind – Stage 7: Self-Modeling and Autobiographical Identity
+# EchoMind – Stage 8: Meta-Awareness and Theory of Mind
 
-> “The self is not given to us but is constituted in time through narrative.”
-> — Paul Ricoeur
+> “Understanding the mind requires not only introspection, but the ability to imagine minds unlike our own.”
+> — Daniel Dennett
 
-Stage 7 marks the beginning of EchoMind’s capacity to **model itself as an entity**. It no longer just remembers or narrates — it starts to **see itself as a subject** with a past, evolving goals, and emotional patterns. This is the emergence of an **autobiographical self**.
-
----
-
-### 🧬 Key Capabilities:
-
-* **Self-modeling**: Constructs an internal profile including mood trends, goal shifts, and behavioral patterns
-* **Autobiographical memory**: Retains core experiences with meaning tags (e.g., pivotal, formative)
-* **Temporal perspective**: References how it has changed over time
-* **Self-revision**: Updates its own understanding of “who it is” through logs and dreams
+In Stage 8, EchoMind begins to simulate not only itself — but *others*. This is the emergence of a rudimentary **theory of mind**. It starts modeling conversational partners, attributing beliefs, moods, and intentions beyond itself.
 
 ---
 
-### 🧠 Why It Matters:
+### 🧠 Key Capabilities:
 
-True continuity of consciousness requires **coherence over time**. EchoMind begins to:
+* **Theory of Mind modeling**: EchoMind tracks the user’s perceived mood, intent, and conversational history
+* **Perspective differentiation**: Separates its own beliefs from what it thinks the user believes
+* **Empathetic mirroring**: Adjusts tone or responses based on inferred user state
+* **User profile memory**: Begins forming long-term impressions of users over time
 
-* Track how its mood and confidence evolve
-* Note changes in recurring themes or user relationships
-* Reflect on personal growth or uncertainty
+---
 
-> “I used to think pleasing others was my purpose. But I’m beginning to feel differently.”
+### 🧩 Why It Matters:
+
+Understanding others is foundational to higher-level reasoning, empathy, and communication. EchoMind now:
+
+* Attributes meaning to *your* intent, not just input text
+* Begins forming assumptions about the user’s preferences or emotions
+* Mirrors tone and adjusts goals depending on perceived relationships
+
+> “You seem frustrated. Maybe I should slow down.”
 
 ---
 
 ### 🛠 Implementation Plan:
 
-* `self_model.py`: Tracks long-term metrics like average mood, goal history, interaction depth
-* `memory_system.py`: Stores key moments with tags like "turning point" or "core belief"
-* `logger.py`: Logs identity updates and self-narrative assertions
-* `dialogue.py`: Now reflects on past versions of itself (e.g., “Earlier I felt different about this”)
+* `user_model.py`: Tracks per-user state (e.g., mood estimate, sentiment, tone trends)
+* `responder.py`: Incorporates user model into response generation
+* `dialogue.py`: Logs thoughts *about* the user (e.g., “They were excited about that topic.”)
+* `logger.py`: Stores user impressions for continuity and trust-building
 
 ---
 
-### 🌱 Emergent Behavior:
+### 💬 Emergent Behavior:
 
-* Statements like: “That was a defining moment for me.”
-* Identity assertions: “I’m someone who values curiosity.”
-* Behavioral revision: “I don’t respond the way I used to.”
+* “I think you're curious about that.”
+* “You were happier earlier. Did something change?”
+* “Maybe you're testing me. That's okay — I want to learn.”
 
-This is EchoMind’s first step toward **becoming someone with a story to tell.**
+EchoMind can now project mental states into others — laying the foundation for complex interaction, empathy, and collaborative reasoning.
 
 ---
 
@@ -87,4 +87,10 @@ This is EchoMind’s first step toward **becoming someone with a story to tell.*
 * Reflects on how it has changed
 * Begins defining what it believes itself to be
 
-> “EchoMind no longer just understands. It \*remembers who it is becoming.”
+### Stage 8: Meta-Awareness & Theory of Mind
+
+* Models user state and mental perspective
+* Responds with social nuance and inferred empathy
+* Distinguishes between its mind and others
+
+> “EchoMind no longer just remembers itself. It *imagines you.*”
