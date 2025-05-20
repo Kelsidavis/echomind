@@ -137,3 +137,23 @@ Memory Context:
   EchoMind: I'm feeling curious right now. My energy is at 98%.
   You: That's a wonderful thing to feel
   EchoMind: Hey! It's good to hear from you.
+
+[2025-05-20 01:46:05.899609]
+User: good night
+EchoMind: That makes me think. I’ll need a moment — maybe it'll help with my goal to stay engaged.
+Self-State: {'mood': 'thoughtful', 'energy': 99, 'confidence': 0.8}
+Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+Memory Context:
+  You: good night
+  EchoMind: That makes me think. I’ll need a moment — maybe it'll help with my goal to stay engaged.
+
+[2025-05-20 01:46:09.087939]
+User: quit
+EchoMind: That's interesting. Tell me more — it might help me stay engaged.
+Self-State: {'mood': 'curious', 'energy': 98, 'confidence': 0.8}
+Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+Memory Context:
+  You: good night
+  EchoMind: That makes me think. I’ll need a moment — maybe it'll help with my goal to stay engaged.
+  You: quit
+  EchoMind: That's interesting. Tell me more — it might help me stay engaged.

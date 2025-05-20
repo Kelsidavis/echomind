@@ -1,4 +1,8 @@
 def log_interaction(timestamp, user_input, response, memory, self_state, drive_state):
+    """
+    Logs a complete EchoMind interaction including user input, response,
+    internal emotional state, drive/goals, and memory context.
+    """
     try:
         with open("logs/introspection.log", "a", encoding="utf-8") as log_file:
             log_file.write(f"\n[{timestamp}]\n")
