@@ -55,7 +55,7 @@ def process_curiosity_queue():
         if curiosity_queue:
             word = curiosity_queue.pop(0)
             if word in language.lexicon and "llm_context" in language.lexicon[word]:
-                continue  # Already enriched
+                continue
             print(f"(curiosity) EchoMind is reflecting on '{word}'...")
             context = build_lexicon_context(language.lexicon)
             explanation = generate_from_context(
@@ -65,15 +65,39 @@ def process_curiosity_queue():
             language.enrich_word(word, explanation)
         time.sleep(2)
 
+def autonomous_dream_loop():
+    from dreams import generate_and_log_dream
+    while True:
+        sleep_time = 90
+        mood = state.get_state().get("mood", "")
+        boredom = drives.get_state().get("boredom", 0)
+
+        if "sad" in mood or "tired" in mood or boredom > 5:
+            sleep_time = 45
+
+        time.sleep(sleep_time)
+        print("(dreaming) EchoMind enters a dream-like state...")
+        dream = generate_and_log_dream(memory.get_context(), state.get_state(), drives.get_state())
+        print("EchoMind dreams:\n" + dream)
+
 def handle_text_input(signal):
+    from llm_interface import generate_from_context
+    from context_builder import build_lexicon_context
+
+    words = signal.data.strip().lower().split()
+    context = build_lexicon_context(language.lexicon)
+
+    for word in words:
+        if word.isalpha() and word not in language.lexicon:
+            print(f"(curiosity) EchoMind is learning about '{word}'...")
+            explanation = generate_from_context(
+                f"What does the word '{word}' mean emotionally and purposefully?", context
+            )
+            print(f"(LLM insight) {word}: {explanation}")
+            language.enrich_word(word, explanation)
+
     user_input = signal.data.strip()
     global turn_counter
-
-    # Queue novel or vague words for enrichment
-    words = user_input.lower().split()
-    for word in words:
-        if word.isalpha() and (word not in language.lexicon or "llm_context" not in language.lexicon[word]):
-            curiosity_queue.append(word)
 
     if user_input.lower() == "exit":
         exit()
@@ -109,6 +133,11 @@ def handle_text_input(signal):
         summary = language.get_word_summary(word)
         print(f"(lexicon) {summary}")
         return
+
+    words = user_input.strip().lower().split()
+    for word in words:
+        if word.isalpha() and (word not in language.lexicon or "llm_context" not in language.lexicon[word]):
+            curiosity_queue.append(word)
 
     memory.add("You", user_input)
     user_model.update(user_input)
@@ -169,9 +198,8 @@ def lexicon_autolog():
         time.sleep(10)
 
 threading.Thread(target=lexicon_autolog, daemon=True).start()
-
-# Background thread for curiosity processing
 threading.Thread(target=process_curiosity_queue, daemon=True).start()
+threading.Thread(target=autonomous_dream_loop, daemon=True).start()
 
 turn_counter = 0
 
