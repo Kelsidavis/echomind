@@ -24,7 +24,9 @@ from dialogue import (
     trace_user_intent
 )
 
+import threading
 import datetime
+import time
 import random
 
 # Initialize cognitive systems
@@ -38,8 +40,16 @@ goals = GoalTracker()
 experience = ExperienceEngine()
 language = LanguageModel()
 
-print("EchoMind v0.13.2 | Type 'exit' to quit, 'reflect' to introspect, 'dream' to dream.")
+print("EchoMind v0.14 | Type 'exit' to quit, 'reflect' to introspect, 'dream' to dream.")
 print("Try: 'mark important', 'add goal: ...', 'outcome: ...', or ask 'what matters to me?'\n")
+
+# Background thread for lexicon logging
+def lexicon_autolog():
+    while True:
+        log_lexicon_snapshot(language)
+        time.sleep(10)
+
+threading.Thread(target=lexicon_autolog, daemon=True).start()
 
 turn_counter = 0
 
@@ -57,7 +67,6 @@ while True:
 
     user_input = input("You: ").strip()
 
-    # Command parsing
     if user_input.lower() == "exit":
         break
     if user_input.lower() == "reflect":
@@ -93,7 +102,6 @@ while True:
         print(f"(lexicon) {summary}")
         continue
 
-    # Main cognitive updates
     memory.add("You", user_input)
     user_model.update(user_input)
     state.update(user_input)
@@ -116,7 +124,6 @@ while True:
 
     print(f"EchoMind ({state.get_state()['mood']}, goal: {drives.get_state()['active_goal']}): {response}")
 
-    # Periodic introspection
     turn_counter += 1
     if turn_counter % 5 == 0:
         print(f"(identity) {identity.summarize_identity()}")
@@ -132,7 +139,6 @@ while True:
         print(f"(learning) {generate_learning_reflection(experience)}")
         experience.adjust_trait_weight(traits)
 
-    # Final logs
     log_interaction(
         timestamp=datetime.datetime.now(),
         user_input=user_input,
@@ -141,5 +147,3 @@ while True:
         self_state=state.get_state(),
         drive_state=drives.get_state()
     )
-
-    log_lexicon_snapshot(language)
