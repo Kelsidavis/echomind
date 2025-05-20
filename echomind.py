@@ -12,7 +12,8 @@ from dreams import generate_and_log_dream
 from introspector import reflect_from_log
 from logger import (
     log_interaction, log_internal_thought,
-    log_trait_summary, log_experience_feedback
+    log_trait_summary, log_experience_feedback,
+    log_lexicon_snapshot
 )
 from dialogue import (
     generate_internal_thought,
@@ -26,7 +27,7 @@ from dialogue import (
 import datetime
 import random
 
-# Initialize systems
+# Initialize cognitive systems
 memory = ShortTermMemory(max_length=10)
 state = SelfState()
 drives = DriveSystem()
@@ -43,7 +44,6 @@ print("Try: 'mark important', 'add goal: ...', 'outcome: ...', or ask 'what matt
 turn_counter = 0
 
 while True:
-    # Spontaneous internal thoughts
     if random.random() < 0.3:
         recent = memory.get_context()[-1][1] if memory.get_context() else None
         thought = generate_internal_thought(state.get_state(), drives.get_state(), recent)
@@ -57,7 +57,7 @@ while True:
 
     user_input = input("You: ").strip()
 
-    # Commands
+    # Command parsing
     if user_input.lower() == "exit":
         break
     if user_input.lower() == "reflect":
@@ -93,7 +93,7 @@ while True:
         print(f"(lexicon) {summary}")
         continue
 
-    # Core updates
+    # Main cognitive updates
     memory.add("You", user_input)
     user_model.update(user_input)
     state.update(user_input)
@@ -132,7 +132,7 @@ while True:
         print(f"(learning) {generate_learning_reflection(experience)}")
         experience.adjust_trait_weight(traits)
 
-    # Final interaction log
+    # Final logs
     log_interaction(
         timestamp=datetime.datetime.now(),
         user_input=user_input,
@@ -141,3 +141,5 @@ while True:
         self_state=state.get_state(),
         drive_state=drives.get_state()
     )
+
+    log_lexicon_snapshot(language)

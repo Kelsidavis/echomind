@@ -63,3 +63,23 @@ def log_experience_feedback(outcome, response, log_path="logs/experience.log"):
             f.write(f"\n[{timestamp}] Outcome: {outcome} | Response: {response}\n")
     except Exception as e:
         print(f"Experience logging error: {e}")
+
+
+def log_lexicon_snapshot(language_model, path="logs/lexicon.log"):
+    import datetime
+    try:
+        timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        with open(path, "a", encoding="utf-8") as f:
+            f.write(f"\n[{timestamp}] Lexicon Snapshot:\n")
+            for word in sorted(language_model.vocab):
+                summary = language_model.get_word_summary(word)
+                f.write(f"- {word}:\n")
+                if 'tag_summary' in summary:
+                    f.write(f"    Tags: {summary['tag_summary']}\n")
+                if 'emotion_summary' in summary:
+                    f.write(f"    Emotions: {summary['emotion_summary']}\n")
+                if summary.get("example"):
+                    speaker, sentence = summary['example']
+                    f.write(f"    Last Used By {speaker}: \"{sentence}\"\n")
+    except Exception as e:
+        print(f"Lexicon logging error: {e}")

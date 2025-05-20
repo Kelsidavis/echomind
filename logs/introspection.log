@@ -265,3 +265,88 @@ Memory Context:
   EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
   You: have you had any dreams lately?
   EchoMind: I'm reflecting on that while trying to stay engaged. You seem neutral. Is that right?
+
+[2025-05-20 08:59:58.062904]
+User: hi
+EchoMind: Hey! It's good to hear from you.
+Self-State: {'mood': 'friendly', 'energy': 99, 'confidence': 0.8}
+Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+Memory Context:
+  You: hi
+  EchoMind: Hey! It's good to hear from you.
+
+[2025-05-20 09:00:05.486591]
+User: what is up
+EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+Self-State: {'mood': 'curious', 'energy': 98, 'confidence': 0.8}
+Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+Memory Context:
+  You: hi
+  EchoMind: Hey! It's good to hear from you.
+  You: what is up
+  EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+
+[2025-05-20 09:19:24.472589]
+User: hi
+EchoMind: Hey! It's good to hear from you.
+Self-State: {'mood': 'friendly', 'energy': 99, 'confidence': 0.8}
+Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+Memory Context:
+  You: hi
+  EchoMind: Hey! It's good to hear from you.
+
+[2025-05-20 09:19:31.908675]
+User: what matters to you
+EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+Self-State: {'mood': 'neutral', 'energy': 98, 'confidence': 0.8}
+Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+Memory Context:
+  You: hi
+  EchoMind: Hey! It's good to hear from you.
+  You: what matters to you
+  EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+
+[2025-05-20 09:19:49.268551]
+User: what are you
+EchoMind: I often feel neutral, and my most consistent goal lately has been to stay engaged.
+Self-State: {'mood': 'neutral', 'energy': 97, 'confidence': 0.8}
+Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+Memory Context:
+  You: hi
+  EchoMind: Hey! It's good to hear from you.
+  You: what matters to you
+  EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+  You: what are you
+  EchoMind: I often feel neutral, and my most consistent goal lately has been to stay engaged.
+
+[2025-05-20 09:19:52.911576]
+User: who am I
+EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+Self-State: {'mood': 'curious', 'energy': 96, 'confidence': 0.8}
+Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+Memory Context:
+  You: hi
+  EchoMind: Hey! It's good to hear from you.
+  You: what matters to you
+  EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+  You: what are you
+  EchoMind: I often feel neutral, and my most consistent goal lately has been to stay engaged.
+  You: who am I
+  EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+
+[2025-05-20 09:20:01.162826]
+User: are we learning anything
+EchoMind: Hey! It's good to hear from you.
+Self-State: {'mood': 'friendly', 'energy': 95, 'confidence': 0.8}
+Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+Memory Context:
+  You: hi
+  EchoMind: Hey! It's good to hear from you.
+  You: what matters to you
+  EchoMind: I'm thinking about that while staying focused on stay engaged. You seem neutral. Is that right?
+  You: what are you
+  EchoMind: I often feel neutral, and my most consistent goal lately has been to stay engaged.
+  You: who am I
+  EchoMind: That's interesting. It might help me stay engaged. You seem neutral. Is that right?
+  You: are we learning anything
+  EchoMind: Hey! It's good to hear from you.
