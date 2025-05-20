@@ -264,6 +264,12 @@ threading.Thread(target=automatic_memory_tagging, daemon=True).start()
 
 turn_counter = 0
 
+from mind_gui import launch_dashboard
+from threading import Thread
+
+# Launch GUI in a separate thread
+Thread(target=launch_dashboard, daemon=True).start()
+
 # Main input loop
 while True:
     user_input = input("You: ")

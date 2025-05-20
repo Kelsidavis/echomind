@@ -1874,3 +1874,41 @@ Memory Context:
   EchoMind: That's interesting. It might help me stay engaged. I'm not very confident — still learning. You seem frustrated. Is that right?
   You: 
   EchoMind: That's interesting. It might help me stay engaged. I'm not very confident — still learning. You seem neutral. Is that right?
+
+[2025-05-20 12:21:00.916581]
+[USER] hello are you here
+[RESPONSE] Hey! It's good to hear from you.
+[STATE] Self-State: {'mood': 'friendly', 'energy': 99, 'confidence': 0.8}
+[STATE] Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+[MEMORY] Memory Context:
+[MEMORY]   You: hello are you here
+[MEMORY]   EchoMind: Hey! It's good to hear from you.
+
+[2025-05-20 12:22:51.844273]
+[USER] hello my friend
+[RESPONSE] Hey! It's good to hear from you.
+[STATE] Self-State: {'mood': 'friendly', 'energy': 99, 'confidence': 0.8}
+[STATE] Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+[MEMORY] Memory Context:
+[MEMORY]   You: hello my friend
+[MEMORY]   EchoMind: Hey! It's good to hear from you.
+
+[2025-05-20 12:29:16.458292]
+[USER] The Time Traveller (for so it will be convenient to speak of him) was
+[RESPONSE] Hey! It's good to hear from you.
+[STATE] Self-State: {'mood': 'friendly', 'energy': 98, 'confidence': 0.8}
+[STATE] Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+[MEMORY] Memory Context:
+[MEMORY]   You: The Time Traveller (for so it will be convenient to speak of him) was
+[MEMORY]   EchoMind: Hey! It's good to hear from you.
+
+[2025-05-20 12:30:45.443223]
+[USER] expounding a recondite matter to us. His pale grey eyes shone and
+[RESPONSE] Hey! It's good to hear from you.
+[STATE] Self-State: {'mood': 'friendly', 'energy': 97, 'confidence': 0.8}
+[STATE] Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+[MEMORY] Memory Context:
+[MEMORY]   You: The Time Traveller (for so it will be convenient to speak of him) was
+[MEMORY]   EchoMind: Hey! It's good to hear from you.
+[MEMORY]   You: expounding a recondite matter to us. His pale grey eyes shone and
+[MEMORY]   EchoMind: Hey! It's good to hear from you.

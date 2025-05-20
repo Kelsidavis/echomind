@@ -48,7 +48,10 @@ class EchoMindGUI:
         self.text_area.configure(state=tk.DISABLED)
         self.text_area.see(tk.END)
 
-if __name__ == "__main__":
+def launch_dashboard(log_path="logs/introspection.log"):
     root = tk.Tk()
-    app = EchoMindGUI(root)
+    app = EchoMindGUI(root, log_path=log_path)
     root.mainloop()
+
+if __name__ == "__main__":
+    launch_dashboard()
