@@ -1,7 +1,7 @@
 def log_interaction(timestamp, user_input, response, memory, self_state, drive_state):
     """
-    Logs a complete EchoMind interaction including user input, response,
-    internal emotional state, drive/goals, and memory context.
+    Logs EchoMind's full interaction including user input, response,
+    internal state, and contextual memory.
     """
     try:
         with open("logs/introspection.log", "a", encoding="utf-8") as log_file:
@@ -15,3 +15,16 @@ def log_interaction(timestamp, user_input, response, memory, self_state, drive_s
                 log_file.write(f"  {speaker}: {message}\n")
     except Exception as e:
         print(f"Logging error: {e}")
+
+
+def log_internal_thought(thought, log_path="logs/internal_voice.log"):
+    """
+    Logs EchoMind's self-generated internal dialogue.
+    """
+    import datetime
+    try:
+        timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        with open(log_path, "a", encoding="utf-8") as f:
+            f.write(f"\n[{timestamp}] {thought}\n")
+    except Exception as e:
+        print(f"Internal voice logging error: {e}")

@@ -157,3 +157,12 @@ Memory Context:
   EchoMind: That makes me think. I’ll need a moment — maybe it'll help with my goal to stay engaged.
   You: quit
   EchoMind: That's interesting. Tell me more — it might help me stay engaged.
+
+[2025-05-20 02:00:13.311095]
+User: Have you ever dreamed about a boat?
+EchoMind: That makes me think. I’ll need a moment — maybe it'll help with my goal to stay engaged.
+Self-State: {'mood': 'thoughtful', 'energy': 99, 'confidence': 0.8}
+Drive-State: {'active_goal': 'stay engaged', 'goals': [], 'affinity': {}}
+Memory Context:
+  You: Have you ever dreamed about a boat?
+  EchoMind: That makes me think. I’ll need a moment — maybe it'll help with my goal to stay engaged.
