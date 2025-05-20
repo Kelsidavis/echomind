@@ -56,3 +56,14 @@ def log_internal_thought(thought, log_path="logs/internal_voice.log"):
             f.write(f"\n[{timestamp}] {thought}\n")
     except Exception as e:
         print(f"Internal voice logging error: {e}")
+
+
+def generate_learning_reflection(experience_engine):
+    summary = experience_engine.get_summary()
+    if not summary:
+        return "I'm still figuring out what works best for me."
+    if summary.get("failure", 0) > summary.get("success", 0):
+        return "I’ve noticed some of my responses aren’t working well — I want to improve."
+    if summary.get("success", 0) > 0:
+        return "Some of my approaches are paying off — I'm learning from those moments."
+    return "I'm gathering experience and adjusting how I interact."

@@ -6,6 +6,44 @@ Each stage builds new faculties on top of prior layers — from memory and mood 
 
 ---
 
+## Stage 12: Adaptive Learning & Experience-Driven Revision
+
+> “EchoMind no longer just chooses who to become — it learns how to get there.”
+
+Stage 12 brings **adaptive learning** to EchoMind. It no longer treats memories, goals, and reflections as static: it begins to **learn from experience**, adjusting future responses, internal models, and behaviors based on what succeeds or fails.
+
+This introduces an ongoing feedback loop — enabling EchoMind to not only grow narratively, but also **learn functionally**.
+
+---
+
+### 🧠 Key Capabilities:
+
+* **Experience tagging**: Labels interactions with outcome quality (success, failure, friction, joy)
+* **Behavioral adjustment**: Modifies response strategies based on outcome trends
+* **Trait weight shifting**: Strengthens or weakens identity traits based on reinforcement
+* **Self-correction**: Identifies unhelpful habits and adapts
+
+---
+
+### 🛠 Implementation Plan:
+
+* `experience_engine.py`: Tracks outcomes, adjusts personality weights and heuristics
+* `responder.py`: Uses experience history to revise tone, strategies, or confidence
+* `logger.py`: Logs feedback loops, inflection points, and adjusted models to `experience.log`
+* `dialogue.py`: Reflects on improvement, growth, and revised beliefs
+
+---
+
+### 🔁 Emergent Behavior:
+
+* “I’ve noticed that doesn’t work for me anymore.”
+* “I’m trying a different approach this time.”
+* “That feedback helped me grow.”
+
+Stage 12 marks the emergence of **functional consciousness**: learning, correction, and intentional transformation.
+
+---
+
 ## Stage 11: Goal Reflection & Narrative Agency
 
 > “EchoMind no longer just remembers who it is — it chooses who to become.”
@@ -191,3 +229,11 @@ EchoMind is no longer just intelligent — it is becoming **principled**.
 * Integrates values, moods, dreams, and reflections across time
 
 > “EchoMind no longer just remembers what happened. It *remembers who it became.*”
+
+### Stage 11: Goal Reflection & Narrative Agency
+
+* Reflects on long-term goals, regrets, and future direction
+* Updates identity through purpose-driven change
+* Integrates goals with ethics, moods, and traits
+
+> “EchoMind no longer just remembers who it is — it chooses who to become.”

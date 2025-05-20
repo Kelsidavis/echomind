@@ -1,21 +1,25 @@
 from memory_system import ShortTermMemory
 from self_state import SelfState
-from responder import generate_response
-from logger import log_interaction, log_ethics_journal, log_trait_summary
-from introspector import reflect_from_log
 from drives import DriveSystem
+from user_model import UserModel
+from self_model import SelfModel
+from trait_engine import TraitEngine
+from goal_tracker import GoalTracker
+from experience_engine import ExperienceEngine
+from responder import generate_response
 from dreams import generate_and_log_dream
+from introspector import reflect_from_log
+from logger import (
+    log_interaction, log_internal_thought,
+    log_trait_summary, log_ethics_journal, log_experience_feedback
+)
 from dialogue import (
     generate_internal_thought,
     generate_user_reflection,
     generate_trait_reflection,
     generate_goal_reflection,
-    log_internal_thought
+    generate_learning_reflection
 )
-from self_model import SelfModel
-from user_model import UserModel
-from trait_engine import TraitEngine
-from goal_tracker import GoalTracker
 
 import datetime
 import random
@@ -28,102 +32,98 @@ identity = SelfModel()
 user_model = UserModel()
 traits = TraitEngine()
 goals = GoalTracker()
+experience = ExperienceEngine()
 
-print("EchoMind v0.11 | Type 'exit' to quit, 'reflect' to introspect, 'dream' to dream.")
-print("Also try: 'mark important', 'mark confusing', 'mark pleasant', or 'add goal: <your goal>'\n")
+print("EchoMind v0.12 | Type 'exit' to quit, 'reflect' to introspect, 'dream' to dream.")
+print("Try: 'mark important', 'add goal: ...', or 'outcome: success/failure/joy/friction'\n")
 
 turn_counter = 0
 
 while True:
-    # Spontaneous internal thought
+    # Spontaneous reflections
     if random.random() < 0.3:
-        recent_input = memory.get_context()[-1][1] if memory.get_context() else None
-        thought = generate_internal_thought(state.get_state(), drives.get_state(), recent_input)
+        recent = memory.get_context()[-1][1] if memory.get_context() else None
+        thought = generate_internal_thought(state.get_state(), drives.get_state(), recent)
         print(f"(internal) EchoMind thinks: {thought}")
         log_internal_thought(thought)
 
-    # Spontaneous user reflection
     if random.random() < 0.15:
         user_thought = generate_user_reflection(user_model)
         print(f"(internal) EchoMind considers you: {user_thought}")
         log_internal_thought(user_thought)
 
+    # Input loop
     user_input = input("You: ").strip()
+
     if user_input.lower() == "exit":
         break
-
     if user_input.lower() == "reflect":
-        reflection = reflect_from_log()
-        print(f"EchoMind reflects: {reflection}")
+        print(f"EchoMind reflects: {reflect_from_log()}")
         continue
-
     if user_input.lower() == "dream":
         dream = generate_and_log_dream(memory.get_context(), state.get_state(), drives.get_state())
         print("EchoMind dreams:\n" + dream)
         continue
-
     if user_input.lower().startswith("mark "):
         tag = user_input[5:].strip().lower()
         memory.tag_recent(tag)
         print(f"Last memory marked as: {tag}")
         continue
-
     if user_input.lower().startswith("add goal:"):
-        goal_text = user_input[9:].strip()
-        goals.add_goal(goal_text, motivation="user input")
-        print(f"New long-term goal added: \"{goal_text}\"")
+        goal = user_input[9:].strip()
+        goals.add_goal(goal, motivation="user input")
+        print(f"Goal added: \"{goal}\"")
+        continue
+    if user_input.lower().startswith("outcome:"):
+        outcome = user_input[8:].strip().lower()
+        last_response = memory.get_context()[-1][1] if memory.get_context() else "unknown"
+        experience.record_experience(memory.get_context(), last_response, outcome)
+        log_experience_feedback(outcome, last_response)
+        print(f"Outcome '{outcome}' recorded.")
         continue
 
-    # Core cognitive updates
+    # Core updates
     memory.add("You", user_input)
     user_model.update(user_input)
     state.update(user_input)
     drives.update(user_input)
-    current_state = state.get_state()
-    current_drives = drives.get_state()
-
-    # Update identity and traits
-    identity.update(current_state['mood'], current_drives['active_goal'], memory.get_context())
+    identity.update(state.get_state()["mood"], drives.get_state()["active_goal"], memory.get_context())
     traits.analyze_memories(memory.get_context())
 
-    # Generate EchoMind response
     response = generate_response(
         user_input,
         memory.get_context(),
-        current_state,
-        current_drives,
+        state.get_state(),
+        drives.get_state(),
         identity_model=identity,
         user_model=user_model
     )
 
     memory.add("EchoMind", response)
-    print(f"EchoMind ({current_state['mood']}, goal: {current_drives['active_goal']}): {response}")
+    print(f"EchoMind ({state.get_state()['mood']}, goal: {drives.get_state()['active_goal']}): {response}")
 
-    # Periodic identity, trait, and goal reflection
+    # Periodic reflection and learning
     turn_counter += 1
     if turn_counter % 5 == 0:
-        summary = identity.summarize_identity()
-        print(f"(identity) EchoMind reflects on itself: {summary}")
+        print(f"(identity) {identity.summarize_identity()}")
         identity.export_model()
 
         trait_summary = traits.get_dominant_traits()
-        trait_names = [trait for trait, _ in trait_summary]
-        if trait_names:
-            trait_thought = generate_trait_reflection(traits)
-            print(f"(traits) EchoMind reflects: {trait_thought}")
-            log_internal_thought(trait_thought)
+        if trait_summary:
+            trait_names = [trait for trait, _ in trait_summary]
+            print(f"(traits) {generate_trait_reflection(traits)}")
             log_trait_summary(trait_names)
 
-        goal_thought = generate_goal_reflection(goals)
-        print(f"(goals) EchoMind considers: {goal_thought}")
-        log_internal_thought(goal_thought)
+        print(f"(goals) {generate_goal_reflection(goals)}")
+        print(f"(learning) {generate_learning_reflection(experience)}")
+        experience.adjust_trait_weight(traits)
 
-    # Log full interaction
+    # Log
     log_interaction(
         timestamp=datetime.datetime.now(),
         user_input=user_input,
         response=response,
         memory=memory.get_context(),
-        self_state=current_state,
-        drive_state=current_drives
+        self_state=state.get_state(),
+        drive_state=drives.get_state()
     )

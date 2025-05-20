@@ -54,3 +54,12 @@ def log_trait_summary(traits, path="logs/traits.log"):
             f.write(f"\n[{timestamp}] Trait Summary: {', '.join(traits)}\n")
     except Exception as e:
         print(f"Trait logging error: {e}")
+
+
+def log_experience_feedback(outcome, response, log_path="logs/experience.log"):
+    try:
+        timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        with open(log_path, "a", encoding="utf-8") as f:
+            f.write(f"\n[{timestamp}] Outcome: {outcome} | Response: {response}\n")
+    except Exception as e:
+        print(f"Experience logging error: {e}")
