@@ -44,7 +44,61 @@ language = LanguageModel()
 # Setup multimodal input router
 input_router = InputRouter()
 
-# Curiosity queue for background LLM enrichment
+# === Automation Threads ===
+
+def automatic_reflection_loop():
+    from introspector import reflect_from_log
+    while True:
+        time.sleep(180)
+        mood = state.get_state().get("mood", "")
+        if "tired" in mood or "sad" in mood or random.random() < 0.3:
+            print("(reflection) EchoMind reflects:", reflect_from_log())
+
+def automatic_value_introspection_loop():
+    from dialogue import trace_user_intent
+    while True:
+        time.sleep(240)
+        print("(introspection) EchoMind considers what matters...")
+        print("(inference)", trace_user_intent(language))
+
+def automatic_memory_tagging():
+    while True:
+        time.sleep(60)
+        last = memory.get_context()[-1] if memory.get_context() else None
+        if last and any(kw in last[1].lower() for kw in ["remember", "important", "note this"]):
+            memory.tag_recent("important")
+            print("(memory) Tagged last memory as important")
+
+def automatic_outcome_inference(user_input):
+    outcome_map = {
+        "worked": "success",
+        "succeeded": "success",
+        "glad": "success",
+        "happy": "success",
+        "failed": "failure",
+        "didn't work": "failure",
+        "regret": "failure",
+        "angry": "failure"
+    }
+    for phrase, outcome in outcome_map.items():
+        if phrase in user_input.lower():
+            last_response = memory.get_context()[-1][1] if memory.get_context() else "unknown"
+            experience.record_experience(memory.get_context(), last_response, outcome)
+            log_experience_feedback(outcome, last_response)
+            print(f"(experience) Inferred and recorded outcome: {outcome}")
+            break
+
+def detect_goal_statement(user_input):
+    triggers = ["i want to", "i will", "my goal is", "i plan to"]
+    for t in triggers:
+        if t in user_input.lower():
+            goal_text = user_input[user_input.lower().find(t):]
+            goals.add_goal(goal_text, motivation="inferred")
+            print(f"(goal) Inferred and added goal: '{goal_text}'")
+            break
+
+# === Curiosity Enrichment ===
+
 curiosity_queue = []
 
 def process_curiosity_queue():
@@ -65,20 +119,22 @@ def process_curiosity_queue():
             language.enrich_word(word, explanation)
         time.sleep(2)
 
+# === Autonomous Dreaming ===
+
 def autonomous_dream_loop():
     from dreams import generate_and_log_dream
     while True:
         sleep_time = 90
         mood = state.get_state().get("mood", "")
         boredom = drives.get_state().get("boredom", 0)
-
         if "sad" in mood or "tired" in mood or boredom > 5:
             sleep_time = 45
-
         time.sleep(sleep_time)
         print("(dreaming) EchoMind enters a dream-like state...")
         dream = generate_and_log_dream(memory.get_context(), state.get_state(), drives.get_state())
         print("EchoMind dreams:\n" + dream)
+
+# === Input Handler ===
 
 def handle_text_input(signal):
     from llm_interface import generate_from_context
@@ -98,6 +154,9 @@ def handle_text_input(signal):
 
     user_input = signal.data.strip()
     global turn_counter
+
+    detect_goal_statement(user_input)
+    automatic_outcome_inference(user_input)
 
     if user_input.lower() == "exit":
         exit()
@@ -134,7 +193,6 @@ def handle_text_input(signal):
         print(f"(lexicon) {summary}")
         return
 
-    words = user_input.strip().lower().split()
     for word in words:
         if word.isalpha() and (word not in language.lexicon or "llm_context" not in language.lexicon[word]):
             curiosity_queue.append(word)
@@ -191,7 +249,7 @@ input_router.register("text", handle_text_input)
 print("EchoMind v0.14 | Type 'exit' to quit, 'reflect' to introspect, 'dream' to dream.")
 print("Try: 'mark important', 'add goal: ...', 'outcome: ...', or ask 'what matters to me?'\n")
 
-# Background thread for lexicon logging
+# Start background threads
 def lexicon_autolog():
     while True:
         log_lexicon_snapshot(language)
@@ -200,10 +258,13 @@ def lexicon_autolog():
 threading.Thread(target=lexicon_autolog, daemon=True).start()
 threading.Thread(target=process_curiosity_queue, daemon=True).start()
 threading.Thread(target=autonomous_dream_loop, daemon=True).start()
+threading.Thread(target=automatic_reflection_loop, daemon=True).start()
+threading.Thread(target=automatic_value_introspection_loop, daemon=True).start()
+threading.Thread(target=automatic_memory_tagging, daemon=True).start()
 
 turn_counter = 0
 
-# Main input loop (text for now, extensible)
+# Main input loop
 while True:
     user_input = input("You: ")
     signal = InputSignal(source="user", modality="text", data=user_input)
