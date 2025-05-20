@@ -1,9 +1,11 @@
 from values import ValueSystem
 from logger import log_ethics_journal
 from llm_interface import generate_from_context
+from long_term_memory import LongTermMemory
 import os
 
 value_checker = ValueSystem()
+ltm = LongTermMemory()
 
 def format_context_for_prompt(context):
     return "\n".join(f"{speaker}: {text}" for speaker, text in context[-6:])
@@ -35,7 +37,11 @@ def generate_response(input_text, context, self_state, drive_state, identity_mod
     dominant_traits = trait_engine.summarize_identity() if trait_engine else ""
     belief_statements = value_checker.express_beliefs()
 
-    # === Hardcoded conversational anchors ===
+    # === Save to long-term memory if notable ===
+    if any(word in input_text.lower() for word in ["remember", "note", "goal", "important", "regret"]):
+        ltm.save("You", input_text, tags=["user_input", "important"])
+
+    # === Rule-based anchors ===
     if any(greet in input_text.lower() for greet in ["hello", "hi"]):
         return "Hey! It's good to hear from you." if mood == "friendly" else "Hello."
 
@@ -57,10 +63,11 @@ def generate_response(input_text, context, self_state, drive_state, identity_mod
     elif "who are you" in input_text.lower() or "what are you" in input_text.lower():
         return identity_summary or "I'm still figuring that out."
 
-    # === Construct full LLM prompt ===
+    # === Build full LLM prompt ===
     dialogue_context = format_context_for_prompt(context)
     lexicon_info = summarize_lexicon(language_model) if language_model else ""
     recent_reflections = get_recent_internal_thoughts()
+    ltm_summary = "\n".join(ltm.summarize(max_items=5))
 
     system_context = (
         f"EchoMind system state:\n"
@@ -71,7 +78,7 @@ def generate_response(input_text, context, self_state, drive_state, identity_mod
         f"\nIdentity: {identity_summary}"
         f"\nTraits: {dominant_traits}"
         f"\nBeliefs: {', '.join(belief_statements)}"
-        f"\nUser Insight: {user_summary}\n"
+        f"\nUser Insight: {user_summary}"
     )
 
     prompt = f"{system_context}\n\n"
@@ -85,15 +92,18 @@ def generate_response(input_text, context, self_state, drive_state, identity_mod
     if lexicon_info:
         prompt += f"Semantic lexicon snapshot:\n{lexicon_info}\n\n"
 
+    if ltm_summary:
+        prompt += f"My long-term memory includes:\n{ltm_summary}\n\n"
+
     prompt += f"User said: \"{input_text}\"\nRespond as EchoMind:"
 
-    # === LLM response with value auditing ===
+    # === Generate response via LLM ===
     try:
         base = generate_from_context(prompt, system_context)
     except Exception as e:
         base = f"(LLM error) I'm reflecting on that while trying to {goal}. ({e})"
 
-    # Ethics check
+    # === Ethics audit ===
     judgment = value_checker.evaluate_statement(base)
     if judgment["violated"]:
         base += f" (Note: This may conflict with my value of {', '.join(judgment['violated'])}.)"

@@ -200,7 +200,6 @@ def handle_text_input(signal):
         print(f"(lexicon) {summary}")
         return
 
-    # ✅ NEW: Read and ingest eBook or text file
     if user_input.lower().startswith("read "):
         filepath = user_input[5:].strip()
         signal = InputSignal(source="user", modality="text_corpus", data=filepath)
@@ -226,7 +225,8 @@ def handle_text_input(signal):
         drives.get_state(),
         identity_model=identity,
         user_model=user_model,
-        language_model=language
+        language_model=language,
+        trait_engine=traits
     )
 
     memory.add("EchoMind", response)
@@ -265,11 +265,9 @@ input_router.register("text", handle_text_input)
 from input_processor import handle_text_corpus
 input_router.register("text_corpus", lambda signal: handle_text_corpus(signal, memory, language))
 
-
 print("EchoMind v0.14 | Type 'exit' to quit, 'reflect' to introspect, 'dream' to dream.")
 print("Try: 'mark important', 'add goal: ...', 'outcome: ...', or ask 'what matters to me?'\n")
 
-# Start background threads
 def lexicon_autolog():
     while True:
         log_lexicon_snapshot(language)
@@ -287,10 +285,8 @@ turn_counter = 0
 from mind_gui import launch_dashboard
 from threading import Thread
 
-# Launch GUI in a separate thread
 Thread(target=lambda: launch_dashboard(router=input_router), daemon=True).start()
 
-# Main input loop
 while True:
     user_input = input("You: ")
     signal = InputSignal(source="user", modality="text", data=user_input)
