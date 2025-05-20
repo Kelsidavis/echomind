@@ -29,6 +29,7 @@ class WordProfile:
 class LanguageModel:
     def __init__(self):
         self.vocab = defaultdict(WordProfile)
+        self.lexicon = {}  # For LLM-derived insights
 
     def process_sentence(self, sentence, speaker="You", mood=None):
         words = [w.strip(".,!?").lower() for w in sentence.split()]
@@ -45,11 +46,19 @@ class LanguageModel:
 
         for word in words:
             self.vocab[word].update(sentence, speaker=speaker, tags=tags, mood=mood)
+            # Count usage for lexicon if not already
+            if word not in self.lexicon:
+                self.lexicon[word] = {"count": 1, "emotion": "neutral", "goal": None}
+            else:
+                self.lexicon[word]["count"] += 1
 
     def get_word_summary(self, word):
         word = word.lower()
         if word in self.vocab:
-            return self.vocab[word].summarize()
+            summary = self.vocab[word].summarize()
+            if word in self.lexicon and "llm_context" in self.lexicon[word]:
+                summary["llm_context"] = self.lexicon[word]["llm_context"]
+            return summary
         return {"error": "Word not seen yet"}
 
     def get_known_words(self):
