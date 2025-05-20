@@ -44,25 +44,36 @@ language = LanguageModel()
 # Setup multimodal input router
 input_router = InputRouter()
 
-def handle_text_input(signal):
-    # Step 1: LLM-based understanding of unknown or emotionally flat words
+# Curiosity queue for background LLM enrichment
+curiosity_queue = []
+
+def process_curiosity_queue():
     from llm_interface import generate_from_context
     from context_builder import build_lexicon_context
 
-    words = signal.data.strip().lower().split()
-    context = build_lexicon_context(language.lexicon)
-
-    for word in words:
-        if word.isalpha() and word not in language.lexicon:
-            print(f"(curiosity) EchoMind is learning about '{word}'...")
+    while True:
+        if curiosity_queue:
+            word = curiosity_queue.pop(0)
+            if word in language.lexicon and "llm_context" in language.lexicon[word]:
+                continue  # Already enriched
+            print(f"(curiosity) EchoMind is reflecting on '{word}'...")
+            context = build_lexicon_context(language.lexicon)
             explanation = generate_from_context(
                 f"What does the word '{word}' mean emotionally and purposefully?", context
             )
             print(f"(LLM insight) {word}: {explanation}")
             language.enrich_word(word, explanation)
+        time.sleep(2)
 
+def handle_text_input(signal):
     user_input = signal.data.strip()
     global turn_counter
+
+    # Queue novel or vague words for enrichment
+    words = user_input.lower().split()
+    for word in words:
+        if word.isalpha() and (word not in language.lexicon or "llm_context" not in language.lexicon[word]):
+            curiosity_queue.append(word)
 
     if user_input.lower() == "exit":
         exit()
@@ -158,6 +169,9 @@ def lexicon_autolog():
         time.sleep(10)
 
 threading.Thread(target=lexicon_autolog, daemon=True).start()
+
+# Background thread for curiosity processing
+threading.Thread(target=process_curiosity_queue, daemon=True).start()
 
 turn_counter = 0
 
