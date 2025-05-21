@@ -123,7 +123,7 @@ def generate_response(input_text, context, self_state, drive_state, identity_mod
 
     # Save to long-term memory if notable
     if any(word in input_text.lower() for word in ["remember", "note", "goal", "important", "regret"]):
-        ltm.save("You", input_text, tags=["user_input", "important"])
+        ltm.save("You", input_text, tags=["user_input"])
 
     # Intercept reflective book question
     if "what do you think" in input_text.lower() and "book" in input_text.lower():
