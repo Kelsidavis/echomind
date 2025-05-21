@@ -27,10 +27,11 @@ Each module runs synchronously inside a loop driven by `echomind.py`, simulating
 
 ```
 input ➜ memory ➜ internal state ➜ prompt builder
-       ⬃            ⬃
-dream engine   ethical feedback
-       ⬃            ⬃
-      LLM ➜ filtered response ➜ memory update ➜ output
+       ⇵       ⇅         ⇵
+     dreams   drives   ethics
+            ⇵         ⇵
+         LLM ➜ filtered response ➜ memory update ➜ output
+
 ```
 
 ---
