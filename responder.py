@@ -182,15 +182,17 @@ def generate_response(input_text, context, self_state, drive_state, identity_mod
     try:
         raw_output = generate_from_context(prompt, system_context)
 
-        # Get only the part after "Respond as EchoMind:"
-        if "Respond as EchoMind:" in raw_output:
-            response = raw_output.split("Respond as EchoMind:")[-1]
+        # Get only the part after the response marker
+        if "EchoMind responds sincerely:" in raw_output:
+            response = raw_output.split("EchoMind responds sincerely:")[-1]
         else:
-            response = raw_output  # fallback in case format changes
+            response = raw_output.strip()
 
-        # Filter out accidental prompt echoes
+        # Log raw for debugging
+        with open("logs/debug_llm.log", "a", encoding="utf-8") as f:
+            f.write(f"\n=== RAW OUTPUT @ {datetime.datetime.now()} ===\n{raw_output}\n")
+
         # Filter out hallucinated speaker labels and repeated noise
-        print("RAW LLM OUTPUT:\n", response)
         filtered_lines = []
         for line in response.strip().splitlines():
             line = line.strip()
@@ -198,7 +200,7 @@ def generate_response(input_text, context, self_state, drive_state, identity_mod
                 line.startswith(("You:", "EchoMind:", "Users say:", "Q:", "A:", "B:", "C:", "D:", "E:", "User said:"))
                 or "system state" in line.lower()
                 or re.match(r"^[A-Z]:", line)
-                or line.startswith("- ")  # bullet-point hallucinations
+                or line.startswith("- ")
             ):
                 continue
             if len(line) < 3:
@@ -206,32 +208,33 @@ def generate_response(input_text, context, self_state, drive_state, identity_mod
             filtered_lines.append(line)
 
         base = "\n".join(filtered_lines).strip()
-        # Avoid repeating same response as previous EchoMind utterance
+
+        # If no usable output but raw exists, salvage first decent line
+        if not base and raw_output.strip():
+            fallback_line = raw_output.strip().splitlines()[0].strip()
+            if len(fallback_line) > 3:
+                base = fallback_line
+
+        # Avoid repeating last EchoMind utterance
         if context and len(context) >= 2:
             last_response = context[-1][1].strip().lower()
             if base.strip().lower() == last_response:
                 base = "Hmm, I think I already said that. Can you ask me in a different way?"
 
-
         if not base:
             base = "(no response)"
 
-        # Final trim: remove closing quote if it's an isolated sentence in quotes
         if base.startswith('"') and base.endswith('"') and len(base) > 2:
             base = base[1:-1].strip()
 
-        # Return only the first sentence if multiple are present
         if '.' in base:
             base = base.split('.')[0].strip() + '.'
 
-        # Prevent generic or survey-style preambles
         if base.lower().startswith("the two most common responses") or base.lower().startswith("in this case"):
             base = "(no response)"
 
-
     except Exception as e:
         base = f"(LLM error) I'm reflecting on that while trying to {goal}. ({e})"
-
 
     # Filter GUI hallucinations
     gui_keywords = ["click", "right-click", "drag", "select", "menu", "toolbar", "save changes", "highlight"]
