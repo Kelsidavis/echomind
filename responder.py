@@ -183,6 +183,7 @@ def generate_response(input_text, context, self_state, drive_state, identity_mod
 
         # Filter out accidental prompt echoes
         # Filter out hallucinated speaker labels and repeated noise
+        print("RAW LLM OUTPUT:\n", response)
         filtered_lines = []
         for line in response.strip().splitlines():
             line = line.strip()
@@ -198,10 +199,17 @@ def generate_response(input_text, context, self_state, drive_state, identity_mod
             filtered_lines.append(line)
 
         base = "\n".join(filtered_lines).strip()
+        if not base:
+            base = "(no response)"
 
         # Final trim: remove closing quote if it's an isolated sentence in quotes
         if base.startswith('"') and base.endswith('"') and len(base) > 2:
             base = base[1:-1].strip()
+
+        # Return only the first sentence if multiple are present
+        if '.' in base:
+            base = base.split('.')[0].strip() + '.'
+
 
     except Exception as e:
         base = f"(LLM error) I'm reflecting on that while trying to {goal}. ({e})"
