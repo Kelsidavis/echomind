@@ -70,16 +70,16 @@ def generate_response(input_text, context, self_state, drive_state, identity_mod
     dominant_traits = trait_engine.summarize_identity() if trait_engine else ""
     belief_statements = value_checker.express_beliefs()
 
-    # === Save to long-term memory if notable ===
+    # Save to long-term memory if notable
     if any(word in input_text.lower() for word in ["remember", "note", "goal", "important", "regret"]):
         ltm.save("You", input_text, tags=["user_input", "important"])
 
-    # === Try rule-based response first ===
+    # Rule-based response shortcut
     rule_response = get_rule_based_response(input_text, mood, goal, self_state, identity_summary, user_summary)
     if rule_response:
         return rule_response
 
-    # === Compose LLM prompt ===
+    # Compose LLM prompt
     dialogue_context = format_context_for_prompt(context)
     lexicon_info = summarize_lexicon(language_model) if language_model else ""
     recent_reflections = get_recent_internal_thoughts()
@@ -108,19 +108,16 @@ def generate_response(input_text, context, self_state, drive_state, identity_mod
 
     if dialogue_context:
         prompt += f"Recent conversation:\n{dialogue_context}\n\n"
-
     if recent_reflections:
         prompt += "Recent internal reflections:\n" + "\n".join(f"- {line}" for line in recent_reflections) + "\n\n"
-
     if lexicon_info:
         prompt += f"Semantic lexicon snapshot:\n{lexicon_info}\n\n"
-
     if ltm_summary:
         prompt += f"My long-term memory includes:\n{ltm_summary}\n\n"
 
     prompt += f"User said: \"{input_text}\"\nRespond as EchoMind:"
 
-    # === Generate LLM response ===
+    # Generate from LLM
     try:
         raw_output = generate_from_context(prompt, system_context)
         base = raw_output.split("Respond as EchoMind:")[-1].strip()
@@ -129,12 +126,12 @@ def generate_response(input_text, context, self_state, drive_state, identity_mod
     except Exception as e:
         base = f"(LLM error) I'm reflecting on that while trying to {goal}. ({e})"
 
-    # === Hallucination filtering ===
+    # Filter GUI hallucinations
     gui_keywords = ["click", "right-click", "drag", "select", "menu", "toolbar", "save changes", "highlight"]
     if any(keyword in base.lower() for keyword in gui_keywords):
         base = "That sounds like something you'd do in a user interface, which I don't access. But I’d love to talk about it!"
 
-    # === Ethics audit ===
+    # Ethics audit
     if base.strip():
         judgment = value_checker.evaluate_statement(base)
         if judgment["violated"]:
