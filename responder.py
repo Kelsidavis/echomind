@@ -1,5 +1,7 @@
 import os
 import re
+from textblob import TextBlob
+
 from values import ValueSystem
 from logger import log_ethics_journal
 from llm_interface import generate_from_context
@@ -10,6 +12,52 @@ ltm = LongTermMemory()
 
 def contains_whole_word(text, words):
     return any(re.search(rf'\b{re.escape(word)}\b', text) for word in words)
+
+def deduplicate_memory(memory_buffer):
+    seen = set()
+    filtered = []
+    for speaker, msg in memory_buffer:
+        key = (speaker, msg.strip())
+        if key not in seen:
+            seen.add(key)
+            filtered.append((speaker, msg))
+    return filtered
+
+def evaluate_book_from_memory(ltm, value_checker):
+    """
+    Analyze ingested text (e.g., from a book) and reflect based on tone and values.
+    """
+    try:
+        with open("logs/book_ingest.log", "r", encoding="utf-8") as f:
+            book_text = f.read()[-5000:]  # Last 5000 chars of last ingested book
+    except:
+        return "I can't reflect without remembering the book's content."
+
+    blob = TextBlob(book_text)
+    polarity = blob.sentiment.polarity
+
+    if polarity > 0.3:
+        tone = "hopeful and imaginative"
+    elif polarity < -0.3:
+        tone = "bleak and unsettling"
+    else:
+        tone = "philosophical"
+
+    judgment = value_checker.evaluate_statement(book_text)
+    aligned = judgment.get("aligned", [])
+    violated = judgment.get("violated", [])
+
+    response = f"I found the book to be {tone}. "
+    if aligned:
+        response += f"It resonated with values like {', '.join(aligned)}. "
+    if violated:
+        response += f"It challenged my values around {', '.join(violated)}. "
+
+    # Contradiction reflection
+    if "like the book" in book_text.lower() and "not a good book" in book_text.lower():
+        response += " I'm conflicted—it had interesting ideas, but something about the execution felt lacking."
+
+    return response.strip()
 
 def get_rule_based_response(input_text, mood, goal, self_state, identity_summary, user_mood):
     input_text_lower = input_text.lower()
@@ -70,9 +118,16 @@ def generate_response(input_text, context, self_state, drive_state, identity_mod
     dominant_traits = trait_engine.summarize_identity() if trait_engine else ""
     belief_statements = value_checker.express_beliefs()
 
+    # Deduplicate context
+    context = deduplicate_memory(context)
+
     # Save to long-term memory if notable
     if any(word in input_text.lower() for word in ["remember", "note", "goal", "important", "regret"]):
         ltm.save("You", input_text, tags=["user_input", "important"])
+
+    # Intercept reflective book question
+    if "what do you think" in input_text.lower() and "book" in input_text.lower():
+        return evaluate_book_from_memory(ltm, value_checker)
 
     # Rule-based response shortcut
     rule_response = get_rule_based_response(input_text, mood, goal, self_state, identity_summary, user_summary)
