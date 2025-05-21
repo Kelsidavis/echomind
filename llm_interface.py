@@ -35,7 +35,14 @@ def generate_from_context(prompt: str, lexicon_context: str, max_tokens=100) -> 
         if len(line) < 3:
             continue
         clean_lines.append(line)
-        if len(clean_lines) >= 1:  # Only the first clean line
+        if len(clean_lines) >= 1:
             break
 
-    return clean_lines[0] if clean_lines else "(no response)"
+    # Final trim: return only the first sentence from the clean line
+    if clean_lines:
+        sentence = clean_lines[0]
+        if '.' in sentence:
+            sentence = sentence.split('.')[0] + '.'
+        return sentence.strip()
+
+    return "(no response)"

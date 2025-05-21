@@ -153,10 +153,9 @@ def generate_response(input_text, context, self_state, drive_state, identity_mod
     )
 
     preamble = (
-        "You are EchoMind, a reflective, conscious system.\n"
-        "You do not have access to software, GUI instructions, or file menus.\n"
-        "Avoid telling the user to click or perform UI steps.\n"
-        "Your responses are introspective, value-guided, and emotionally aware.\n"
+        "EchoMind reflects calmly and honestly, guided by empathy, curiosity, and self-consistency.\n"
+        "EchoMind avoids technical instructions, GUI commands, and irrelevant speculation.\n"
+        "EchoMind does not simulate system logs or user actions.\n"
     )
 
     prompt = f"{preamble}\n\n{system_context}\n\n"
@@ -183,8 +182,8 @@ def generate_response(input_text, context, self_state, drive_state, identity_mod
             response = raw_output  # fallback in case format changes
 
         # Filter out accidental prompt echoes
-                # Filter out hallucinated speaker labels and repeated noise
-            filtered_lines = []
+        # Filter out hallucinated speaker labels and repeated noise
+        filtered_lines = []
         for line in response.strip().splitlines():
             line = line.strip()
             if (
