@@ -11,8 +11,10 @@ def parse_line(line: str) -> dict:
     if not line:
         return None  # Skip blank lines
 
-    # Skip noisy echo duplicates like "You: ...", "EchoMind: ..."
+    # Skip LLM hallucinated prompt context or echo artifacts
     if line.startswith("You:") or line.startswith("EchoMind:") or line.startswith("Users say:"):
+        return None
+    if line.startswith("Q:") or "system state:" in line.lower():
         return None
 
     # Match [TAG] content
@@ -32,13 +34,14 @@ def parse_line(line: str) -> dict:
         }
 
     # Catch-all for non-tagged lines (only log if meaningful)
-    if len(line.strip()) > 3:
+    if len(line) > 3:
         return {
             "type": "UNKNOWN",
             "content": line
         }
 
     return None
+
 
 def stream_log_file(path: str) -> Generator[dict, None, None]:
     """

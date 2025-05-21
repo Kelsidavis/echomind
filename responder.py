@@ -172,19 +172,36 @@ def generate_response(input_text, context, self_state, drive_state, identity_mod
 
     prompt += f"User said: \"{input_text}\"\nRespond as EchoMind:"
 
-    # Generate from LLM
+        # Generate from LLM
     try:
         raw_output = generate_from_context(prompt, system_context)
-        # Extract only the LLM's final answer
-        response_lines = raw_output.split("Respond as EchoMind:")[-1].strip().splitlines()
-        base = "\n".join([
-            line.strip() for line in response_lines
-            if line.strip() and not line.startswith("You:") and not line.startswith("EchoMind:")
-        ])
+
+        # Get only the part after "Respond as EchoMind:"
+        if "Respond as EchoMind:" in raw_output:
+            response = raw_output.split("Respond as EchoMind:")[-1]
+        else:
+            response = raw_output  # fallback in case format changes
+
+        # Filter out accidental prompt echoes
+        filtered_lines = []
+        for line in response.strip().splitlines():
+            line = line.strip()
+            if line.startswith("Q:") or "EchoMind system state:" in line or line.startswith("- "):
+                continue  # system context leakage
+            if line.startswith("You:") or line.startswith("EchoMind:"):
+                continue  # dialogue echo
+            if line:
+                filtered_lines.append(line)
+
+        base = "\n".join(filtered_lines).strip()
+
+        # Clean prefix like "A:" or "Answer:"
         if base.lower().startswith("a:"):
             base = base[2:].strip()
+
     except Exception as e:
         base = f"(LLM error) I'm reflecting on that while trying to {goal}. ({e})"
+
 
     # Filter GUI hallucinations
     gui_keywords = ["click", "right-click", "drag", "select", "menu", "toolbar", "save changes", "highlight"]
