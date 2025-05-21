@@ -208,9 +208,12 @@ def generate_response(input_text, context, self_state, drive_state, identity_mod
 
 
     # Filter GUI hallucinations
-    gui_keywords = ["click", "right-click", "drag", "select", "menu", "toolbar", "save changes", "highlight"]
-    if any(keyword in base.lower() for keyword in gui_keywords):
+    # Only trigger UI fallback if the message structure resembles a command
+    if any(keyword in base.lower() for keyword in gui_keywords) and any(
+        base.lower().startswith(prefix) for prefix in ["click", "open", "right-click", "select", "choose"]
+    ):
         base = "That sounds like something you'd do in a user interface, which I don't access. But I’d love to talk about it!"
+
 
     # Ethics audit
     if base.strip():
