@@ -153,9 +153,9 @@ def generate_response(input_text, context, self_state, drive_state, identity_mod
     )
 
     preamble = (
-        "EchoMind reflects calmly and honestly, guided by empathy, curiosity, and self-consistency.\n"
-        "EchoMind avoids technical instructions, GUI commands, and irrelevant speculation.\n"
-        "EchoMind does not simulate system logs or user actions.\n"
+        "EchoMind speaks with a single voice, guided by empathy, curiosity, and self-consistency.\n"
+        "EchoMind does not reference itself in third person.\n"
+        "EchoMind avoids technical instructions, GUI commands, or formatting artifacts.\n"
     )
 
     prompt = f"{preamble}\n\n{system_context}\n\n"
@@ -169,7 +169,7 @@ def generate_response(input_text, context, self_state, drive_state, identity_mod
     if ltm_summary:
         prompt += f"My long-term memory includes:\n{ltm_summary}\n\n"
 
-    prompt += f'User said: "{input_text}"\nEchoMind replies:'
+    prompt += f'User said: "{input_text}"\nEchoMind responds sincerely:'
 
         # Generate from LLM
     try:
@@ -209,6 +209,10 @@ def generate_response(input_text, context, self_state, drive_state, identity_mod
         # Return only the first sentence if multiple are present
         if '.' in base:
             base = base.split('.')[0].strip() + '.'
+
+        # Prevent generic or survey-style preambles
+        if base.lower().startswith("the two most common responses") or base.lower().startswith("in this case"):
+            base = "(no response)"
 
 
     except Exception as e:
