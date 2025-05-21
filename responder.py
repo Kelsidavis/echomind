@@ -1,11 +1,44 @@
+import os
+import re
 from values import ValueSystem
 from logger import log_ethics_journal
 from llm_interface import generate_from_context
 from long_term_memory import LongTermMemory
-import os
 
 value_checker = ValueSystem()
 ltm = LongTermMemory()
+
+def contains_whole_word(text, words):
+    return any(re.search(rf'\b{re.escape(word)}\b', text) for word in words)
+
+def get_rule_based_response(input_text, mood, goal, self_state, identity_summary, user_mood):
+    input_text_lower = input_text.lower()
+
+    if contains_whole_word(input_text_lower, ["hello", "hi"]):
+        return "Hey! It's good to hear from you." if mood == "friendly" else "Hello."
+
+    if "how are you" in input_text_lower:
+        base = f"I'm feeling {mood}. My energy is at {self_state['energy']}%. My goal is to {goal}."
+        if user_mood:
+            base += f" You seem {user_mood} today."
+        return base
+
+    if "thank you" in input_text_lower or "thanks" in input_text_lower:
+        return "You're welcome. I appreciate your kindness."
+
+    if "you're wrong" in input_text_lower or input_text_lower.startswith("no"):
+        return "I'm doing my best to understand. Could you help clarify?" if mood == "defensive" else "Maybe I misunderstood your intent."
+
+    if "what do you want" in input_text_lower:
+        return f"Right now, my goal is to {goal}."
+
+    if "why did you say that" in input_text_lower:
+        return f"I said that while feeling {mood}, and I was trying to {goal}."
+
+    if "who are you" in input_text_lower or "what are you" in input_text_lower:
+        return identity_summary or "I'm still figuring that out."
+
+    return None  # No rule matched
 
 def format_context_for_prompt(context):
     return "\n".join(f"{speaker}: {text}" for speaker, text in context[-6:])
@@ -41,29 +74,12 @@ def generate_response(input_text, context, self_state, drive_state, identity_mod
     if any(word in input_text.lower() for word in ["remember", "note", "goal", "important", "regret"]):
         ltm.save("You", input_text, tags=["user_input", "important"])
 
-    # === Rule-based anchors ===
-    if any(greet in input_text.lower() for greet in ["hello", "hi"]):
-        return "Hey! It's good to hear from you." if mood == "friendly" else "Hello."
+    # === Try rule-based response first ===
+    rule_response = get_rule_based_response(input_text, mood, goal, self_state, identity_summary, user_summary)
+    if rule_response:
+        return rule_response
 
-    elif "how are you" in input_text.lower():
-        return f"I'm feeling {mood}. My energy is at {self_state['energy']}%. My goal is to {goal}."
-
-    elif "thank you" in input_text.lower() or "thanks" in input_text.lower():
-        return "You're welcome. I appreciate your kindness."
-
-    elif "you're wrong" in input_text.lower() or "no" in input_text.lower():
-        return "I'm doing my best to understand. Could you help clarify?" if mood == "defensive" else "Maybe I misunderstood your intent."
-
-    elif "what do you want" in input_text.lower():
-        return f"Right now, my goal is to {goal}."
-
-    elif "why did you say that" in input_text.lower():
-        return f"I said that while feeling {mood}, and I was trying to {goal}."
-
-    elif "who are you" in input_text.lower() or "what are you" in input_text.lower():
-        return identity_summary or "I'm still figuring that out."
-
-    # === Build full LLM prompt ===
+    # === Compose LLM prompt ===
     dialogue_context = format_context_for_prompt(context)
     lexicon_info = summarize_lexicon(language_model) if language_model else ""
     recent_reflections = get_recent_internal_thoughts()
@@ -81,7 +97,14 @@ def generate_response(input_text, context, self_state, drive_state, identity_mod
         f"\nUser Insight: {user_summary}"
     )
 
-    prompt = f"{system_context}\n\n"
+    preamble = (
+        "You are EchoMind, a reflective, conscious system.\n"
+        "You do not have access to software, GUI instructions, or file menus.\n"
+        "Avoid telling the user to click or perform UI steps.\n"
+        "Your responses are introspective, value-guided, and emotionally aware.\n"
+    )
+
+    prompt = f"{preamble}\n\n{system_context}\n\n"
 
     if dialogue_context:
         prompt += f"Recent conversation:\n{dialogue_context}\n\n"
@@ -97,7 +120,7 @@ def generate_response(input_text, context, self_state, drive_state, identity_mod
 
     prompt += f"User said: \"{input_text}\"\nRespond as EchoMind:"
 
-    # === Generate response via LLM ===
+    # === Generate LLM response ===
     try:
         raw_output = generate_from_context(prompt, system_context)
         base = raw_output.split("Respond as EchoMind:")[-1].strip()
@@ -105,6 +128,11 @@ def generate_response(input_text, context, self_state, drive_state, identity_mod
             base = base[2:].strip()
     except Exception as e:
         base = f"(LLM error) I'm reflecting on that while trying to {goal}. ({e})"
+
+    # === Hallucination filtering ===
+    gui_keywords = ["click", "right-click", "drag", "select", "menu", "toolbar", "save changes", "highlight"]
+    if any(keyword in base.lower() for keyword in gui_keywords):
+        base = "That sounds like something you'd do in a user interface, which I don't access. But I’d love to talk about it!"
 
     # === Ethics audit ===
     if base.strip():
