@@ -184,13 +184,14 @@ def generate_response(input_text, context, self_state, drive_state, identity_mod
 
         # Filter out accidental prompt echoes
                 # Filter out hallucinated speaker labels and repeated noise
-        filtered_lines = []
+            filtered_lines = []
         for line in response.strip().splitlines():
             line = line.strip()
             if (
-                line.startswith(("You:", "EchoMind:", "Users say:", "Q:", "A:", "B:", "C:", "D:", "E:"))
+                line.startswith(("You:", "EchoMind:", "Users say:", "Q:", "A:", "B:", "C:", "D:", "E:", "User said:"))
                 or "system state" in line.lower()
-                or re.match(r"^[A-Z]:", line)  # single-letter hallucinations
+                or re.match(r"^[A-Z]:", line)
+                or line.startswith("- ")  # bullet-point hallucinations
             ):
                 continue
             if len(line) < 3:
@@ -199,9 +200,9 @@ def generate_response(input_text, context, self_state, drive_state, identity_mod
 
         base = "\n".join(filtered_lines).strip()
 
-        # Clean prefix like "A:" or "Answer:"
-        if base.lower().startswith("a:"):
-            base = base[2:].strip()
+        # Final trim: remove closing quote if it's an isolated sentence in quotes
+        if base.startswith('"') and base.endswith('"') and len(base) > 2:
+            base = base[1:-1].strip()
 
     except Exception as e:
         base = f"(LLM error) I'm reflecting on that while trying to {goal}. ({e})"
