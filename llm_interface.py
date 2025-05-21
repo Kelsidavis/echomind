@@ -30,12 +30,12 @@ def generate_from_context(prompt: str, lexicon_context: str, max_tokens=100) -> 
         if not line or line in seen:
             continue
         seen.add(line)
-        if line.startswith(("Q:", "A:", "B:", "User said:", "- ", "In response", "EchoMind:")):
+        if line.startswith(("Q:", "A:", "B:", "User said:", "- ", "In response", "EchoMind:", "[")):
             continue
         if len(line) < 3:
             continue
         clean_lines.append(line)
-        if len(clean_lines) >= 1:  # Only keep the first clean line
+        if len(clean_lines) >= 1:  # Only the first clean line
             break
 
     return clean_lines[0] if clean_lines else "(no response)"
