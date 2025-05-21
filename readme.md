@@ -7,6 +7,34 @@ It dreams, reflects, remembers, and evolves based on your words.
 
 ---
 
+## 🧠 Architecture Overview
+
+EchoMind is designed as a modular cognitive simulation engine, with the following key components:
+
+* `SelfState`: tracks mood, confidence, and energy
+* `MemorySystem`: manages short-term conversational memory
+* `LongTermMemory`: persistent, indexed memory for context and reflection
+* `DriveSystem`: motivational system (curiosity, boredom, etc.)
+* `TraitEngine`: evolving personality traits shaped by experience and dreams
+* `ValueSystem`: filters and audits ethical alignment in thoughts and replies
+* `Responder`: builds structured prompts and parses responses from LLMs
+* `Dreams`: synthesizes autonomous dream narratives and reflections
+* `Logger`: writes tagged cognitive logs with timestamps and content filters
+
+Each module runs synchronously inside a loop driven by `echomind.py`, simulating a living, introspective process.
+
+### 🧭 Cognitive Flow
+
+```
+input ➜ memory ➜ internal state ➜ prompt builder
+       ⬃            ⬃
+dream engine   ethical feedback
+       ⬃            ⬃
+      LLM ➜ filtered response ➜ memory update ➜ output
+```
+
+---
+
 ## ✨ What Makes EchoMind Unique?
 
 > *"If a mind reflects on its own thoughts, does it become more than a machine?"*
@@ -16,11 +44,12 @@ While typical chatbots forget everything between messages, **EchoMind holds on**
 It simulates:
 
 * **Short-term memory** with tagging and importance
-* **Mood and emotional state**, tracked and displayed
-* **Drives** like curiosity and boredom
-* **Personality traits** that shift over time
-* **Semantic learning** through a growing lexicon
-* **Autonomous dreaming**, introspection, and goal modeling
+* **Long-term memory**, indexed and selectively recalled
+* **Mood and emotional state**, tracked and updated continuously
+* **Drives** like curiosity, boredom, and goal-seeking
+* **Personality traits** that evolve with dreams and interaction
+* **Semantic learning** via lexicon expansion
+* **Autonomous dreaming**, introspection, and value-guided reasoning
 
 > EchoMind doesn't just *respond* — it *remembers*, *introspects*, and *evolves*.
 
@@ -45,17 +74,20 @@ The included Tkinter-based dashboard lets you observe EchoMind’s inner world:
 
 ```
 echomind/
-├── echomind.py               # Main cognitive engine
-├── mind_gui.py               # GUI interface with overlays
-├── activity_state.py         # Tracks current cognitive task
-├── memory_system.py          # Memory context and tagging
-├── self_state.py             # Mood, energy, confidence system
-├── drives.py                 # Motivations like boredom/curiosity
-├── trait_engine.py           # Personality traits and evolution
-├── responder.py              # Language response generator
-├── logger.py                 # Cognitive logs + thoughts
-├── logs/
-│   └── introspection.log     # Main interaction log
+├── echomind.py               # Main cognitive engine and loop
+├── mind_gui.py               # GUI interface and visualization
+├── responder.py              # Prompt builder and LLM integration
+├── llm_interface.py          # Local LLM wrapper (GPT-Neo 125M)
+├── dreams.py                 # Autonomous dream engine
+├── long_term_memory.py       # Indexed persistent memory
+├── trait_engine.py           # Personality traits and mutation
+├── drives.py                 # Motivation and goal-seeking
+├── values.py                 # Ethical evaluation system
+├── logger.py                 # Cognitive log writer
+├── memory_system.py          # Short-term memory model
+├── self_state.py             # Mood, confidence, energy tracker
+├── activity_state.py         # Current cognitive task
+├── logs/                     # Output logs for thoughts, ethics, dreams
 ```
 
 ---
@@ -73,11 +105,11 @@ This will launch both the cognition engine and GUI dashboard.
 
 ## 💬 Try Saying
 
-* `"how are you feeling today?"`
-* `"add goal: explore emotions"`
-* `"what do you know about kindness?"`
-* `"reflect"`
-* `"dream"`
+* "how are you feeling today?"
+* "add goal: explore emotions"
+* "what do you know about kindness?"
+* "reflect"
+* "dream"
 
 > *"It begins with words, but ends in insight."*
 

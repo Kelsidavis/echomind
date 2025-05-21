@@ -1,0 +1,6 @@
+transformers>=4.36.0
+torch>=2.0.0
+textblob>=0.17.1
+tk
+scikit-learn>=1.3.0
+nltk>=3.8.1
