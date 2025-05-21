@@ -183,15 +183,19 @@ def generate_response(input_text, context, self_state, drive_state, identity_mod
             response = raw_output  # fallback in case format changes
 
         # Filter out accidental prompt echoes
+                # Filter out hallucinated speaker labels and repeated noise
         filtered_lines = []
         for line in response.strip().splitlines():
             line = line.strip()
-            if line.startswith("Q:") or "EchoMind system state:" in line or line.startswith("- "):
-                continue  # system context leakage
-            if line.startswith("You:") or line.startswith("EchoMind:"):
-                continue  # dialogue echo
-            if line:
-                filtered_lines.append(line)
+            if (
+                line.startswith(("You:", "EchoMind:", "Users say:", "Q:", "A:", "B:", "C:", "D:", "E:"))
+                or "system state" in line.lower()
+                or re.match(r"^[A-Z]:", line)  # single-letter hallucinations
+            ):
+                continue
+            if len(line) < 3:
+                continue
+            filtered_lines.append(line)
 
         base = "\n".join(filtered_lines).strip()
 
