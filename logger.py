@@ -1,12 +1,42 @@
+import os
 import datetime
 import threading
 
 log_lock = threading.Lock()
 
+# List of all required logs
+REQUIRED_LOG_FILES = [
+    "logs/introspection.log",
+    "logs/internal_voice.log",
+    "logs/dreams.log",
+    "logs/ethics_journal.log",
+    "logs/traits.log",
+    "logs/experience.log",
+    "logs/lexicon.log"
+]
+
+def ensure_log_files_exist():
+    """
+    Ensure that all required log files exist at startup.
+    """
+    os.makedirs("logs", exist_ok=True)
+    for path in REQUIRED_LOG_FILES:
+        if not os.path.exists(path):
+            with open(path, "w", encoding="utf-8") as f:
+                f.write("")
+
+def log_startup_message():
+    """
+    Logs a system startup message to introspection log.
+    """
+    try:
+        with log_lock:
+            with open("logs/introspection.log", "a", encoding="utf-8") as f:
+                f.write(f"\n[{datetime.datetime.utcnow().isoformat()}] [SYSTEM] EchoMind system initialized.\n")
+    except Exception as e:
+        print(f"Startup logging error: {e}")
+
 def log_interaction(timestamp, user_input, response, memory, self_state, drive_state):
-    """
-    Logs a complete interaction including user input, response, internal state, and memory context.
-    """
     try:
         with log_lock:
             with open("logs/introspection.log", "a", encoding="utf-8") as log_file:
@@ -22,9 +52,6 @@ def log_interaction(timestamp, user_input, response, memory, self_state, drive_s
         print(f"Logging error: {e}")
 
 def log_internal_thought(thought, log_path="logs/internal_voice.log"):
-    """
-    Logs EchoMind's internal monologue and reflections.
-    """
     try:
         with log_lock:
             timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -34,9 +61,6 @@ def log_internal_thought(thought, log_path="logs/internal_voice.log"):
         print(f"Internal voice logging error: {e}")
 
 def log_ethics_journal(statement, violated_values, log_path="logs/ethics_journal.log"):
-    """
-    Logs any value violations for ethical self-monitoring.
-    """
     try:
         with log_lock:
             timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -47,9 +71,6 @@ def log_ethics_journal(statement, violated_values, log_path="logs/ethics_journal
         print(f"Ethics journal logging error: {e}")
 
 def log_trait_summary(traits, path="logs/traits.log"):
-    """
-    Logs derived long-term personality traits from behavioral patterns.
-    """
     try:
         with log_lock:
             timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -59,9 +80,6 @@ def log_trait_summary(traits, path="logs/traits.log"):
         print(f"Trait logging error: {e}")
 
 def log_experience_feedback(outcome, response, log_path="logs/experience.log"):
-    """
-    Logs user interaction outcomes and model feedback.
-    """
     try:
         with log_lock:
             timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -71,9 +89,6 @@ def log_experience_feedback(outcome, response, log_path="logs/experience.log"):
         print(f"Experience logging error: {e}")
 
 def log_lexicon_snapshot(language_model, path="logs/lexicon.log"):
-    """
-    Logs the current state of the semantic lexicon, including emotional and contextual tags.
-    """
     try:
         with log_lock:
             timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")

@@ -11,10 +11,15 @@ from responder import generate_response
 from dreams import generate_and_log_dream
 from introspector import reflect_from_log
 from logger import (
-    log_interaction, log_internal_thought,
-    log_trait_summary, log_experience_feedback,
+    ensure_log_files_exist,
+    log_startup_message,
+    log_interaction,
+    log_internal_thought,
+    log_trait_summary,
+    log_experience_feedback,
     log_lexicon_snapshot
 )
+
 from dialogue import (
     generate_internal_thought,
     generate_user_reflection,
@@ -31,6 +36,9 @@ import time
 import random
 from activity_state import set_activity
 
+# Set up logging
+ensure_log_files_exist()
+log_startup_message()
 
 # Initialize cognitive systems
 memory = ShortTermMemory(max_length=10)

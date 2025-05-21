@@ -5,21 +5,25 @@ from typing import Generator
 def parse_line(line: str) -> dict:
     """
     Extracts tagged content and returns structured dict.
-    Supports [TAG] content and [timestamp] as valid types.
+    Supports [TAG] content, timestamps, and filters repeated noise.
     """
     line = line.strip()
     if not line:
         return None  # Skip blank lines
 
+    # Skip noisy echo duplicates like "You: ...", "EchoMind: ..."
+    if line.startswith("You:") or line.startswith("EchoMind:") or line.startswith("Users say:"):
+        return None
+
     # Match [TAG] content
     match = re.match(r"\[(\w+)] (.+)", line)
     if match:
         return {
-            "type": match.group(1),
+            "type": match.group(1).upper(),
             "content": match.group(2)
         }
 
-    # Match timestamp-only lines like: [2025-05-20 16:44:28]
+    # Match standalone timestamps
     timestamp_match = re.match(r"\[(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})]$", line)
     if timestamp_match:
         return {
@@ -27,10 +31,14 @@ def parse_line(line: str) -> dict:
             "content": timestamp_match.group(1)
         }
 
-    return {
-        "type": "UNKNOWN",
-        "content": line
-    }
+    # Catch-all for non-tagged lines (only log if meaningful)
+    if len(line.strip()) > 3:
+        return {
+            "type": "UNKNOWN",
+            "content": line
+        }
+
+    return None
 
 def stream_log_file(path: str) -> Generator[dict, None, None]:
     """

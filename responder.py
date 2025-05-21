@@ -175,7 +175,12 @@ def generate_response(input_text, context, self_state, drive_state, identity_mod
     # Generate from LLM
     try:
         raw_output = generate_from_context(prompt, system_context)
-        base = raw_output.split("Respond as EchoMind:")[-1].strip()
+        # Extract only the LLM's final answer
+        response_lines = raw_output.split("Respond as EchoMind:")[-1].strip().splitlines()
+        base = "\n".join([
+            line.strip() for line in response_lines
+            if line.strip() and not line.startswith("You:") and not line.startswith("EchoMind:")
+        ])
         if base.lower().startswith("a:"):
             base = base[2:].strip()
     except Exception as e:
