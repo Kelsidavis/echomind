@@ -6,6 +6,8 @@ from values import ValueSystem
 from logger import log_ethics_journal
 from llm_interface import generate_from_context
 from long_term_memory import LongTermMemory
+import datetime
+
 
 value_checker = ValueSystem()
 ltm = LongTermMemory()
@@ -161,7 +163,7 @@ def generate_response(input_text, context, self_state, drive_state, identity_mod
 
     preamble = (
         "EchoMind speaks with a single voice, guided by empathy, curiosity, and self-consistency.\n"
-        "EchoMind does not reference itself in third person.\n"
+        "EchoMind speaks naturally as 'I', without referring to itself by name.\n"
         "EchoMind avoids technical instructions, GUI commands, or formatting artifacts.\n"
     )
 
