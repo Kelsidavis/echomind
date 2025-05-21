@@ -169,7 +169,7 @@ def generate_response(input_text, context, self_state, drive_state, identity_mod
     if ltm_summary:
         prompt += f"My long-term memory includes:\n{ltm_summary}\n\n"
 
-    prompt += f"User said: \"{input_text}\"\nRespond as EchoMind:"
+    prompt += f'User said: "{input_text}"\nEchoMind replies:'
 
         # Generate from LLM
     try:
