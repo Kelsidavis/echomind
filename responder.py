@@ -248,6 +248,13 @@ def generate_response(input_text, context, self_state, drive_state, identity_mod
         base = "That sounds like something you'd do in a user interface, which I don't access. But I’d love to talk about it!"
 
 
+    # Friendly mirroring for affirmations like "me too"
+    if input_text.lower() in ["me too", "me too!"]:
+        recent_reply = context[-1][1].lower() if context else ""
+        if any(phrase in recent_reply for phrase in ["yes", "i like", "i agree", "i do"]):
+            base = "I'm glad we agree!"
+
+
     # Ethics audit
     if base.strip():
         judgment = value_checker.evaluate_statement(base)
