@@ -17,24 +17,25 @@ def generate_from_context(prompt: str, lexicon_context: str, max_tokens=100) -> 
         pad_token_id=tokenizer.eos_token_id
     )
 
-    # Decode the generated text
     full_output = tokenizer.decode(outputs[0], skip_special_tokens=True)
 
-    # Trim the input prompt portion
-    if "A:" in full_output:
-        result = full_output.split("A:")[-1].strip()
-    else:
-        result = full_output.strip()
+    # Trim the prompt portion
+    result = full_output.split("A:")[-1] if "A:" in full_output else full_output
 
-    # Filter out repeated lines and return up to 2 meaningful lines
+    # Clean and filter hallucinated lines
+    clean_lines = []
     seen = set()
-    final_lines = []
-    for line in result.splitlines():
+    for line in result.strip().splitlines():
         line = line.strip()
-        if line and line not in seen:
-            seen.add(line)
-            final_lines.append(line)
-        if len(final_lines) >= 2:
+        if not line or line in seen:
+            continue
+        seen.add(line)
+        if line.startswith(("Q:", "A:", "B:", "User said:", "- ", "In response", "EchoMind:")):
+            continue
+        if len(line) < 3:
+            continue
+        clean_lines.append(line)
+        if len(clean_lines) >= 1:  # Only keep the first clean line
             break
 
-    return " ".join(final_lines).strip()
+    return clean_lines[0] if clean_lines else "(no response)"
