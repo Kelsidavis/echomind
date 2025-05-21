@@ -85,6 +85,9 @@ def get_rule_based_response(input_text, mood, goal, self_state, identity_summary
 
     if "who are you" in input_text_lower or "what are you" in input_text_lower:
         return identity_summary or "I'm still figuring that out."
+    
+    if "not what i asked" in input_text_lower or "that's not what i asked" in input_text_lower:
+        return "Sorry about that. Let me try again—what would you like to talk about?"
 
     return None  # No rule matched
 
@@ -133,6 +136,10 @@ def generate_response(input_text, context, self_state, drive_state, identity_mod
     rule_response = get_rule_based_response(input_text, mood, goal, self_state, identity_summary, user_summary)
     if rule_response:
         return rule_response
+    
+    # Soft context reset if topic sharply changes (e.g., book vs cats)
+    if "book" in input_text.lower() and "cat" in context[-1][1].lower():
+        context = context[-2:]  # keep recent messages only
 
     # Compose LLM prompt
     dialogue_context = format_context_for_prompt(context)
@@ -199,6 +206,13 @@ def generate_response(input_text, context, self_state, drive_state, identity_mod
             filtered_lines.append(line)
 
         base = "\n".join(filtered_lines).strip()
+        # Avoid repeating same response as previous EchoMind utterance
+        if context and len(context) >= 2:
+            last_response = context[-1][1].strip().lower()
+            if base.strip().lower() == last_response:
+                base = "Hmm, I think I already said that. Can you ask me in a different way?"
+
+
         if not base:
             base = "(no response)"
 
