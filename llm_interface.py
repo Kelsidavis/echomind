@@ -1,21 +1,32 @@
 from transformers import AutoTokenizer, AutoModelForCausalLM
+import torch
+from config import ACTIVE_LLM_MODEL as MODEL_NAME  # Config-driven model switch
 
-# Smaller and faster model
-tokenizer = AutoTokenizer.from_pretrained("EleutherAI/gpt-neo-125M")
-model = AutoModelForCausalLM.from_pretrained("EleutherAI/gpt-neo-125M")
+# Load tokenizer and model using the active model name
+tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
+model = AutoModelForCausalLM.from_pretrained(
+    MODEL_NAME,
+    torch_dtype=torch.float16,
+    device_map="auto"
+)
 
 def generate_from_context(prompt: str, lexicon_context: str, max_tokens=100) -> str:
     input_text = f"{lexicon_context}\n\nQ: {prompt}\nA:"
     inputs = tokenizer(input_text, return_tensors="pt", truncation=True, max_length=1024)
-    outputs = model.generate(
-        **inputs,
-        max_new_tokens=max_tokens,
-        do_sample=True,
-        temperature=0.8,
-        top_k=50,
-        top_p=0.95,
-        pad_token_id=tokenizer.eos_token_id
-    )
+    inputs = {k: v.to(model.device) for k, v in inputs.items()}
+
+    try:
+        outputs = model.generate(
+            **inputs,
+            max_new_tokens=max_tokens,
+            do_sample=True,
+            temperature=0.8,
+            top_k=50,
+            top_p=0.95,
+            pad_token_id=tokenizer.eos_token_id
+        )
+    except RuntimeError as e:
+        return f"(model error: {e})"
 
     full_output = tokenizer.decode(outputs[0], skip_special_tokens=True)
 
@@ -46,3 +57,4 @@ def generate_from_context(prompt: str, lexicon_context: str, max_tokens=100) -> 
         return sentence.strip()
 
     return "(no response)"
+
