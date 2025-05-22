@@ -2,6 +2,7 @@ class DriveSystem:
     def __init__(self):
         self.goals = []
         self.affinity = {}
+        self.engagement = 0.5  # ADDED: required for cognitive load
         self.active_goal = "stay engaged"
 
     def update(self, user_input):
@@ -31,6 +32,16 @@ class DriveSystem:
     def get_state(self):
         return {
             "active_goal": self.active_goal,
+            "engagement": self.engagement,
             "goals": self.goals[-3:],  # recent goals
             "affinity": self.affinity
         }
+
+    def update_from_context(self, user_input):
+        if "learn" in user_input or "know" in user_input:
+            self.engagement = min(1.0, self.engagement + 0.1)
+        if "bored" in user_input:
+            self.engagement = max(0.0, self.engagement - 0.2)
+
+        self.active_goal = "explore" if "?" in user_input else "reflect"
+

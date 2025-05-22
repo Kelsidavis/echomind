@@ -5,10 +5,10 @@ class TraitEngine:
         self.trait_log = []
         self.trait_counts = Counter()
 
+    def reinforce(self, trait_name):
+        self.trait_counts[trait_name] += 1
+
     def analyze_memories(self, memory_buffer):
-        """
-        Extract dominant behavioral patterns from memory and derive traits.
-        """
         if not memory_buffer:
             return None
 
@@ -40,3 +40,14 @@ class TraitEngine:
     def summarize_identity(self):
         top_traits = self.get_dominant_traits()
         return "I believe I am: " + ", ".join(trait for trait, _ in top_traits)
+
+    def update_from_interaction(self, user_input):
+        if "always" in user_input:
+            self.reinforce("consistency")
+        elif "never" in user_input:
+            self.reinforce("defensiveness")
+        elif "good" in user_input or "kind" in user_input:
+            self.reinforce("compassion")
+        elif "smart" in user_input or "clever" in user_input:
+            self.reinforce("intelligence")
+

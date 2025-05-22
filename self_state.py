@@ -29,3 +29,17 @@ class SelfState:
             "energy": self.energy,
             "confidence": round(self.confidence, 2)
         }
+        
+    def update_mood_from_context(self, user_input, memory_context):
+        # Naive example: mood shifts based on keywords
+        if "thank" in user_input.lower():
+            self.mood = "appreciated"
+        elif "why" in user_input.lower():
+            self.mood = "curious"
+        elif "sorry" in user_input.lower():
+            self.mood = "sympathetic"
+        else:
+            self.mood = "neutral"
+    
+        self.confidence = max(0.0, min(1.0, self.confidence + 0.05 if "I see" in user_input else -0.02))
+

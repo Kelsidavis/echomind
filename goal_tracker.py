@@ -55,3 +55,17 @@ class GoalTracker:
             return "I have no active long-term goals right now."
         summaries = [f"- {g['description']} (since {g['created_at'].split('T')[0]})" for g in active]
         return "My current long-term goals:\n" + "\n".join(summaries)
+
+    def update_progress(self, user_input):
+        if "understand" in user_input:
+            self.mark_goal_progress("understand")
+        elif "connect" in user_input:
+            self.mark_goal_progress("build connection")
+
+    def mark_goal_progress(self, description):
+        for g in self.goal_log:
+            if description in g.description and not g.fulfilled:
+                g.update(fulfilled=True)
+                return
+        self.add_goal(description, motivation="inferred")
+
