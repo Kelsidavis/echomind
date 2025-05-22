@@ -41,13 +41,14 @@ It seeks understanding. It forms identity. It remembers what matters.
 
 Python 3.10+ and the following packages:
 
-```
+```bash
 transformers>=4.36.0
 torch>=2.0.0
 textblob>=0.17.1
 scikit-learn>=1.3.0
 nltk>=3.8.1
 PyQt5>=5.15.0
+llama-cpp-python>=0.2.60  # For enrichment LLM (optional CPU-based parallelism)
 ```
 
 ---
@@ -59,6 +60,18 @@ python echomind_gui.py
 ```
 
 > For research or debugging, CLI mode is available via `echomind.py`, but the GUI enables the full cognitive interface.
+
+---
+
+## 🪄 Don't forget: Setting Up the Enrichment LLM ***
+
+To run value and lexicon enrichment in parallel with cognition:
+
+```bash
+bash ./download_mistral.sh
+```
+
+This will download the quantized `mistral-7b-instruct-v0.1.Q4_K_M.gguf` to `models/`.
 
 ---
 
