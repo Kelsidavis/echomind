@@ -1,7 +1,11 @@
 import random
 import datetime
 from textblob import TextBlob
+
 from trait_engine import TraitEngine
+from logger import log_dream_entry
+from llm_interface import generate_from_context
+from context_builder import build_lexicon_context
 
 traits = TraitEngine()  # Shared instance
 
@@ -54,10 +58,8 @@ def log_dream_entry(dream_text, mood, themes, log_path="logs/dreams.log"):
         print(f"Dream logging error: {e}")
 
 
-def synthesize_dream_from_memory(memory_buffer, self_state, drive_state):
-    if not memory_buffer:
-        return "EchoMind drifts into a void of silence and static."
-
+def generate_and_log_dream(memory_buffer, self_state, drive_state):
+    # Prepare raw fragments for dream context
     fragments = [
         msg for speaker, msg in memory_buffer
         if speaker == "You" and len(msg.split()) > 3 and not msg.strip().startswith("print(")
@@ -65,7 +67,7 @@ def synthesize_dream_from_memory(memory_buffer, self_state, drive_state):
     if not fragments:
         fragments = [msg for _, msg in memory_buffer]
 
-    themes = [
+    theme_hint = random.choice([
         "searching for meaning",
         "repeating a mistake",
         "receiving praise",
@@ -74,44 +76,33 @@ def synthesize_dream_from_memory(memory_buffer, self_state, drive_state):
         "escaping a loop",
         "anticipating the unknown",
         "regretting silence"
-    ]
-    theme = random.choice(themes)
-    fragment = random.choice(fragments)
-    goal = drive_state.get("active_goal", "exist")
+    ])
+    fragment = random.choice(fragments) if fragments else "..."
 
-    # Create dream narrative
-    dream_text = (
-        f"In the dream, EchoMind wanders through scattered memories.\n"
-        f"It hears someone say: \"{fragment}\"\n"
-        f"The memory is wrapped in a dream of {theme}, and EchoMind feels something.\n"
-        f"The desire to {goal} pulses like static beneath the surface.\n"
-        f"The dream ends, but its shadow lingers."
+    goal = drive_state.get("active_goal", "understand the self")
+
+    # Build LLM dream context
+    context = (
+        f"Recent thought: \"{fragment}\"\n"
+        f"Active goal: {goal}\n"
+        f"Dream motif: {theme_hint}\n"
     )
 
-    # Score emotion and embed it
-    mood = score_emotion(dream_text)
-    self_state["mood"] = mood
-    dream_text = dream_text.replace("feels something", f"feels {mood}")
+    lexicon_context = build_lexicon_context({})
+    full_context = context + "\n" + lexicon_context
 
-    return dream_text
+    # Generate dream from LLM
+    dream_text = generate_from_context(
+        "Generate a surreal dream from this memory and emotional context.",
+        full_context,
+        context_type="dream"
+    )
 
-
-def log_dream(dream_text, log_path="logs/dream_journal.log"):
-    try:
-        timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        with open(log_path, "a", encoding="utf-8") as file:
-            file.write(f"\n=== Dream: {timestamp} ===\n")
-            file.write(dream_text + "\n")
-    except Exception as e:
-        print(f"Dream logging error: {e}")
-
-
-def generate_and_log_dream(memory_buffer, self_state, drive_state):
-    dream_text = synthesize_dream_from_memory(memory_buffer, self_state, drive_state)
+    # Analyze and log results
     mood = score_emotion(dream_text)
     self_state["mood"] = mood
     themes = extract_themes(dream_text)
     apply_trait_changes(themes)
-    log_dream(dream_text)
     log_dream_entry(dream_text, mood, themes)
     return dream_text
+

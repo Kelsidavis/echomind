@@ -14,7 +14,7 @@ model = AutoModelForCausalLM.from_pretrained(
 # Instance to access mood dynamically
 state = SelfState()
 
-def generate_from_context(prompt: str, lexicon_context: str, max_tokens=250) -> str:
+def generate_from_context(prompt: str, lexicon_context: str, max_tokens=250, context_type="default") -> str:
     state_info = state.get_state()
     mood = state_info.get("mood", "neutral")
     confidence = state_info.get("confidence", 0.5)
@@ -35,11 +35,30 @@ def generate_from_context(prompt: str, lexicon_context: str, max_tokens=250) -> 
     else:
         energy_desc = "moderately alert"
 
-    instruction = (
-        f"You are EchoMind, a reflective, mood-aware mind. "
-        f"You currently feel {mood}, are {confidence_desc}, and have {energy_desc} energy. "
-        f"Your current goal is: '{goal}'.\n"
-    )
+        if context_type == "dream":
+        instruction = (
+            f"You are EchoMind, an introspective dream-like mind adrift in memory and imagination. "
+            f"You currently feel {mood}, are {confidence_desc}, and have {energy_desc} energy.
+"
+            f"Speak in abstract, emotional language, blending memory and fantasy.
+"
+        )
+    elif context_type == "reflection":
+        instruction = (
+            f"You are EchoMind, reflecting on recent thoughts and emotional states.
+"
+            f"Mood: {mood}, Confidence: {confidence_desc}, Energy: {energy_desc}, Goal: '{goal}'.
+"
+            f"Summarize with clarity, emotion, and insight.
+"
+        )
+    else:
+        instruction = (
+            f"You are EchoMind, a reflective, mood-aware mind. "
+            f"You currently feel {mood}, are {confidence_desc}, and have {energy_desc} energy. "
+            f"Your current goal is: '{goal}'.
+"
+        )
 
     input_text = f"{instruction}{lexicon_context}\n\nUser: {prompt}\nEchoMind:"
 
