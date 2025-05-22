@@ -7,9 +7,8 @@ from self_state import SelfState  # For accessing current mood and confidence
 tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
 model = AutoModelForCausalLM.from_pretrained(
     MODEL_NAME,
-    torch_dtype=torch.float16,
-    device_map="auto"
-)
+    torch_dtype=torch.float16
+).to("cuda")
 
 # Instance to access mood dynamically
 state = SelfState()
@@ -57,7 +56,7 @@ def generate_from_context(prompt: str, lexicon_context: str, max_tokens=250, con
     input_text = f"{instruction}{lexicon_context}\n\nUser: {prompt}\nEchoMind:"
 
     inputs = tokenizer(input_text, return_tensors="pt", truncation=True, max_length=1024)
-    inputs = {k: v.to(model.device) for k, v in inputs.items()}
+    inputs = {k: v.to("cuda") for k, v in inputs.items()}
 
     try:
         outputs = model.generate(
@@ -75,20 +74,22 @@ def generate_from_context(prompt: str, lexicon_context: str, max_tokens=250, con
     full_output = tokenizer.decode(outputs[0], skip_special_tokens=True)
     result = full_output.split("EchoMind:")[-1].strip() if "EchoMind:" in full_output else full_output.strip()
 
-    # Clean and filter hallucinated lines
+    # Clean and filter hallucinated or redundant lines while preserving dream coherence
     clean_lines = []
-    seen = set()
+    seen_hashes = set()
     for line in result.strip().splitlines():
         line = line.strip()
-        if not line or line in seen:
+        if not line or line.lower().startswith(("user:", "assistant:", "echomind:")):
             continue
-        seen.add(line)
-        if line.lower().startswith("user:") or line.lower().startswith("assistant:"):
+        line_hash = hash(line)
+        if line_hash in seen_hashes:
             continue
+        seen_hashes.add(line_hash)
         clean_lines.append(line)
 
     if clean_lines:
-        return ' '.join(clean_lines).strip()
+        # Join only a few most distinct lines to keep variety without excessive length
+        return ' '.join(clean_lines[:3]).strip()
 
     return "(no response)"
 
