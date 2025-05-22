@@ -94,6 +94,8 @@ class EchoMindGUI:
 
     def update_gui_from_log(self):
         for entry in stream_log_file(self.log_path):
+            if entry["type"] == "MEMORY":
+                continue  # Skip memory echoes to avoid visual duplication
             self.append_log(entry["type"], entry["content"])
 
     def append_log(self, tag, content):
@@ -111,8 +113,7 @@ class EchoMindGUI:
             self.entry.delete(0, tk.END)
             timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-            self.append_log("USER", user_text)
-            log_internal_thought(f"[USER] {user_text}")
+            # Let the log stream handle display — no need to append or echo manually
             memory.add("You", user_text)
 
             try:
@@ -125,8 +126,6 @@ class EchoMindGUI:
             except Exception as e:
                 response = f"[ERROR] {e}"
 
-            self.append_log("RESPONSE", response)
-            log_internal_thought(f"[RESPONSE] {response}")
             memory.add("EchoMind", response)
 
             log_interaction(
@@ -139,6 +138,7 @@ class EchoMindGUI:
             )
 
             self.refresh_overlay()
+
 
     def refresh_overlay(self):
         current_mood = state.get_state().get("mood", "?")

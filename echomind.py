@@ -169,6 +169,9 @@ def handle_text_input(signal):
 
     user_input = signal.data.strip()
     global turn_counter
+    
+    memory.add("You", user_input)  # <-- Moved before generation
+
 
     detect_goal_statement(user_input)
     automatic_outcome_inference(user_input)
@@ -218,7 +221,6 @@ def handle_text_input(signal):
         if word.isalpha() and (word not in language.lexicon or "llm_context" not in language.lexicon[word]):
             curiosity_queue.append(word)
 
-    memory.add("You", user_input)
     user_model.update(user_input)
     state.update(user_input)
     drives.update(user_input)
@@ -293,9 +295,12 @@ turn_counter = 0
 from mind_gui import launch_dashboard
 from threading import Thread
 
-Thread(target=lambda: launch_dashboard(router=input_router), daemon=True).start()
+#Thread(target=lambda: launch_dashboard(router=input_router), daemon=True).start()
+launch_dashboard(router=input_router)
 
-while True:
-    user_input = input("You: ")
-    signal = InputSignal(source="user", modality="text", data=user_input)
-    input_router.route(signal)
+
+# for gui use comment this out
+#while True:
+#    user_input = input("You: ")
+#    signal = InputSignal(source="user", modality="text", data=user_input)
+#    input_router.route(signal)
