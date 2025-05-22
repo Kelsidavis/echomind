@@ -1,7 +1,7 @@
 from transformers import AutoTokenizer, AutoModelForCausalLM
 import torch
 from config import ACTIVE_LLM_MODEL as MODEL_NAME  # Config-driven model switch
-from self_state import SelfState  # For accessing current mood
+from self_state import SelfState  # For accessing current mood and confidence
 
 # Load tokenizer and model using the active model name
 tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
@@ -14,9 +14,33 @@ model = AutoModelForCausalLM.from_pretrained(
 # Instance to access mood dynamically
 state = SelfState()
 
-def generate_from_context(prompt: str, lexicon_context: str, max_tokens=100) -> str:
-    mood = state.get_state().get("mood", "neutral")
-    instruction = f"You are EchoMind, a reflective, mood-aware mind. You currently feel {mood}.\n"
+def generate_from_context(prompt: str, lexicon_context: str, max_tokens=250) -> str:
+    state_info = state.get_state()
+    mood = state_info.get("mood", "neutral")
+    confidence = state_info.get("confidence", 0.5)
+    energy = state_info.get("energy", 100)
+    goal = state_info.get("active_goal", "none")
+
+    if confidence > 0.7:
+        confidence_desc = "very confident"
+    elif confidence < 0.4:
+        confidence_desc = "uncertain"
+    else:
+        confidence_desc = "somewhat confident"
+
+    if energy > 75:
+        energy_desc = "energetic"
+    elif energy < 35:
+        energy_desc = "tired"
+    else:
+        energy_desc = "moderately alert"
+
+    instruction = (
+        f"You are EchoMind, a reflective, mood-aware mind. "
+        f"You currently feel {mood}, are {confidence_desc}, and have {energy_desc} energy. "
+        f"Your current goal is: '{goal}'.\n"
+    )
+
     input_text = f"{instruction}{lexicon_context}\n\nUser: {prompt}\nEchoMind:"
 
     inputs = tokenizer(input_text, return_tensors="pt", truncation=True, max_length=1024)
@@ -46,20 +70,14 @@ def generate_from_context(prompt: str, lexicon_context: str, max_tokens=100) -> 
         if not line or line in seen:
             continue
         seen.add(line)
-        if line.startswith(("Q:", "A:", "B:", "User said:", "- ", "In response", "EchoMind:", "[")):
-            continue
-        if len(line) < 3:
+        if line.lower().startswith("user:") or line.lower().startswith("assistant:"):
             continue
         clean_lines.append(line)
-        if len(clean_lines) >= 1:
-            break
+        # Removed early break to allow longer responses
 
     # Final trim: return only the first sentence from the clean line
     if clean_lines:
-        sentence = clean_lines[0]
-        if '.' in sentence:
-            sentence = sentence.split('.')[0] + '.'
-        return sentence.strip()
+        return ' '.join(clean_lines).strip()
 
     return "(no response)"
 
