@@ -24,6 +24,27 @@ memory = ShortTermMemory(max_length=10)
 traits = TraitEngine()
 goals = GoalTracker()
 
+class EbookWorker(QThread):
+    result_ready = pyqtSignal(str)
+
+    def __init__(self, paragraphs):
+        super().__init__()
+        self.paragraphs = paragraphs
+
+    def run(self):
+        from enrichment_llm import generate_from_context
+        from semantic_lexicon import language
+        results = []
+        for i, paragraph in enumerate(self.paragraphs[:5]):
+            if paragraph.strip():
+                result = generate_from_context(
+                    "Reflect on the values or emotions in this passage:",
+                    paragraph.strip()
+                )
+                language.learn_from_text(result, source="ebook")
+                results.append(f"[THOUGHT] {result}")
+        self.result_ready.emit("\n".join(results))
+
 class CognitionWorker(QThread):
     result_ready = pyqtSignal(str, str)
 
@@ -219,7 +240,6 @@ class EchoMindGUI(QWidget):
         else:
             self.thinking_label.setStyleSheet("color: #ffaa00; font-weight: bold; padding: 4px;")
 
-
     def animate_cognition_flow(self):
         stages = ["input", "memory", "traits", "LLM", "output"]
         animated = ["➜" if i == self.cog_stage else "→" for i in range(5)]
@@ -249,8 +269,6 @@ class EchoMindGUI(QWidget):
             self.worker.start()
 
     def load_ebook(self):
-        from llm_interface import generate_from_context
-        from semantic_lexicon import language
         path, _ = QFileDialog.getOpenFileName(self, "Select Ebook", "", "Text Files (*.txt);;All Files (*)")
         if path:
             try:
@@ -258,23 +276,21 @@ class EchoMindGUI(QWidget):
                     content = f.read()
                     self.ebook_display.setPlainText(content)
 
-                    # Enrich lexicon from ebook
-                    self.thought_feed.append("[REFLECTION] Reading this book is helping me grow my understanding.")
+                    # Split and launch worker
                     paragraphs = content.split("\n\n")
-
-                    for i, paragraph in enumerate(paragraphs[:5]):
-                        if paragraph.strip():
-                            result = generate_from_context("Reflect on the values or emotions in this passage:", paragraph.strip())
-                            language.learn_from_text(result, source="ebook")
-                            self.thought_feed.append(f"[THOUGHT] {result}")
+                    self.thought_feed.append("[REFLECTION] Reading this book is helping me grow my understanding.")
+                    self.ebook_worker = EbookWorker(paragraphs)
+                    self.ebook_worker.result_ready.connect(self.append_ebook_reflections)
+                    self.ebook_worker.start()
             except Exception as e:
                 self.ebook_display.setPlainText(f"Error loading book: {e}")
-
 
     def update_goal_display(self):
         goal_texts = [g['description'] for g in goals.get_active_goals()]
         self.goal_display.setPlainText("\n".join(goal_texts) if goal_texts else "No active goals.")
 
+    def append_ebook_reflections(self, reflections):
+        self.thought_feed.append(reflections)
 
     def display_results(self, internal_thought, response):
         if '[DREAM]' in internal_thought:

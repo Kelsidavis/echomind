@@ -139,6 +139,24 @@ class LanguageModel:
                 if "goal-related" in tags:
                     score += 0.5
         return max(min(score / len(words), 1.0), -1.0) if words else 0
+        
+        
+    def learn_from_text(self, text, source="unknown"):
+        """
+        Processes externally generated reflections or summaries and incorporates
+        their sentiment and vocabulary into the lexicon.
+        """
+        words = [w.strip(".,!?").lower() for w in text.split() if w.isalpha()]
+        for word in words:
+            if word not in self.lexicon:
+                self.lexicon[word] = {"count": 1, "emotion": "neutral", "goal": None}
+            else:
+                self.lexicon[word]["count"] += 1
+
+            # Log basic tag based on source
+            if source == "ebook":
+                self.vocab[word].tags["literary"] += 1
+            self.vocab[word].contexts.append((f"Reflection ({source})", text))
 
 language = LanguageModel()
 
