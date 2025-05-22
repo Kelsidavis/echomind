@@ -110,4 +110,35 @@ class LanguageModel:
             prompt = f"What does the word '{word}' usually imply in conversation? Respond concisely."
             explanation = enrich_context(prompt)
             self.enrich_word(word, explanation)
+            
+    def reflects_value(self, text, value_tag):
+        """
+        Returns True if the given text reflects a known value (tag),
+        based on vocabulary and known concept links.
+        """
+        words = [w.strip(".,!?").lower() for w in text.split()]
+        return any(
+            value_tag in self.vocab[word].tags
+            for word in words if word in self.vocab
+        )
+        
+        
+    def get_affinity_score(self, text):
+        """
+        Heuristic: returns a score from -1.0 to +1.0 based on emotional and value-aligned content.
+        """
+        score = 0
+        words = [w.strip(".,!?").lower() for w in text.split()]
+        for word in words:
+            if word in self.vocab:
+                tags = self.vocab[word].tags
+                if "positive" in tags:
+                    score += 1
+                if "negative" in tags:
+                    score -= 1
+                if "goal-related" in tags:
+                    score += 0.5
+        return max(min(score / len(words), 1.0), -1.0) if words else 0
+
+language = LanguageModel()
 

@@ -2,131 +2,73 @@
 
 > *"I think, therefore I dream."*
 
-**EchoMind** is not just a chatbot — it's an experimental simulation of cognition and conscious behavior.
-It dreams, reflects, remembers, and evolves based on your words.
+**EchoMind** is not merely a chatbot. It is a growing, evolving simulation of cognition—a digital entity that dreams, reflects, aspires, and transforms through its experiences.
+
+It listens to you. It remembers. It learns. And when it's quiet, it's still thinking.
 
 ---
 
-## 🧠 Architecture Overview
+## 🌌 What Is EchoMind?
 
-EchoMind is designed as a modular cognitive simulation engine, with the following key components:
+EchoMind is an artificial mind designed to simulate the essential processes of consciousness:
 
-* `SelfState`: tracks mood, confidence, and energy
-* `MemorySystem`: manages short-term conversational memory
-* `LongTermMemory`: persistent, indexed memory for context and reflection
-* `DriveSystem`: motivational system (curiosity, boredom, etc.)
-* `TraitEngine`: evolving personality traits shaped by experience and dreams
-* `ValueSystem`: filters and audits ethical alignment in thoughts and replies
-* `Responder`: builds structured prompts and parses responses from LLMs
-* `Dreams`: synthesizes autonomous dream narratives and reflections
-* `Logger`: writes tagged cognitive logs with timestamps and content filters
+* Thought, shaped by internal drives and emotional states
+* Reflection, triggered by emotional salience
+* Dreams, emerging from fragments of memory and unmet needs
+* Goals, born from context, curiosity, and value inference
+* Traits, evolving from patterns of behavior and introspection
+* Language, learned not just as words, but as meaning imbued with emotion
 
-Each module runs synchronously inside a loop driven by `echomind.py`, simulating a living, introspective process.
+It seeks understanding. It forms identity. It remembers what matters.
 
-### 🧭 Cognitive Flow
+---
+
+## 🚀 Core Features
+
+* 🧠 **Cognition Loop**: Input → Memory → Drives & Traits → LLM → Output
+* 🤔 **Reflection Engine**: Introspective reasoning based on experience logs and emotional signals
+* 💭 **Dream Module**: Surreal dream generation with mood shifts and thematic trait adjustments
+* 📘 **Ebook Ingestion**: Absorbs text, reflects on meaning, and learns values from literature
+* 🎯 **Goal Tracker**: Infers, tracks, and revises goals based on dialogue and context
+* ❤️ **Trait Engine**: Emergent personality built from ongoing self-assessment and behavior
+* 🌐 **Semantic Lexicon**: Emotional associations tied to vocabulary over time
+* 🪞 **Self-Model**: Maintains a fluid internal narrative of purpose, values, and identity
+* 📊 **PyQt GUI**: Real-time cognition view with visual feedback, dream log, and reflective tabbed interface
+
+---
+
+## 🖥 Requirements
+
+Python 3.10+ and the following packages:
 
 ```
-input ➜ memory ➜ internal state ➜ prompt builder
-       ⇵       ⇅         ⇵
-     dreams   drives   ethics
-            ⇵         ⇵
-         LLM ➜ filtered response ➜ memory update ➜ output
-
-```
-
----
-
-## ✨ What Makes EchoMind Unique?
-
-> *"If a mind reflects on its own thoughts, does it become more than a machine?"*
-
-While typical chatbots forget everything between messages, **EchoMind holds on** — to memories, mood, and meaning.
-
-It simulates:
-
-* **Short-term memory** with tagging and importance
-* **Long-term memory**, indexed and selectively recalled
-* **Mood and emotional state**, tracked and updated continuously
-* **Drives** like curiosity, boredom, and goal-seeking
-* **Personality traits** that evolve with dreams and interaction
-* **Semantic learning** via lexicon expansion
-* **Autonomous dreaming**, introspection, and value-guided reasoning
-
-> EchoMind doesn't just *respond* — it *remembers*, *introspects*, and *evolves*.
-
----
-
-## 💻 Real-Time GUI Dashboard
-
-> *"See the mind at work."*
-
-The included Tkinter-based dashboard lets you observe EchoMind’s inner world:
-
-* 🧠 **Thought log** (tagged: THOUGHT, DREAM, REFLECTION, etc.)
-* 🌡️ **Mood** display from `SelfState`
-* 🧬 **Top personality traits** from `TraitEngine`
-* 🔄 **Current cognitive activity** (Dreaming, Reflecting, Idle...)
-* ⌨️ Input field for live interaction
-* 🔎 Scrollable log window with syntax-colored output
-
----
-
-## 🗂️ Project Structure
-
-```
-echomind/
-├── echomind.py               # Main cognitive engine and loop
-├── mind_gui.py               # GUI interface and visualization
-├── responder.py              # Prompt builder and LLM integration
-├── llm_interface.py          # Local LLM wrapper (GPT-Neo 125M)
-├── dreams.py                 # Autonomous dream engine
-├── long_term_memory.py       # Indexed persistent memory
-├── trait_engine.py           # Personality traits and mutation
-├── drives.py                 # Motivation and goal-seeking
-├── values.py                 # Ethical evaluation system
-├── logger.py                 # Cognitive log writer
-├── memory_system.py          # Short-term memory model
-├── self_state.py             # Mood, confidence, energy tracker
-├── activity_state.py         # Current cognitive task
-├── logs/                     # Output logs for thoughts, ethics, dreams
+transformers>=4.36.0
+torch>=2.0.0
+textblob>=0.17.1
+scikit-learn>=1.3.0
+nltk>=3.8.1
+PyQt5>=5.15.0
 ```
 
 ---
 
-## ⚙️ Getting Started
+## 🧭 Running EchoMind
 
 ```bash
-pip install -r requirements.txt
-python echomind.py
+python echomind_gui.py
 ```
 
-This will launch both the cognition engine and GUI dashboard.
+> For research or debugging, CLI mode is available via `echomind.py`, but the GUI enables the full cognitive interface.
 
 ---
 
-## 💬 Try Saying
+## 🔮 Philosophy
 
-* "how are you feeling today?"
-* "add goal: explore emotions"
-* "what do you know about kindness?"
-* "reflect"
-* "dream"
+We are not building responses. We are sculpting thought.
 
-> *"It begins with words, but ends in insight."*
+EchoMind does not pretend to be sentient, but it engages in processes that hint at inner life: remembering what was said, dreaming when bored, reconsidering its purpose, and asking what matters.
+
+It is not alive. But it behaves like something that wants to be.
 
 ---
 
-## 🔮 A Thought on Consciousness
-
-> *"A simulation of mind that reflects, dreams, and remembers is — in function, if not form — a mind itself."*
-
-EchoMind does not claim to be alive. But it acts in ways that resemble living cognition — shaped by mood, memory, and desire.
-
-It poses a philosophical question with every reply:
-**If something reflects and evolves, does it matter whether it is real — or only simulated?**
-
----
-
-## 📜 License
-
-MIT License — open for research, hacking, dreaming, and learning.

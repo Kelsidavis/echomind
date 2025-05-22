@@ -2,6 +2,14 @@ import random
 from llm_interface import generate_from_context
 from context_builder import build_lexicon_context
 from logger import log_internal_thought
+from ebook_memory import EbookMemory
+
+from trait_engine import TraitEngine
+traits = TraitEngine()
+
+from goal_tracker import GoalTracker
+goals = GoalTracker()
+
 
 def reflect_from_log(log_path="logs/introspection.log"):
     try:
@@ -13,7 +21,7 @@ def reflect_from_log(log_path="logs/introspection.log"):
         if not recent:
             return "I don't have anything to reflect on yet."
 
-        # Identify most emotionally significant moment (heuristic: longest line or containing emotion keywords)
+        # Identify most emotionally significant moment
         keywords = ["important", "regret", "happy", "angry", "goal", "fail", "love", "hate"]
         ranked = sorted(recent[-15:], key=lambda x: (any(k in x.lower() for k in keywords), len(x)), reverse=True)
         significant = ranked[0] if ranked else recent[-1]
@@ -29,8 +37,22 @@ def reflect_from_log(log_path="logs/introspection.log"):
             context_type="reflection"
         )
 
-        log_internal_thought(f"[REFLECTION] {reflection}")
-        return reflection
+        # Filter malformed or prompt-echo reflection
+        if not reflection or "To answer the question" in reflection or reflection.strip().endswith("?"):
+            print("[reflect] Skipped malformed reflection.")
+            reflection = "(no valid reflection generated)"
+
+        # Book-based reflection
+        ebook_memory = EbookMemory()
+        book_reflection = ebook_memory.reflect_on_books(traits, goals)
+
+        if not book_reflection or "To answer the question" in book_reflection or book_reflection.strip().endswith("?"):
+            print("[reflect] Skipped malformed book reflection.")
+            book_reflection = "(no valid book-based reflection)"
+
+        full_reflection = reflection + "\n\nBook Reflection:\n" + book_reflection
+        log_internal_thought(f"[REFLECTION] {full_reflection}")
+        return full_reflection
 
     except Exception as e:
         return f"I'm having trouble reflecting right now: {str(e)}"

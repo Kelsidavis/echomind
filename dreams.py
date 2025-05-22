@@ -20,7 +20,6 @@ THEME_TRAIT_MAP = {
     "lost": {"resilience": +1, "confidence": -1}
 }
 
-
 def log_dream_entry(dream_text, mood, themes, log_path="logs/dreams.log"):
     timestamp = datetime.datetime.now().isoformat()
     try:
@@ -32,7 +31,6 @@ def log_dream_entry(dream_text, mood, themes, log_path="logs/dreams.log"):
             f.write(f"-----------------------------\n")
     except Exception as e:
         print(f"Dream logging error: {e}")
-
 
 def score_emotion(text):
     analysis = TextBlob(text)
@@ -44,10 +42,8 @@ def score_emotion(text):
     else:
         return "neutral"
 
-
 def extract_themes(dream_text):
     return [key for key in THEME_TRAIT_MAP if key in dream_text.lower()]
-
 
 def apply_trait_changes(themes):
     for theme in themes:
@@ -56,22 +52,8 @@ def apply_trait_changes(themes):
             traits.trait_counts[trait] += delta
             traits.trait_log.append([f"Dream-adjusted {trait} by {delta} due to {theme}"])
 
-
-def log_dream_entry(dream_text, mood, themes, log_path="logs/dreams.log"):
-    timestamp = datetime.datetime.now().isoformat()
-    try:
-        with open(log_path, "a", encoding="utf-8") as f:
-            f.write(f"\n--- Dream @ {timestamp} ---\n")
-            f.write(f"Mood: {mood}\n")
-            f.write(f"Themes: {', '.join(themes) if themes else 'none'}\n")
-            f.write("Content:\n" + dream_text + "\n")
-            f.write(f"-----------------------------\n")
-    except Exception as e:
-        print(f"Dream logging error: {e}")
-
-
 def generate_and_log_dream(memory_buffer, self_state, drive_state):
-    # Prepare raw fragments for dream context
+    # Prepare fragments for dream context
     fragments = [
         msg for speaker, msg in memory_buffer
         if speaker == "You" and len(msg.split()) > 3 and not msg.strip().startswith("print(")
@@ -93,7 +75,6 @@ def generate_and_log_dream(memory_buffer, self_state, drive_state):
 
     goal = drive_state.get("active_goal", "understand the self")
 
-    # Build LLM dream context
     context = (
         f"Recent thought: \"{fragment}\"\n"
         f"Active goal: {goal}\n"
@@ -103,14 +84,18 @@ def generate_and_log_dream(memory_buffer, self_state, drive_state):
     lexicon_context = build_lexicon_context({})
     full_context = context + "\n" + lexicon_context
 
-    # Generate dream from LLM
+    # Generate dream
     dream_text = generate_from_context(
         "Generate a surreal dream from this memory and emotional context.",
         full_context,
         context_type="dream"
     )
 
-    # Analyze and log results
+    # Filter malformed or echo responses
+    if not dream_text or "To answer the question" in dream_text or dream_text.strip().endswith("?"):
+        print("[dream] Ignored malformed dream output.")
+        return "[DREAM] (no valid dream generated)"
+
     mood = score_emotion(dream_text)
     self_state["mood"] = mood
     themes = extract_themes(dream_text)
