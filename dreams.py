@@ -3,7 +3,6 @@ import datetime
 from textblob import TextBlob
 
 from trait_engine import TraitEngine
-from logger import log_dream_entry
 from llm_interface import generate_from_context
 from context_builder import build_lexicon_context
 
@@ -20,6 +19,19 @@ THEME_TRAIT_MAP = {
     "praise": {"confidence": +1},
     "lost": {"resilience": +1, "confidence": -1}
 }
+
+
+def log_dream_entry(dream_text, mood, themes, log_path="logs/dreams.log"):
+    timestamp = datetime.datetime.now().isoformat()
+    try:
+        with open(log_path, "a", encoding="utf-8") as f:
+            f.write(f"\n--- Dream @ {timestamp} ---\n")
+            f.write(f"Mood: {mood}\n")
+            f.write(f"Themes: {', '.join(themes) if themes else 'none'}\n")
+            f.write("Content:\n" + dream_text + "\n")
+            f.write(f"-----------------------------\n")
+    except Exception as e:
+        print(f"Dream logging error: {e}")
 
 
 def score_emotion(text):
