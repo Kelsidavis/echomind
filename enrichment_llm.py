@@ -1,3 +1,15 @@
+# enrichment_llm.py
+#
+# This module runs a **lightweight CPU-based language model** (GPT-Neo 125M) to parallelize:
+# - Lexicon enrichment
+# - Value inference from ebooks or logs
+# - Background contextual annotation
+#
+# It complements the main LLM in `llm_interface.py` by offloading auxiliary tasks
+# and enabling semantic growth without blocking core cognitive threads.
+
+
+
 from transformers import AutoTokenizer, AutoModelForCausalLM
 import torch
 
@@ -10,8 +22,10 @@ model = AutoModelForCausalLM.from_pretrained(
     device_map={"": "cpu"}  # force CPU to keep it light
 )
 
-def generate_from_context(prompt: str, max_tokens=80) -> str:
-    input_text = f"Q: {prompt}\nA:"
+def generate_from_context(prompt: str, context: str = "", max_tokens=80, context_type=None) -> str:
+    if context_type:
+        print(f"[warning] enrichment_llm ignoring context_type='{context_type}'")
+    input_text = f"{context.strip()}\nQ: {prompt}\nA:" if context else f"Q: {prompt}\nA:"
     inputs = tokenizer(input_text, return_tensors="pt", truncation=True, max_length=512)
     outputs = model.generate(
         **inputs,
@@ -26,3 +40,4 @@ def generate_from_context(prompt: str, max_tokens=80) -> str:
     decoded = tokenizer.decode(outputs[0], skip_special_tokens=True)
     answer = decoded.split("A:")[-1].strip()
     return answer.split(".")[0].strip() + "." if "." in answer else answer
+

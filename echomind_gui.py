@@ -15,6 +15,7 @@ from drives import DriveSystem
 from memory_system import ShortTermMemory
 from trait_engine import TraitEngine
 from goal_tracker import GoalTracker
+from PyQt5.QtWidgets import QFileDialog
 
 # Initialize cognitive state
 self_state = SelfState()
@@ -248,7 +249,7 @@ class EchoMindGUI(QWidget):
             self.worker.start()
 
     def load_ebook(self):
-        from enrichment_llm import generate_from_context
+        from llm_interface import generate_from_context
         from semantic_lexicon import language
         path, _ = QFileDialog.getOpenFileName(self, "Select Ebook", "", "Text Files (*.txt);;All Files (*)")
         if path:
@@ -263,7 +264,7 @@ class EchoMindGUI(QWidget):
 
                     for i, paragraph in enumerate(paragraphs[:5]):
                         if paragraph.strip():
-                            result = generate_from_context("Reflect on the values or emotions in this passage:", paragraph.strip(), context_type="reflection")
+                            result = generate_from_context("Reflect on the values or emotions in this passage:", paragraph.strip())
                             language.learn_from_text(result, source="ebook")
                             self.thought_feed.append(f"[THOUGHT] {result}")
             except Exception as e:

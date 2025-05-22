@@ -1,3 +1,16 @@
+# llm_interface.py
+# 
+# This module defines the **primary GPU-powered language model** used by EchoMind for core cognition:
+# - Dream generation
+# - Emotional reflection
+# - Mood-aware dialogue responses
+# 
+# It integrates real-time internal state (mood, confidence, energy, goals) into prompts for rich, reflective output.
+# 
+# For lightweight background tasks and value enrichment, see `enrichment_llm.py` (CPU-friendly).
+
+
+
 from transformers import AutoTokenizer, AutoModelForCausalLM
 import torch
 from config import ACTIVE_LLM_MODEL as MODEL_NAME  # Config-driven model switch
