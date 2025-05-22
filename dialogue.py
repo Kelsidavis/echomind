@@ -69,8 +69,8 @@ def generate_learning_reflection(experience_engine):
     return "I'm gathering experience and adjusting how I interact."
 
 
-def trace_user_intent(language_model):
-    values = language_model.get_frequent_user_values()
+def trace_user_intent(semantic_lexicon):
+    values = semantic_lexicon.get_frequent_user_values()
     if not values:
         return "I'm still learning what matters to you."
 

@@ -96,10 +96,10 @@ def get_rule_based_response(input_text, mood, goal, self_state, identity_summary
 def format_context_for_prompt(context):
     return "\n".join(f"{speaker}: {text}" for speaker, text in context[-6:])
 
-def summarize_lexicon(language_model, max_words=5):
+def summarize_lexicon(semantic_lexicon, max_words=5):
     emotional_words = [
         (word, data.get("emotion_summary", ""))
-        for word, data in language_model.lexicon.items()
+        for word, data in semantic_lexicon.lexicon.items()
         if "emotion_summary" in data
     ]
     top = emotional_words[:max_words]
@@ -112,7 +112,7 @@ def get_recent_internal_thoughts(log_path="logs/internal_voice.log", n=2):
         lines = [line.strip() for line in f if line.strip()]
         return lines[-n:]
 
-def generate_response(input_text, context, self_state, drive_state, identity_model=None, user_model=None, language_model=None, trait_engine=None):
+def generate_response(input_text, context, self_state, drive_state, identity_model=None, user_model=None, semantic_lexicon=None, trait_engine=None):
     input_text = input_text.strip()
     mood = self_state.get("mood", "neutral")
     confidence = self_state.get("confidence", 0.8)
@@ -145,7 +145,7 @@ def generate_response(input_text, context, self_state, drive_state, identity_mod
 
     # Compose LLM prompt
     dialogue_context = format_context_for_prompt(context)
-    lexicon_info = summarize_lexicon(language_model) if language_model else ""
+    lexicon_info = summarize_lexicon(semantic_lexicon) if semantic_lexicon else ""
     recent_reflections = get_recent_internal_thoughts()
     ltm_summary = "\n".join(ltm.summarize(max_items=5))
 

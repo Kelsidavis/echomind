@@ -1,11 +1,13 @@
-from collections import defaultdict, Counter
+from collections import defaultdict, Counter, deque
 import datetime
+from llm_interface import generate_from_context
 
 class WordProfile:
     def __init__(self):
         self.contexts = []  # [(speaker, sentence)]
         self.tags = Counter()  # e.g., {"positive": 2, "goal-related": 1}
         self.emotions = Counter()  # e.g., {"curious": 2}
+        self.emotion_log = deque(maxlen=10)  # Rolling recent moods
         self.last_seen = None
 
     def update(self, sentence, speaker="unknown", tags=None, mood=None):
@@ -16,12 +18,19 @@ class WordProfile:
                 self.tags[tag] += 1
         if mood:
             self.emotions[mood] += 1
+            self.emotion_log.append(mood)
+
+    def get_average_emotion(self):
+        if not self.emotion_log:
+            return "neutral"
+        return Counter(self.emotion_log).most_common(1)[0][0]
 
     def summarize(self):
         return {
             "last_seen": self.last_seen,
             "tag_summary": dict(self.tags),
             "emotion_summary": dict(self.emotions),
+            "average_emotion": self.get_average_emotion(),
             "example": self.contexts[-1] if self.contexts else None
         }
 
@@ -29,24 +38,24 @@ class WordProfile:
 class LanguageModel:
     def __init__(self):
         self.vocab = defaultdict(WordProfile)
-        self.lexicon = {}  # For LLM-derived insights
+        self.lexicon = {}  # For LLM-derived insights and metadata
+        self.concept_links = {
+            "positive": ["joy", "smile", "hope", "excited", "love"],
+            "negative": ["sad", "angry", "hate", "regret"],
+            "goal-related": ["goal", "want", "will", "plan", "intend"]
+        }
 
     def process_sentence(self, sentence, speaker="You", mood=None):
         words = [w.strip(".,!?").lower() for w in sentence.split()]
         tags = []
 
-        # Tagging heuristics
         lower = sentence.lower()
-        if any(word in lower for word in ["love", "hope", "joy", "smile", "excited"]):
-            tags.append("positive")
-        if any(word in lower for word in ["sad", "angry", "hate", "regret"]):
-            tags.append("negative")
-        if "goal" in lower or "i want" in lower or "i will" in lower:
-            tags.append("goal-related")
+        for concept, related_words in self.concept_links.items():
+            if any(w in lower for w in related_words):
+                tags.append(concept)
 
         for word in words:
             self.vocab[word].update(sentence, speaker=speaker, tags=tags, mood=mood)
-            # Count usage for lexicon if not already
             if word not in self.lexicon:
                 self.lexicon[word] = {"count": 1, "emotion": "neutral", "goal": None}
             else:
@@ -95,3 +104,10 @@ class LanguageModel:
         if word not in self.lexicon:
             self.lexicon[word] = {"count": 1, "emotion": "neutral", "goal": None}
         self.lexicon[word]["llm_context"] = explanation
+
+    def auto_enrich_unknown_words(self):
+        for word in self.identify_new_or_unclear_words():
+            prompt = f"What does the word '{word}' usually imply in conversation? Respond concisely."
+            explanation = generate_from_context(prompt)
+            self.enrich_word(word, explanation)
+

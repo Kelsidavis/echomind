@@ -6,7 +6,7 @@ from self_model import SelfModel
 from trait_engine import TraitEngine
 from goal_tracker import GoalTracker
 from experience_engine import ExperienceEngine
-from language_model import LanguageModel
+from semantic_lexicon import LanguageModel
 from responder import generate_response
 from dreams import generate_and_log_dream
 from introspector import reflect_from_log
@@ -233,7 +233,7 @@ def handle_text_input(signal):
         drives.get_state(),
         identity_model=identity,
         user_model=user_model,
-        language_model=language,
+        semantic_lexicon=language,
         trait_engine=traits
     )
 

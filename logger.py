@@ -88,14 +88,14 @@ def log_experience_feedback(outcome, response, log_path="logs/experience.log"):
     except Exception as e:
         print(f"Experience logging error: {e}")
 
-def log_lexicon_snapshot(language_model, path="logs/lexicon.log"):
+def log_lexicon_snapshot(semantic_lexicon, path="logs/lexicon.log"):
     try:
         with log_lock:
             timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             with open(path, "a", encoding="utf-8") as f:
                 f.write(f"\n[{timestamp}] [LEXICON] Snapshot:\n")
-                for word in sorted(language_model.vocab):
-                    summary = language_model.get_word_summary(word)
+                for word in sorted(semantic_lexicon.vocab):
+                    summary = semantic_lexicon.get_word_summary(word)
                     f.write(f"[LEXICON] - {word}:\n")
                     if 'tag_summary' in summary:
                         f.write(f"[LEXICON]     Tags: {summary['tag_summary']}\n")
