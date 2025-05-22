@@ -1,6 +1,7 @@
 import os
 import datetime
 import threading
+import hashlib
 
 log_lock = threading.Lock()
 
@@ -51,10 +52,31 @@ def log_interaction(timestamp, user_input, response, memory, self_state, drive_s
     except Exception as e:
         print(f"Logging error: {e}")
 
+# Deduplication cache for internal thoughts
+_recent_thoughts = {}
+
 def log_internal_thought(thought, log_path="logs/internal_voice.log"):
+    """
+    Logs internal thoughts with tag-awareness and deduplication with a 60-second timeout.
+    """
     try:
+        tag = None
+        if thought.startswith("[") and "]" in thought:
+            tag = thought.split("]")[0][1:]
+
+        now = datetime.datetime.now()
+        dedup_key = (tag, hashlib.sha256(thought.encode("utf-8")).hexdigest())
+
+        last_time = _recent_thoughts.get(dedup_key)
+        if last_time and (now - last_time).total_seconds() < 60:
+            return  # Skip if identical log within 60 seconds
+
+        _recent_thoughts[dedup_key] = now
+        if len(_recent_thoughts) > 200:
+            _recent_thoughts.clear()  # avoid unlimited growth
+
         with log_lock:
-            timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            timestamp = now.strftime("%Y-%m-%d %H:%M:%S")
             with open(log_path, "a", encoding="utf-8") as f:
                 f.write(f"\n[{timestamp}] [THOUGHT] {thought}\n")
     except Exception as e:
@@ -106,3 +128,4 @@ def log_lexicon_snapshot(semantic_lexicon, path="logs/lexicon.log"):
                         f.write(f"[LEXICON]     Last Used By {speaker}: \"{sentence}\"\n")
     except Exception as e:
         print(f"Lexicon logging error: {e}")
+
