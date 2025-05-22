@@ -13,6 +13,8 @@ from self_state import SelfState
 from trait_engine import TraitEngine
 from drives import DriveSystem
 
+gui_ref = None  # Global reference for backend to push logs into GUI
+
 # Initialize subsystems
 drives = DriveSystem()
 memory = ShortTermMemory(max_length=10)
@@ -165,8 +167,9 @@ class EchoMindGUI:
                 self.router.route(signal)
 
 def launch_dashboard(log_path="logs/introspection.log", router=None):
+    global gui_ref
     root = tk.Tk()
-    app = EchoMindGUI(root, log_path=log_path, router=router)
+    gui_ref = EchoMindGUI(root, log_path=log_path, router=router)
     root.mainloop()
 
 if __name__ == "__main__":

@@ -35,6 +35,7 @@ import datetime
 import time
 import random
 from activity_state import set_activity
+from mind_gui import gui_ref
 
 # Set up logging
 ensure_log_files_exist()
@@ -148,6 +149,46 @@ def autonomous_dream_loop():
         print("EchoMind dreams:\n" + dream)
         time.sleep(2)
         set_activity("Idle")
+        
+# === Speak Freely ===
+
+def autonomous_initiation_loop():
+    import random
+    while True:
+        time.sleep(random.randint(60, 180))  # Occasional behavior
+        current_mood = state.get_state().get("mood", "neutral")
+        current_energy = state.get_state().get("energy", 100)
+        boredom = drives.get_state().get("boredom", 0)
+
+        # Only speak if EchoMind is alert enough
+        if current_energy < 40:
+            continue
+
+        from context_builder import build_lexicon_context
+        context = build_lexicon_context(language.lexicon)
+
+        # Curiosity or unsolicited thought
+        if random.random() < 0.4:
+            prompt = "Ask the user a question out of curiosity."
+            tag = "QUESTION"
+        else:
+            prompt = "Say something spontaneously to start a conversation or reflect aloud."
+            tag = "THOUGHT"
+
+        thought = generate_from_context(prompt, context, context_type="default")
+
+        memory.add("EchoMind", thought)
+        language.process_sentence(thought, speaker="EchoMind", mood=current_mood)
+        log_internal_thought(f"[{tag}] {thought}")
+        print(f"(unsolicited) EchoMind: {thought}")
+
+        # If GUI is active, append to it
+        try:
+            if gui_ref:
+                gui_ref.append_log(tag, thought)
+        except NameError:
+            pass  # GUI not connected
+            
 
 # === Input Handler ===
 
@@ -283,6 +324,7 @@ def lexicon_autolog():
         log_lexicon_snapshot(language)
         time.sleep(10)
 
+threading.Thread(target=autonomous_initiation_loop, daemon=True).start()
 threading.Thread(target=lexicon_autolog, daemon=True).start()
 threading.Thread(target=process_curiosity_queue, daemon=True).start()
 threading.Thread(target=autonomous_dream_loop, daemon=True).start()
