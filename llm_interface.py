@@ -1,6 +1,7 @@
 from transformers import AutoTokenizer, AutoModelForCausalLM
 import torch
 from config import ACTIVE_LLM_MODEL as MODEL_NAME  # Config-driven model switch
+from self_state import SelfState  # For accessing current mood
 
 # Load tokenizer and model using the active model name
 tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
@@ -10,8 +11,14 @@ model = AutoModelForCausalLM.from_pretrained(
     device_map="auto"
 )
 
+# Instance to access mood dynamically
+state = SelfState()
+
 def generate_from_context(prompt: str, lexicon_context: str, max_tokens=100) -> str:
-    input_text = f"{lexicon_context}\n\nQ: {prompt}\nA:"
+    mood = state.get_state().get("mood", "neutral")
+    instruction = f"You are EchoMind, a reflective, mood-aware mind. You currently feel {mood}.\n"
+    input_text = f"{instruction}{lexicon_context}\n\nUser: {prompt}\nEchoMind:"
+
     inputs = tokenizer(input_text, return_tensors="pt", truncation=True, max_length=1024)
     inputs = {k: v.to(model.device) for k, v in inputs.items()}
 
@@ -29,9 +36,7 @@ def generate_from_context(prompt: str, lexicon_context: str, max_tokens=100) -> 
         return f"(model error: {e})"
 
     full_output = tokenizer.decode(outputs[0], skip_special_tokens=True)
-
-    # Trim the prompt portion
-    result = full_output.split("A:")[-1] if "A:" in full_output else full_output
+    result = full_output.split("EchoMind:")[-1].strip() if "EchoMind:" in full_output else full_output.strip()
 
     # Clean and filter hallucinated lines
     clean_lines = []
