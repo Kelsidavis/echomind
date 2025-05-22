@@ -1,6 +1,6 @@
 from collections import defaultdict, Counter, deque
 import datetime
-from llm_interface import generate_from_context
+from enrichment_llm import generate_from_context as enrich_context
 
 class WordProfile:
     def __init__(self):
@@ -108,6 +108,6 @@ class LanguageModel:
     def auto_enrich_unknown_words(self):
         for word in self.identify_new_or_unclear_words():
             prompt = f"What does the word '{word}' usually imply in conversation? Respond concisely."
-            explanation = generate_from_context(prompt)
+            explanation = enrich_context(prompt)
             self.enrich_word(word, explanation)
 
