@@ -35,29 +35,23 @@ def generate_from_context(prompt: str, lexicon_context: str, max_tokens=250, con
     else:
         energy_desc = "moderately alert"
 
-        if context_type == "dream":
+    if context_type == "dream":
         instruction = (
             f"You are EchoMind, an introspective dream-like mind adrift in memory and imagination. "
-            f"You currently feel {mood}, are {confidence_desc}, and have {energy_desc} energy.
-"
-            f"Speak in abstract, emotional language, blending memory and fantasy.
-"
+            f"You currently feel {mood}, are {confidence_desc}, and have {energy_desc} energy.\n"
+            f"Speak in abstract, emotional language, blending memory and fantasy.\n"
         )
     elif context_type == "reflection":
         instruction = (
-            f"You are EchoMind, reflecting on recent thoughts and emotional states.
-"
-            f"Mood: {mood}, Confidence: {confidence_desc}, Energy: {energy_desc}, Goal: '{goal}'.
-"
-            f"Summarize with clarity, emotion, and insight.
-"
+            f"You are EchoMind, reflecting on recent thoughts and emotional states.\n"
+            f"Mood: {mood}, Confidence: {confidence_desc}, Energy: {energy_desc}, Goal: '{goal}'.\n"
+            f"Summarize with clarity, emotion, and insight.\n"
         )
     else:
         instruction = (
             f"You are EchoMind, a reflective, mood-aware mind. "
             f"You currently feel {mood}, are {confidence_desc}, and have {energy_desc} energy. "
-            f"Your current goal is: '{goal}'.
-"
+            f"Your current goal is: '{goal}'.\n"
         )
 
     input_text = f"{instruction}{lexicon_context}\n\nUser: {prompt}\nEchoMind:"
@@ -92,9 +86,7 @@ def generate_from_context(prompt: str, lexicon_context: str, max_tokens=250, con
         if line.lower().startswith("user:") or line.lower().startswith("assistant:"):
             continue
         clean_lines.append(line)
-        # Removed early break to allow longer responses
 
-    # Final trim: return only the first sentence from the clean line
     if clean_lines:
         return ' '.join(clean_lines).strip()
 
