@@ -10,6 +10,7 @@ from semantic_lexicon import LanguageModel
 from responder import generate_response
 from dreams import generate_and_log_dream
 from introspector import reflect_from_log
+from llm_interface import generate_from_context
 from logger import (
     ensure_log_files_exist,
     log_startup_message,
