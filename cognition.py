@@ -44,6 +44,14 @@ except ImportError as e:
         return random.choice(responses)
 
 # Set up logging
+# World Awareness Integration
+try:
+    from world_awareness import WorldAwarenessSystem, integrate_world_awareness
+    WORLD_AWARENESS_AVAILABLE = True
+    print("✅ World awareness system loaded successfully")
+except ImportError as e:
+    print(f"⚠️ World awareness not available: {e}")
+    WORLD_AWARENESS_AVAILABLE = False
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s',
@@ -94,6 +102,15 @@ class CognitionEngine:
         self._initialize_system()
         
         logger.info("✅ EchoMind Cognition Engine initialized successfully")
+# World Awareness System
+        self.world_awareness = None
+        if WORLD_AWARENESS_AVAILABLE:
+            try:
+                self.world_awareness = WorldAwarenessSystem(self.semantic_lexicon)
+                self.world_awareness.start_background_monitoring()
+                logger.info("🌍 World awareness system initialized")
+            except Exception as e:
+                logger.error(f"❌ World awareness initialization failed: {e}")
     
     def _initialize_system(self):
         """Initialize the system with basic personality and goals"""
@@ -169,6 +186,23 @@ class CognitionEngine:
                 
                 # Step 3: Build comprehensive context
                 context = self._build_response_context(user_input)
+                context = self._build_world_aware_context(user_input)
+                
+                # Check if user wants current information
+                search_keywords = ['search', 'look up', 'find out about', 'what about', 'tell me about']
+                user_input_lower = user_input.lower()
+
+                if any(keyword in user_input_lower for keyword in search_keywords) and self.world_awareness:
+                    # Extract search query
+                    for keyword in search_keywords:
+                        if keyword in user_input_lower:
+                            query_start = user_input_lower.find(keyword) + len(keyword)
+                            search_query = user_input[query_start:].strip().strip('?.')
+                            if search_query:
+                                world_info = self.world_awareness.search_current_info(search_query)
+                                context = f"{context}\n\nCurrent Information:\n{world_info}"
+                                break
+
                 
                 # Step 4: Generate response
                 response = self._generate_contextual_response(user_input, context)
@@ -519,47 +553,72 @@ class CognitionEngine:
         return random.choice(error_responses)
     
     # Public interface methods for echomind_gui.py
+
+def _build_world_aware_context(self, user_input: str) -> str:
+        """Build context including world awareness"""
+        base_context = self._build_response_context(user_input)
+
+        if self.world_awareness:
+            # Check if user is asking about current events
+            current_keywords = ['news', 'current', 'today', 'recent', 'happening', 'latest']
+            if any(keyword in user_input.lower() for keyword in current_keywords):
+                world_context = self.world_awareness.get_world_context()
+                world_reflection = self.world_awareness.reflect_on_world_events()
+                return f"{base_context}\n\nWorld Context:\n{world_context}\n\nWorld Reflection:\n{world_reflection}"
+            else:
+                # Add basic world awareness
+                world_context = self.world_awareness.get_world_context(max_events=3)
+                return f"{base_context}\n\nWorld Awareness:\n{world_context}"
+
+        return base_context
+
+def search_world_info(self, query: str) -> str:
+        """Search for current world information"""
+        if self.world_awareness:
+            return self.world_awareness.search_current_info(query)
+        else:
+            return f"I don't have access to current information about '{query}' right now."
     
-    def get_system_status(self) -> Dict[str, Any]:
-        """Get current system status for GUI display"""
-        return {
-            "is_processing": self.is_processing,
-            "current_activity": get_activity(),
-            "memory_buffer_size": len(self.memory_buffer),
-            "conversation_length": len(self.conversation_history),
-            "processing_stats": self.processing_stats.copy(),
-            "current_state": self.self_state.get_state(),
-            "active_goals": self.goal_tracker.get_active_goals(),
-            "dominant_traits": self.trait_engine.get_dominant_traits(3),
-            "llm_available": LLM_AVAILABLE
-        }
+def get_system_status(self) -> Dict[str, Any]:
+    """Get current system status for GUI display"""
+    return {
+        "is_processing": self.is_processing,
+        "current_activity": get_activity(),
+        "memory_buffer_size": len(self.memory_buffer),
+        "conversation_length": len(self.conversation_history),
+        "processing_stats": self.processing_stats.copy(),
+        "current_state": self.self_state.get_state(),
+        "active_goals": self.goal_tracker.get_active_goals(),
+        "dominant_traits": self.trait_engine.get_dominant_traits(3),
+        "llm_available": LLM_AVAILABLE
+    }
     
-    def get_recent_memories(self, count: int = 10) -> List[Tuple[str, str, str]]:
-        """Get recent memories for GUI display"""
-        recent = list(self.memory_buffer)[-count:]
-        return [(speaker, message, timestamp.isoformat()) 
-                for speaker, message, timestamp in recent]
+def get_recent_memories(self, count: int = 10) -> List[Tuple[str, str, str]]:
+    """Get recent memories for GUI display"""
+    recent = list(self.memory_buffer)[-count:]
+    return [(speaker, message, timestamp.isoformat()) 
+            for speaker, message, timestamp in recent]
     
-    def get_introspection_summary(self) -> str:
-        """Get summary of recent introspective thoughts"""
-        try:
-            state = self.self_state.get_state()
-            traits = self.trait_engine.summarize_identity()
-            goals = self.goal_tracker.get_summary()
+def get_introspection_summary(self) -> str:
+    """Get summary of recent introspective thoughts"""
+    try:
+        state = self.self_state.get_state()
+        traits = self.trait_engine.summarize_identity()
+        goals = self.goal_tracker.get_summary()
             
-            return f"Current state: {state}\n{traits}\n{goals}"
-        except Exception as e:
-            return f"Introspection summary unavailable: {e}"
+        return f"Current state: {state}\n{traits}\n{goals}"
+    except Exception as e:
+        return f"Introspection summary unavailable: {e}"
     
-    def shutdown(self):
-        """Gracefully shutdown the cognition engine"""
-        logger.info("🔄 Shutting down EchoMind Cognition Engine...")
-        try:
-            self.task_runner.stop_all()
-            set_activity("Shutdown")
-            logger.info("✅ EchoMind Cognition Engine shutdown complete")
-        except Exception as e:
-            logger.error(f"❌ Shutdown error: {e}")
+def shutdown(self):
+    """Gracefully shutdown the cognition engine"""
+    logger.info("🔄 Shutting down EchoMind Cognition Engine...")
+    try:
+        self.task_runner.stop_all()
+        set_activity("Shutdown")
+        logger.info("✅ EchoMind Cognition Engine shutdown complete")
+    except Exception as e:
+        logger.error(f"❌ Shutdown error: {e}")
 
 # Global instance for echomind_gui.py to use
 cognition_engine = None
@@ -712,21 +771,68 @@ def get_internal_voice():
     except Exception as e:
         print(f"Error reading internal voice: {e}")
         return []
+        
+        # World Awareness Integration
+try:
+    from world_awareness import WorldAwarenessSystem
+    WORLD_AWARENESS_AVAILABLE = True
+    print("✅ World awareness system loaded successfully")
+except ImportError as e:
+    print(f"⚠️ World awareness not available: {e}")
+    WORLD_AWARENESS_AVAILABLE = False
+
+def add_world_awareness_to_engine(engine, api_key=None):
+    """Add world awareness to an existing cognition engine"""
+    if WORLD_AWARENESS_AVAILABLE:
+        try:
+            engine.world_awareness = WorldAwarenessSystem(engine.semantic_lexicon, api_key=api_key)
+            engine.world_awareness.start_background_monitoring()
+            print("🌍 World awareness system initialized")
+            return True
+        except Exception as e:
+            print(f"❌ World awareness initialization failed: {e}")
+            return False
+    return False
+
+def search_current_info(query: str) -> str:
+    """Search for current world information - for GUI use"""
+    engine = get_cognition_engine()
+    if hasattr(engine, 'world_awareness') and engine.world_awareness:
+        return engine.world_awareness.search_current_info(query)
+    else:
+        return f"I don't have access to current information about '{query}' right now."
+
+
+def get_world_context() -> str:
+    """Get current world context - for GUI use"""
+    engine = get_cognition_engine()
+    if hasattr(engine, 'world_awareness') and engine.world_awareness:
+        return engine.world_awareness.get_world_context()
+    return "World awareness not available"
+
+
+def reflect_on_world() -> str:
+    """Get world reflection - for GUI use"""
+    engine = get_cognition_engine()
+    if hasattr(engine, 'world_awareness') and engine.world_awareness:
+        return engine.world_awareness.reflect_on_world_events()
+    return "World awareness not available"
+
 
 if __name__ == "__main__":
     # Test the cognition engine
     print("🧠 Testing EchoMind Cognition Engine")
     print("-" * 40)
-    
+
     engine = CognitionEngine()
-    
+
     test_inputs = [
         "Hello, I'm curious about how you think.",
         "What do you feel when you process information?",
         "Can you tell me about your dreams?",
         "What are your current goals?"
     ]
-    
+
     for i, test_input in enumerate(test_inputs, 1):
         print(f"\n🔹 Test {i}: {test_input}")
         try:
@@ -734,8 +840,8 @@ if __name__ == "__main__":
             print(f"💬 Response: {response}")
         except Exception as e:
             print(f"❌ Error: {e}")
-    
+
     print(f"\n📊 System Status: {engine.get_system_status()}")
-    
     engine.shutdown()
     print("\n✅ Test complete")
+
