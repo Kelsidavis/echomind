@@ -1,11 +1,12 @@
 import sys
-from cognition import launch_background_cognition
+from cognition import launch_background_cognition, get_cognition_engine, search_current_info, get_world_context, get_world_insights
 from PyQt5.QtWidgets import (
     QApplication, QWidget, QTextEdit, QVBoxLayout,
-    QLabel, QHBoxLayout, QPushButton, QLineEdit, QGridLayout, QGroupBox, QTabWidget
+    QLabel, QHBoxLayout, QPushButton, QLineEdit, QGridLayout, QGroupBox, QTabWidget,
+    QFileDialog, QProgressBar, QCheckBox, QScrollArea, QFrame
 )
 from PyQt5.QtCore import Qt, QTimer, QThread, pyqtSignal
-from PyQt5.QtGui import QTextCursor
+from PyQt5.QtGui import QTextCursor, QFont, QColor
 
 # EchoMind internal imports
 from dialogue import generate_internal_thought
@@ -15,7 +16,6 @@ from drives import DriveSystem
 from memory_system import ShortTermMemory
 from trait_engine import TraitEngine
 from goal_tracker import GoalTracker
-from PyQt5.QtWidgets import QFileDialog
 
 # Initialize cognitive state
 self_state = SelfState()
@@ -23,6 +23,37 @@ drives = DriveSystem()
 memory = ShortTermMemory(max_length=10)
 traits = TraitEngine()
 goals = GoalTracker()
+
+class WorldAwarenessWorker(QThread):
+    """Background thread for world awareness operations"""
+    update_ready = pyqtSignal(str)
+    status_ready = pyqtSignal(dict)
+    search_ready = pyqtSignal(str)
+    
+    def __init__(self, operation="status", query=""):
+        super().__init__()
+        self.operation = operation
+        self.query = query
+        
+    def run(self):
+        try:
+            if self.operation == "search":
+                result = search_current_info(self.query)
+                self.search_ready.emit(result)
+            elif self.operation == "context":
+                context = get_world_context()
+                insights = get_world_insights()
+                combined = f"🌍 World Context:\n{context}\n\n💡 Current Insights:\n{insights}"
+                self.update_ready.emit(combined)
+            elif self.operation == "status":
+                engine = get_cognition_engine()
+                if hasattr(engine, 'world_awareness') and engine.world_awareness:
+                    status = engine.world_awareness.get_curiosity_status()
+                    self.status_ready.emit(status)
+                else:
+                    self.status_ready.emit({"status": "unavailable"})
+        except Exception as e:
+            self.update_ready.emit(f"Error: {e}")
 
 class EbookWorker(QThread):
     result_ready = pyqtSignal(str)
@@ -50,7 +81,7 @@ class CognitionWorker(QThread):
 
     def __init__(self, user_input, state_dict, drive_dict, memory_context):
         super().__init__()
-        self.setTerminationEnabled(True)  # Ensures safe shutdown
+        self.setTerminationEnabled(True)
         self.user_input = user_input
         self.state_dict = state_dict
         self.drive_dict = drive_dict
@@ -59,21 +90,25 @@ class CognitionWorker(QThread):
     def run(self):
         from self_model import SelfModel
         self_model = SelfModel()
+        
         # Real cognitive updates
         traits.update_from_interaction(self.user_input)
         goals.update_progress(self.user_input)
+        
         from semantic_lexicon import language
         if language.reflects_value(self.user_input, "growth"):
             goals.add_goal("expand my understanding", motivation="value-aligned")
         if language.reflects_value(self.user_input, "connection"):
             goals.add_goal("deepen relationships", motivation="value-aligned")
+            
         self_state.update_mood_from_context(self.user_input, self.memory_context)
-        from semantic_lexicon import language
+        
         lexicon_affinity = language.get_affinity_score(self.user_input)
         if lexicon_affinity > 0.5:
             self_state.set_mood("inspired")
         elif lexicon_affinity < -0.5:
             self_state.set_mood("conflicted")
+            
         drives.update_from_context(self.user_input)
 
         new_mood = self_state.get_state().get("mood", "neutral")
@@ -103,27 +138,48 @@ class CognitionWorker(QThread):
 class EchoMindGUI(QWidget):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("🧠 EchoMind: Live Cognition")
-        self.setGeometry(100, 100, 1000, 750)
+        self.setWindowTitle("🧠 EchoMind: Live Cognition + World Awareness")
+        self.setGeometry(100, 100, 1400, 900)
         self.init_ui()
 
     def init_ui(self):
+        # Timer setup
         self.speak_freely_timer = QTimer()
         self.speak_freely_timer.timeout.connect(self.animate_speak_freely)
         self.speak_freely_pulse = False
         self.speak_freely_timer.start(1000)
+        
         self.thinking_label = QLabel("")
         self.thinking_label.setStyleSheet("color: #ffaa00; font-weight: bold; padding: 4px;")
+        
         main_layout = QVBoxLayout()
         self.tabs = QTabWidget()
 
+        # Create tabs
         self.main_tab = QWidget()
         self.dream_tab = QWidget()
+        self.ebook_tab = QWidget()
+        self.world_tab = QWidget()  # New world awareness tab
+        
         self.tabs.addTab(self.main_tab, "💬 Cognition")
         self.tabs.addTab(self.dream_tab, "💭 Dream Log")
-        self.ebook_tab = QWidget()
         self.tabs.addTab(self.ebook_tab, "📘 Ebook Ingestion")
+        self.tabs.addTab(self.world_tab, "🌍 World Awareness")
 
+        # Setup all tabs
+        self.setup_main_tab()
+        self.setup_dream_tab()
+        self.setup_ebook_tab()
+        self.setup_world_tab()
+
+        main_layout.addWidget(self.tabs)
+        self.setLayout(main_layout)
+
+        # Start timers
+        self.start_timers()
+
+    def setup_main_tab(self):
+        """Setup the main cognition tab with world awareness indicators"""
         layout = QVBoxLayout()
 
         # User/Response Log
@@ -134,42 +190,64 @@ class EchoMindGUI(QWidget):
         self.user_log.setStyleSheet("background-color: #121212; color: #61afef;")
 
         self.response_log = QTextEdit()
-        self.thought_feed = QTextEdit()
-        self.thought_feed.setReadOnly(True)
-        self.thought_feed.setStyleSheet("background-color: #1e1e1e; font-style: italic;")
-        self.thought_feed.setTextColor(Qt.gray)
-
-        # Visibility toggles
-        self.show_dreams = True
-        self.show_reflections = True
-        self.show_thoughts = True
         self.response_log.setReadOnly(True)
         self.response_log.setStyleSheet("background-color: #121212; color: #e06c75; font-size: 14pt;")
 
         log_layout.addWidget(self.user_log, 1)
         log_layout.addWidget(self.response_log, 1)
         layout.addLayout(log_layout)
+
+        # Internal Thought Stream
         layout.addWidget(QLabel("[Internal Thought Stream]"))
+        self.thought_feed = QTextEdit()
+        self.thought_feed.setReadOnly(True)
+        self.thought_feed.setStyleSheet("background-color: #1e1e1e; font-style: italic;")
+        self.thought_feed.setTextColor(Qt.gray)
         layout.addWidget(self.thought_feed)
         layout.addWidget(self.thinking_label)
+
+        # World Awareness Status Indicator (NEW)
+        world_status_layout = QHBoxLayout()
+        self.world_status_indicator = QLabel("🌍 World: Initializing...")
+        self.world_status_indicator.setStyleSheet("color: #87ceeb; font-weight: bold; padding: 2px;")
+        
+        self.world_knowledge_count = QLabel("Knowledge: 0 fragments")
+        self.world_knowledge_count.setStyleSheet("color: #98fb98; font-size: 10pt;")
+        
+        self.world_curiosity_indicator = QLabel("Curiosity: Awakening")
+        self.world_curiosity_indicator.setStyleSheet("color: #ffa500; font-size: 10pt;")
+        
+        world_status_layout.addWidget(self.world_status_indicator)
+        world_status_layout.addWidget(self.world_knowledge_count)
+        world_status_layout.addWidget(self.world_curiosity_indicator)
+        world_status_layout.addStretch()
+        layout.addLayout(world_status_layout)
 
         # User Input
         input_box = QGroupBox("👤 User Input")
         input_layout = QVBoxLayout()
+        
+        # Add world search checkbox
+        world_input_layout = QHBoxLayout()
+        self.world_search_mode = QCheckBox("Include World Search")
+        self.world_search_mode.setToolTip("Include current world information in responses")
+        world_input_layout.addWidget(self.world_search_mode)
+        world_input_layout.addStretch()
+        input_layout.addLayout(world_input_layout)
+        
         self.user_input = QLineEdit()
         self.user_input.setFixedHeight(40)
         self.user_input.returnPressed.connect(self.handle_input)
-        self.goal_timer = QTimer()
-        self.goal_timer.timeout.connect(self.update_goal_display)
-        self.goal_timer.start(6000)
+        
         self.submit_button = QPushButton("Submit")
         self.submit_button.clicked.connect(self.handle_input)
+        
         input_layout.addWidget(self.user_input)
         input_layout.addWidget(self.submit_button)
         input_box.setLayout(input_layout)
         layout.addWidget(input_box)
 
-        # Status Grid
+        # Status Grid (Enhanced)
         status_layout = QGridLayout()
         self.mood_label = QLabel("Mood: Reflective")
         self.goal_label = QLabel("Goal: Understand")
@@ -185,20 +263,133 @@ class EchoMindGUI(QWidget):
         status_box.setLayout(status_layout)
         layout.addWidget(status_box)
 
-        # Display current goals
+        # Current Goals Display
         self.goal_display = QTextEdit()
         self.goal_display.setReadOnly(True)
         self.goal_display.setStyleSheet("background-color: #1e1e1e; color: #ffe066; font-style: italic;")
         layout.addWidget(QLabel("[Current Goals]"))
         layout.addWidget(self.goal_display)
-        self.update_goal_display()
 
+        # Cognition Flow Animation
         self.cog_flow = QLabel("🔁 Cognition Flow: input ➜ memory ➜ traits ➜ LLM ➜ output")
         layout.addWidget(self.cog_flow)
 
         self.main_tab.setLayout(layout)
 
-        # Dream tab setup
+    def setup_world_tab(self):
+        """Setup the dedicated world awareness tab"""
+        layout = QVBoxLayout()
+        
+        # World Status Header
+        header_layout = QHBoxLayout()
+        header_label = QLabel("🌍 EchoMind's World Awareness System")
+        header_label.setFont(QFont("Arial", 14, QFont.Bold))
+        header_label.setStyleSheet("color: #87ceeb; padding: 10px;")
+        header_layout.addWidget(header_label)
+        
+        self.refresh_world_button = QPushButton("🔄 Refresh")
+        self.refresh_world_button.clicked.connect(self.refresh_world_data)
+        self.refresh_world_button.setStyleSheet("background-color: #2d3748; color: white; padding: 5px;")
+        header_layout.addWidget(self.refresh_world_button)
+        
+        layout.addLayout(header_layout)
+        
+        # System Status Panel
+        status_group = QGroupBox("📊 System Status")
+        status_layout = QGridLayout()
+        
+        self.world_system_status = QLabel("Status: Initializing...")
+        self.world_fragments_count = QLabel("Knowledge Fragments: 0")
+        self.world_curiosity_topics = QLabel("Active Curiosity Topics: 0")
+        self.world_last_update = QLabel("Last Update: Never")
+        self.world_background_status = QLabel("Background Process: Unknown")
+        
+        status_layout.addWidget(QLabel("System:"), 0, 0)
+        status_layout.addWidget(self.world_system_status, 0, 1)
+        status_layout.addWidget(QLabel("Knowledge:"), 1, 0)
+        status_layout.addWidget(self.world_fragments_count, 1, 1)
+        status_layout.addWidget(QLabel("Curiosity:"), 2, 0)
+        status_layout.addWidget(self.world_curiosity_topics, 2, 1)
+        status_layout.addWidget(QLabel("Updated:"), 3, 0)
+        status_layout.addWidget(self.world_last_update, 3, 1)
+        status_layout.addWidget(QLabel("Background:"), 4, 0)
+        status_layout.addWidget(self.world_background_status, 4, 1)
+        
+        status_group.setLayout(status_layout)
+        layout.addWidget(status_group)
+        
+        # Live Search Panel
+        search_group = QGroupBox("🔍 Live World Search")
+        search_layout = QVBoxLayout()
+        
+        search_input_layout = QHBoxLayout()
+        self.world_search_input = QLineEdit()
+        self.world_search_input.setPlaceholderText("Search current information about...")
+        self.world_search_input.returnPressed.connect(self.search_world_info)
+        
+        self.world_search_button = QPushButton("Search")
+        self.world_search_button.clicked.connect(self.search_world_info)
+        self.world_search_button.setStyleSheet("background-color: #4a5568; color: white;")
+        
+        search_input_layout.addWidget(self.world_search_input)
+        search_input_layout.addWidget(self.world_search_button)
+        search_layout.addLayout(search_input_layout)
+        
+        self.world_search_results = QTextEdit()
+        self.world_search_results.setReadOnly(True)
+        self.world_search_results.setStyleSheet("background-color: #1e1e1e; color: #87ceeb; font-family: monospace;")
+        self.world_search_results.setPlaceholderText("Search results will appear here...")
+        search_layout.addWidget(self.world_search_results)
+        
+        search_group.setLayout(search_layout)
+        layout.addWidget(search_group)
+        
+        # World Context and Insights Panel
+        context_group = QGroupBox("🌐 Current World Context & Insights")
+        context_layout = QVBoxLayout()
+        
+        self.world_context_display = QTextEdit()
+        self.world_context_display.setReadOnly(True)
+        self.world_context_display.setStyleSheet("background-color: #1e1e1e; color: #98fb98; font-family: monospace;")
+        self.world_context_display.setPlaceholderText("World context and insights will appear here...")
+        
+        context_buttons_layout = QHBoxLayout()
+        self.refresh_context_button = QPushButton("🔄 Refresh Context")
+        self.refresh_context_button.clicked.connect(self.refresh_world_context)
+        
+        self.auto_refresh_checkbox = QCheckBox("Auto-refresh every 30s")
+        self.auto_refresh_checkbox.setChecked(True)
+        
+        context_buttons_layout.addWidget(self.refresh_context_button)
+        context_buttons_layout.addWidget(self.auto_refresh_checkbox)
+        context_buttons_layout.addStretch()
+        
+        context_layout.addWidget(self.world_context_display)
+        context_layout.addLayout(context_buttons_layout)
+        
+        context_group.setLayout(context_layout)
+        layout.addWidget(context_group)
+        
+        # Curiosity Explorer Panel
+        curiosity_group = QGroupBox("🔬 Autonomous Curiosity Explorer")
+        curiosity_layout = QVBoxLayout()
+        
+        self.curiosity_log = QTextEdit()
+        self.curiosity_log.setReadOnly(True)
+        self.curiosity_log.setStyleSheet("background-color: #1a1a1a; color: #ffa500; font-family: monospace; font-size: 10pt;")
+        self.curiosity_log.setPlaceholderText("EchoMind's autonomous explorations will appear here...")
+        self.curiosity_log.setMaximumHeight(150)
+        
+        curiosity_layout.addWidget(QLabel("Recent Autonomous Explorations:"))
+        curiosity_layout.addWidget(self.curiosity_log)
+        
+        curiosity_group.setLayout(curiosity_layout)
+        layout.addWidget(curiosity_group)
+        
+        self.world_tab.setLayout(layout)
+
+    def setup_dream_tab(self):
+        """Setup dream tab"""
         self.dream_log = QTextEdit()
         self.dream_log.setReadOnly(True)
         self.dream_log.setStyleSheet("background-color: #1e1e1e; color: #f0f0f0;")
@@ -206,37 +397,58 @@ class EchoMindGUI(QWidget):
         dream_layout.addWidget(self.dream_log)
         self.dream_tab.setLayout(dream_layout)
 
-        # Ebook ingestion tab setup
+    def setup_ebook_tab(self):
+        """Setup ebook ingestion tab"""
         self.ebook_display = QTextEdit()
         self.ebook_display.setReadOnly(True)
         self.ebook_display.setStyleSheet("background-color: #1e1e1e; color: #a0c0ff;")
-        from PyQt5.QtWidgets import QFileDialog
-
+        
         self.load_book_button = QPushButton("Load Book")
         self.load_book_button.clicked.connect(self.load_ebook)
+        
         ebook_layout = QVBoxLayout()
         ebook_layout.addWidget(self.load_book_button)
         ebook_layout.addWidget(self.ebook_display)
         self.ebook_tab.setLayout(ebook_layout)
 
-        # Dream log streaming
+    def start_timers(self):
+        """Start all timers and background updates"""
+        # Goal display timer
+        self.goal_timer = QTimer()
+        self.goal_timer.timeout.connect(self.update_goal_display)
+        self.goal_timer.start(6000)
+        
+        # Dream log timer
         self.dream_timer = QTimer()
         self.dream_timer.timeout.connect(self.update_dream_log)
         self.dream_timer.start(3000)
-
-        main_layout.addWidget(self.tabs)
-        self.setLayout(main_layout)
-
+        
         # Cognition animation timer
         self.cog_stage = 0
         self.timer = QTimer()
         self.timer.timeout.connect(self.animate_cognition_flow)
         self.timer.start(1200)
+        
+        # World awareness status timer
+        self.world_status_timer = QTimer()
+        self.world_status_timer.timeout.connect(self.update_world_status)
+        self.world_status_timer.start(15000)  # Every 15 seconds
+        
+        # Auto-refresh world context timer
+        self.world_context_timer = QTimer()
+        self.world_context_timer.timeout.connect(self.auto_refresh_world_context)
+        self.world_context_timer.start(30000)  # Every 30 seconds
+        
+        # Initial updates
+        self.update_goal_display()
+        self.update_world_status()
+        self.refresh_world_context()
 
     def animate_speak_freely(self):
         if self.thinking_label.text().startswith("💡 Independent Thought"):
             self.speak_freely_pulse = not self.speak_freely_pulse
-            self.thinking_label.setStyleSheet("color: #ffaa00; font-weight: bold; padding: 4px;" + (" background-color: #333;" if self.speak_freely_pulse else ""))
+            self.thinking_label.setStyleSheet("color: #ffaa00; font-weight: bold; padding: 4px;" + 
+                                            (" background-color: #333;" if self.speak_freely_pulse else ""))
         else:
             self.thinking_label.setStyleSheet("color: #ffaa00; font-weight: bold; padding: 4px;")
 
@@ -255,16 +467,102 @@ class EchoMindGUI(QWidget):
         except FileNotFoundError:
             self.dream_log.setPlainText("No dreams logged yet.")
 
+    def update_world_status(self):
+        """Update world awareness status indicators"""
+        self.world_worker = WorldAwarenessWorker("status")
+        self.world_worker.status_ready.connect(self.display_world_status)
+        self.world_worker.start()
+
+    def display_world_status(self, status):
+        """Display world awareness status"""
+        if status.get("status") == "unavailable":
+            self.world_status_indicator.setText("🌍 World: Unavailable")
+            self.world_status_indicator.setStyleSheet("color: #ff6b6b; font-weight: bold;")
+            return
+        
+        # Update main tab indicators
+        system_status = status.get("status", "unknown")
+        knowledge_count = status.get("knowledge_fragments_stored", 0)
+        curiosity_count = status.get("active_curiosity_topics", 0)
+        
+        self.world_status_indicator.setText(f"🌍 World: {system_status.title()}")
+        if system_status == "active":
+            self.world_status_indicator.setStyleSheet("color: #98fb98; font-weight: bold;")
+        else:
+            self.world_status_indicator.setStyleSheet("color: #ffa500; font-weight: bold;")
+        
+        self.world_knowledge_count.setText(f"Knowledge: {knowledge_count} fragments")
+        self.world_curiosity_indicator.setText(f"Curiosity: {curiosity_count} topics")
+        
+        # Update world tab status if it exists
+        if hasattr(self, 'world_system_status'):
+            self.world_system_status.setText(f"{system_status.title()}")
+            self.world_fragments_count.setText(f"{knowledge_count}")
+            self.world_curiosity_topics.setText(f"{curiosity_count}")
+            self.world_background_status.setText("Active" if status.get("background_active", False) else "Inactive")
+            
+            last_update = status.get("last_update")
+            if last_update:
+                self.world_last_update.setText(f"{last_update[:19]}")  # Trim to readable format
+            else:
+                self.world_last_update.setText("Never")
+
+    def search_world_info(self):
+        """Search for world information"""
+        query = self.world_search_input.text().strip()
+        if not query:
+            return
+            
+        self.world_search_results.append(f"🔍 Searching for: {query}\n")
+        self.world_search_input.clear()
+        
+        # Start search worker
+        self.search_worker = WorldAwarenessWorker("search", query)
+        self.search_worker.search_ready.connect(self.display_search_results)
+        self.search_worker.start()
+
+    def display_search_results(self, results):
+        """Display world search results"""
+        self.world_search_results.append(f"{results}\n{'='*50}\n")
+        self.world_search_results.moveCursor(QTextCursor.End)
+
+    def refresh_world_context(self):
+        """Refresh world context and insights"""
+        self.context_worker = WorldAwarenessWorker("context")
+        self.context_worker.update_ready.connect(self.display_world_context)
+        self.context_worker.start()
+
+    def auto_refresh_world_context(self):
+        """Auto-refresh world context if enabled"""
+        if hasattr(self, 'auto_refresh_checkbox') and self.auto_refresh_checkbox.isChecked():
+            self.refresh_world_context()
+
+    def display_world_context(self, context):
+        """Display world context and insights"""
+        if hasattr(self, 'world_context_display'):
+            self.world_context_display.setPlainText(context)
+            self.world_context_display.moveCursor(QTextCursor.End)
+
+    def refresh_world_data(self):
+        """Refresh all world awareness data"""
+        self.update_world_status()
+        self.refresh_world_context()
+
     def handle_input(self):
         self.thinking_label.setText("🤔 Thinking...")
         text = self.user_input.text()
         if text:
+            # Check if world search mode is enabled
+            if hasattr(self, 'world_search_mode') and self.world_search_mode.isChecked():
+                # Add world context hint to the input processing
+                self.thought_feed.append(f"[WORLD] Including world context in response...")
+            
             state_dict = self_state.get_state()
             drive_dict = drives.get_state()
             memory_context = memory.get_context()
 
             self.worker = CognitionWorker(text, state_dict, drive_dict, memory_context)
-            self.worker.setTerminationEnabled(True)  # Thread termination safety
+            self.worker.setTerminationEnabled(True)
             self.worker.result_ready.connect(self.display_results)
             self.worker.start()
 
@@ -293,19 +591,21 @@ class EchoMindGUI(QWidget):
         self.thought_feed.append(reflections)
 
     def display_results(self, internal_thought, response):
+        # Set text color based on thought type
         if '[DREAM]' in internal_thought:
             self.thought_feed.setTextColor(Qt.lightGray)
         elif '[REFLECTION]' in internal_thought:
             self.thought_feed.setTextColor(Qt.green)
         elif '[THOUGHT]' in internal_thought:
             self.thought_feed.setTextColor(Qt.magenta)
+        elif '[WORLD]' in internal_thought:
+            self.thought_feed.setTextColor(Qt.cyan)
         else:
             self.thought_feed.setTextColor(Qt.gray)
-        if ('[DREAM]' in internal_thought and self.show_dreams) or \
-           ('[REFLECTION]' in internal_thought and self.show_reflections) or \
-           ('[THOUGHT]' in internal_thought and self.show_thoughts) or \
-           ('[' not in internal_thought):
-            self.thought_feed.append(f"{internal_thought}")
+            
+        # Display internal thought
+        self.thought_feed.append(f"{internal_thought}")
+        
         self.thinking_label.setText("")
         self.user_log.append(f"{self.user_input.text()}")
         self.response_log.append(f"{response}")
@@ -319,4 +619,3 @@ if __name__ == '__main__':
     gui = EchoMindGUI()
     gui.show()
     sys.exit(app.exec_())
-
