@@ -11,7 +11,7 @@
 from llama_cpp import Llama
 
 # Update with the correct path to your downloaded GGUF model
-MODEL_PATH = "models/mistral-q4/mistral-7b-instruct-v0.1.Q4_K_M.gguf"
+MODEL_PATH = "models/mistral-7b-instruct-v0.1.Q4_K_M.gguf"
 
 # Load the quantized model (use n_threads to match your CPU core count)
 llm = Llama(model_path=MODEL_PATH, n_ctx=2048, n_threads=8)
