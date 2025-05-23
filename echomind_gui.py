@@ -3,7 +3,7 @@ from cognition import launch_background_cognition, get_cognition_engine, search_
 from PyQt5.QtWidgets import (
     QApplication, QWidget, QTextEdit, QVBoxLayout,
     QLabel, QHBoxLayout, QPushButton, QLineEdit, QGridLayout, QGroupBox, QTabWidget,
-    QFileDialog, QProgressBar, QCheckBox, QScrollArea, QFrame
+    QFileDialog, QProgressBar, QCheckBox, QScrollArea, QFrame, QMessageBox
 )
 from PyQt5.QtCore import Qt, QTimer, QThread, pyqtSignal
 from PyQt5.QtGui import QTextCursor, QFont, QColor
@@ -16,6 +16,14 @@ from drives import DriveSystem
 from memory_system import ShortTermMemory
 from trait_engine import TraitEngine
 from goal_tracker import GoalTracker
+
+# Enhanced EBook Integration
+try:
+    from enhanced_ebook_gui import integrate_enhanced_ebook_gui
+    ENHANCED_EBOOK_AVAILABLE = True
+except ImportError:
+    ENHANCED_EBOOK_AVAILABLE = False
+    print("⚠️ Enhanced ebook GUI not available")
 
 # Initialize cognitive state
 self_state = SelfState()
@@ -58,23 +66,51 @@ class WorldAwarenessWorker(QThread):
 class EbookWorker(QThread):
     result_ready = pyqtSignal(str)
 
-    def __init__(self, paragraphs):
+    def __init__(self, file_path, ebook_system=None):
         super().__init__()
-        self.paragraphs = paragraphs
+        self.file_path = file_path
+        self.ebook_system = ebook_system
 
     def run(self):
-        from enrichment_llm import generate_from_context
-        from semantic_lexicon import language
-        results = []
-        for i, paragraph in enumerate(self.paragraphs[:5]):
-            if paragraph.strip():
-                result = generate_from_context(
-                    "Reflect on the values or emotions in this passage:",
-                    paragraph.strip()
-                )
-                language.learn_from_text(result, source="ebook")
-                results.append(f"[THOUGHT] {result}")
-        self.result_ready.emit("\n".join(results))
+        try:
+            if self.ebook_system:
+                # Use advanced ebook system
+                result = self.ebook_system.ingest_book(self.file_path)
+                if result.get('success'):
+                    analysis = result['analysis_summary']
+                    response = f"[BOOK ANALYSIS] Successfully analyzed '{result['metadata'].title}'\n"
+                    response += f"Found {analysis['characters_found']} characters, {analysis['themes_identified']} themes, "
+                    response += f"and {analysis['quotes_extracted']} significant quotes.\n"
+                    response += f"Reading level: Grade {result['metadata'].reading_level:.1f}\n"
+                    if analysis['genre_hints']:
+                        response += f"Genre: {', '.join(analysis['genre_hints'])}"
+                else:
+                    response = f"[ERROR] {result.get('error', 'Unknown error processing book')}"
+            else:
+                # Fallback to basic processing
+                from enrichment_llm import generate_from_context
+                from semantic_lexicon import language
+                
+                with open(self.file_path, 'r', encoding='utf-8') as f:
+                    content = f.read()
+                
+                paragraphs = content.split("\n\n")
+                results = []
+                for i, paragraph in enumerate(paragraphs[:5]):
+                    if paragraph.strip():
+                        result = generate_from_context(
+                            "Reflect on the values or emotions in this passage:",
+                            paragraph.strip()
+                        )
+                        language.learn_from_text(result, source="ebook")
+                        results.append(f"[THOUGHT] {result}")
+                
+                response = "\n".join(results)
+            
+            self.result_ready.emit(response)
+            
+        except Exception as e:
+            self.result_ready.emit(f"[ERROR] Failed to process book: {e}")
 
 class CognitionWorker(QThread):
     result_ready = pyqtSignal(str, str)
@@ -138,7 +174,7 @@ class CognitionWorker(QThread):
 class EchoMindGUI(QWidget):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("🧠 EchoMind: Live Cognition + World Awareness")
+        self.setWindowTitle("🧠 EchoMind: Live Cognition + Advanced Systems")
         self.setGeometry(100, 100, 1400, 900)
         self.init_ui()
 
@@ -159,17 +195,17 @@ class EchoMindGUI(QWidget):
         self.main_tab = QWidget()
         self.dream_tab = QWidget()
         self.ebook_tab = QWidget()
-        self.world_tab = QWidget()  # New world awareness tab
+        self.world_tab = QWidget()
         
         self.tabs.addTab(self.main_tab, "💬 Cognition")
         self.tabs.addTab(self.dream_tab, "💭 Dream Log")
-        self.tabs.addTab(self.ebook_tab, "📘 Ebook Ingestion")
+        self.tabs.addTab(self.ebook_tab, "📚 Enhanced EBooks")
         self.tabs.addTab(self.world_tab, "🌍 World Awareness")
 
         # Setup all tabs
         self.setup_main_tab()
         self.setup_dream_tab()
-        self.setup_ebook_tab()
+        self.setup_enhanced_ebook_tab()
         self.setup_world_tab()
 
         main_layout.addWidget(self.tabs)
@@ -177,6 +213,35 @@ class EchoMindGUI(QWidget):
 
         # Start timers
         self.start_timers()
+        
+        # Setup enhanced integrations
+        self.setup_enhanced_integrations()
+
+    def setup_enhanced_integrations(self):
+        """Setup enhanced ebook and other system integrations"""
+        try:
+            # Get the cognition engine
+            engine = get_cognition_engine()
+            
+            # Integrate enhanced ebook system if available
+            if ENHANCED_EBOOK_AVAILABLE and hasattr(engine, 'ebook_system') and engine.ebook_system:
+                # Replace the basic ebook tab with enhanced version
+                enhanced_tab = integrate_enhanced_ebook_gui(self, engine.ebook_system)
+                if enhanced_tab:
+                    # Find and replace the ebook tab
+                    for i in range(self.tabs.count()):
+                        if "EBooks" in self.tabs.tabText(i) or "Ebook" in self.tabs.tabText(i):
+                            self.tabs.removeTab(i)
+                            self.tabs.insertTab(i, enhanced_tab, "📚 Advanced EBooks")
+                            break
+                    print("✅ Enhanced ebook GUI integrated successfully")
+                else:
+                    print("⚠️ Enhanced ebook integration failed")
+            else:
+                print("⚠️ Enhanced ebook system not available - using basic tab")
+                
+        except Exception as e:
+            print(f"❌ Enhanced integration error: {e}")
 
     def setup_main_tab(self):
         """Setup the main cognition tab with world awareness indicators"""
@@ -206,7 +271,7 @@ class EchoMindGUI(QWidget):
         layout.addWidget(self.thought_feed)
         layout.addWidget(self.thinking_label)
 
-        # World Awareness Status Indicator (NEW)
+        # World Awareness Status Indicator (Enhanced)
         world_status_layout = QHBoxLayout()
         self.world_status_indicator = QLabel("🌍 World: Initializing...")
         self.world_status_indicator.setStyleSheet("color: #87ceeb; font-weight: bold; padding: 2px;")
@@ -275,6 +340,63 @@ class EchoMindGUI(QWidget):
         layout.addWidget(self.cog_flow)
 
         self.main_tab.setLayout(layout)
+
+    def setup_enhanced_ebook_tab(self):
+        """Setup enhanced ebook tab (will be replaced if advanced system is available)"""
+        layout = QVBoxLayout()
+        
+        # Enhanced controls
+        controls_layout = QHBoxLayout()
+        
+        self.load_book_button = QPushButton("📖 Load Book (Multi-format)")
+        self.load_book_button.clicked.connect(self.load_ebook)
+        self.load_book_button.setStyleSheet("background-color: #4a5568; color: white; padding: 8px; font-weight: bold;")
+        
+        self.book_status_label = QLabel("Ready to analyze books")
+        self.book_status_label.setStyleSheet("color: #87ceeb; font-weight: bold;")
+        
+        controls_layout.addWidget(self.load_book_button)
+        controls_layout.addWidget(self.book_status_label)
+        controls_layout.addStretch()
+        
+        layout.addLayout(controls_layout)
+        
+        # Progress bar
+        self.book_progress_bar = QProgressBar()
+        self.book_progress_bar.setVisible(False)
+        layout.addWidget(self.book_progress_bar)
+        
+        # Enhanced display area
+        self.ebook_display = QTextEdit()
+        self.ebook_display.setReadOnly(True)
+        self.ebook_display.setStyleSheet("background-color: #1e1e1e; color: #a0c0ff; font-family: 'Georgia';")
+        self.ebook_display.setPlaceholderText("Enhanced ebook analysis will appear here...\n\nSupported formats: TXT, PDF, EPUB, DOCX, HTML")
+        
+        layout.addWidget(self.ebook_display)
+        
+        # Book analysis summary
+        analysis_group = QGroupBox("📊 Quick Analysis")
+        analysis_layout = QGridLayout()
+        
+        self.book_word_count = QLabel("Words: -")
+        self.book_reading_level = QLabel("Level: -")
+        self.book_estimated_time = QLabel("Time: -")
+        self.book_genre = QLabel("Genre: -")
+        
+        analysis_layout.addWidget(QLabel("Word Count:"), 0, 0)
+        analysis_layout.addWidget(self.book_word_count, 0, 1)
+        analysis_layout.addWidget(QLabel("Reading Level:"), 0, 2)
+        analysis_layout.addWidget(self.book_reading_level, 0, 3)
+        
+        analysis_layout.addWidget(QLabel("Est. Time:"), 1, 0)
+        analysis_layout.addWidget(self.book_estimated_time, 1, 1)
+        analysis_layout.addWidget(QLabel("Genre:"), 1, 2)
+        analysis_layout.addWidget(self.book_genre, 1, 3)
+        
+        analysis_group.setLayout(analysis_layout)
+        layout.addWidget(analysis_group)
+        
+        self.ebook_tab.setLayout(layout)
 
     def setup_world_tab(self):
         """Setup the dedicated world awareness tab"""
@@ -396,20 +518,6 @@ class EchoMindGUI(QWidget):
         dream_layout = QVBoxLayout()
         dream_layout.addWidget(self.dream_log)
         self.dream_tab.setLayout(dream_layout)
-
-    def setup_ebook_tab(self):
-        """Setup ebook ingestion tab"""
-        self.ebook_display = QTextEdit()
-        self.ebook_display.setReadOnly(True)
-        self.ebook_display.setStyleSheet("background-color: #1e1e1e; color: #a0c0ff;")
-        
-        self.load_book_button = QPushButton("Load Book")
-        self.load_book_button.clicked.connect(self.load_ebook)
-        
-        ebook_layout = QVBoxLayout()
-        ebook_layout.addWidget(self.load_book_button)
-        ebook_layout.addWidget(self.ebook_display)
-        self.ebook_tab.setLayout(ebook_layout)
 
     def start_timers(self):
         """Start all timers and background updates"""
@@ -567,21 +675,59 @@ class EchoMindGUI(QWidget):
             self.worker.start()
 
     def load_ebook(self):
-        path, _ = QFileDialog.getOpenFileName(self, "Select Ebook", "", "Text Files (*.txt);;All Files (*)")
+        """Enhanced ebook loading with multi-format support"""
+        # Multi-format file dialog
+        file_filters = [
+            "All Supported (*.txt *.pdf *.epub *.docx *.html *.htm)",
+            "Text Files (*.txt)",
+            "PDF Files (*.pdf)",
+            "EPUB Files (*.epub)",
+            "Word Documents (*.docx)",
+            "HTML Files (*.html *.htm)",
+            "All Files (*)"
+        ]
+        
+        path, _ = QFileDialog.getOpenFileName(
+            self, 
+            "Select Book File", 
+            "", 
+            ";;".join(file_filters)
+        )
+        
         if path:
             try:
-                with open(path, "r", encoding="utf-8") as f:
-                    content = f.read()
-                    self.ebook_display.setPlainText(content)
-
-                    # Split and launch worker
-                    paragraphs = content.split("\n\n")
-                    self.thought_feed.append("[REFLECTION] Reading this book is helping me grow my understanding.")
-                    self.ebook_worker = EbookWorker(paragraphs)
-                    self.ebook_worker.result_ready.connect(self.append_ebook_reflections)
-                    self.ebook_worker.start()
+                # Show progress
+                self.book_progress_bar.setVisible(True)
+                self.book_progress_bar.setValue(0)
+                self.book_status_label.setText("Processing book...")
+                self.load_book_button.setEnabled(False)
+                
+                # Get ebook system from cognition engine
+                engine = get_cognition_engine()
+                ebook_system = getattr(engine, 'ebook_system', None)
+                
+                # Start enhanced processing
+                self.ebook_worker = EbookWorker(path, ebook_system)
+                self.ebook_worker.result_ready.connect(self.display_ebook_results)
+                self.ebook_worker.start()
+                
             except Exception as e:
                 self.ebook_display.setPlainText(f"Error loading book: {e}")
+                self.book_status_label.setText("Error occurred")
+                self.load_book_button.setEnabled(True)
+                self.book_progress_bar.setVisible(False)
+
+    def display_ebook_results(self, results):
+        """Display enhanced ebook processing results"""
+        self.book_progress_bar.setVisible(False)
+        self.load_book_button.setEnabled(True)
+        self.book_status_label.setText("✅ Analysis complete!")
+        
+        self.ebook_display.setPlainText(results)
+        self.ebook_display.moveCursor(QTextCursor.End)
+        
+        # Add to thought feed
+        self.thought_feed.append("[BOOK] Enhanced book analysis completed with character, theme, and emotional insights.")
 
     def update_goal_display(self):
         goal_texts = [g['description'] for g in goals.get_active_goals()]
@@ -600,6 +746,8 @@ class EchoMindGUI(QWidget):
             self.thought_feed.setTextColor(Qt.magenta)
         elif '[WORLD]' in internal_thought:
             self.thought_feed.setTextColor(Qt.cyan)
+        elif '[BOOK]' in internal_thought:
+            self.thought_feed.setTextColor(Qt.yellow)
         else:
             self.thought_feed.setTextColor(Qt.gray)
             

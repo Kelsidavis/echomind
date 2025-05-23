@@ -24,6 +24,15 @@ from dialogue import generate_internal_thought, log_internal_thought
 from thread_utils import TaskRunner
 from activity_state import set_activity, get_activity
 
+# Try to import advanced ebook system
+try:
+    from advanced_ebook_system import integrate_advanced_ebook_system
+    ADVANCED_EBOOK_AVAILABLE = True
+    print("✅ Advanced ebook system loaded successfully")
+except ImportError as e:
+    print(f"⚠️ Advanced ebook system not available: {e}")
+    ADVANCED_EBOOK_AVAILABLE = False
+
 # Try to import LLM interface
 try:
     from llm_interface import generate_from_context
@@ -112,7 +121,16 @@ class CognitionEngine:
                 logger.error(f"❌ World awareness initialization failed: {e}")
         
         logger.info("✅ EchoMind Cognition Engine initialized successfully")
-    
+        
+        # Advanced EBook System
+        self.ebook_system = None
+        if ADVANCED_EBOOK_AVAILABLE:
+            try:
+                self.ebook_system = integrate_advanced_ebook_system(self)
+                logger.info("📚 Advanced ebook system initialized")
+            except Exception as e:
+                logger.error(f"❌ Advanced ebook system initialization failed: {e}")
+                
     def _initialize_system(self):
         """Initialize the system with basic personality and goals"""
         try:

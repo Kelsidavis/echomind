@@ -5,8 +5,9 @@ class TraitEngine:
         self.trait_log = []
         self.trait_counts = Counter()
 
-    def reinforce(self, trait_name):
-        self.trait_counts[trait_name] += 1
+    def reinforce(self, trait_name, strength=1):
+        """Reinforce a trait with optional strength multiplier"""
+        self.trait_counts[trait_name] += strength
 
     def analyze_memories(self, memory_buffer):
         if not memory_buffer:
@@ -25,7 +26,7 @@ class TraitEngine:
                 traits.append("honest")
             if "i always" in msg or "i never" in msg:
                 traits.append("principled")
-            if "used to" in msg or "i’ve changed" in msg:
+            if "used to" in msg or "i've changed" in msg:
                 traits.append("evolving")
 
         self.trait_counts.update(traits)
@@ -50,4 +51,3 @@ class TraitEngine:
             self.reinforce("compassion")
         elif "smart" in user_input or "clever" in user_input:
             self.reinforce("intelligence")
-

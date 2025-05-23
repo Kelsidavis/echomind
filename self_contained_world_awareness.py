@@ -437,6 +437,10 @@ class SelfContainedWorldAwareness:
                 # Autonomous exploration
                 if random.random() < 0.4:  # 40% chance each cycle
                     recent_conversations = [kf.content for kf in list(self.knowledge_store)[-5:]]
+                    if not recent_conversations:
+                        # Add some default topics to get started
+                        recent_conversations = ["artificial intelligence", "consciousness", "philosophy"]
+                    
                     topics = self.explorer.identify_curiosity_topics(recent_conversations)
                     
                     if topics:
@@ -459,6 +463,7 @@ class SelfContainedWorldAwareness:
                             self.knowledge_store.append(fragment)
                 
                 self.last_update = datetime.datetime.now()
+                self.system_status = "active"  # Update status to active
                 consecutive_errors = 0
                 
                 # Wait before next cycle
