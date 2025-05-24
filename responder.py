@@ -140,8 +140,9 @@ def generate_response(input_text, context, self_state, drive_state, identity_mod
         return rule_response
     
     # Soft context reset if topic sharply changes (e.g., book vs cats)
-    if "book" in input_text.lower() and "cat" in context[-1][1].lower():
-        context = context[-2:]  # keep recent messages only
+    if context and isinstance(context[-1], (list, tuple)) and len(context[-1]) > 1:
+        if "book" in input_text.lower() and "cat" in context[-1][1].lower():
+            context = context[-2:]  # keep recent messages only
 
     # Compose LLM prompt
     dialogue_context = format_context_for_prompt(context)

@@ -776,3 +776,11 @@ if __name__ == "__main__":
     print(f"\n📊 System Status: {engine.get_system_status()}")
     engine.shutdown()
     print("\n✅ Test complete")
+
+# EBook Context Integration  
+try:
+    from ebook_context_integration import build_complete_ebook_context
+    EBOOK_CONTEXT_AVAILABLE = True
+except ImportError:
+    EBOOK_CONTEXT_AVAILABLE = False
+
